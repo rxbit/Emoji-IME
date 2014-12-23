@@ -13,6 +13,8 @@
 		C48D5B281A495B2A00F0F14C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C48D5B271A495B2A00F0F14C /* Images.xcassets */; };
 		C48D5B2B1A495B2A00F0F14C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C48D5B291A495B2A00F0F14C /* LaunchScreen.xib */; };
 		C48D5B371A495B2A00F0F14C /* Emoji_IMETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D5B361A495B2A00F0F14C /* Emoji_IMETests.swift */; };
+		C48D5B491A495C0D00F0F14C /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D5B481A495C0D00F0F14C /* KeyboardViewController.swift */; };
+		C48D5B4C1A495C0D00F0F14C /* EmojiKeyBoard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C48D5B441A495C0C00F0F14C /* EmojiKeyBoard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,7 +25,28 @@
 			remoteGlobalIDString = C48D5B1A1A495B2A00F0F14C;
 			remoteInfo = "Emoji-IME";
 		};
+		C48D5B4A1A495C0D00F0F14C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C48D5B131A495B2A00F0F14C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C48D5B431A495C0C00F0F14C;
+			remoteInfo = EmojiKeyBoard;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C48D5B501A495C0D00F0F14C /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C48D5B4C1A495C0D00F0F14C /* EmojiKeyBoard.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C48D5B1B1A495B2A00F0F14C /* Emoji-IME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Emoji-IME.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,6 +59,9 @@
 		C48D5B301A495B2A00F0F14C /* Emoji-IMETests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Emoji-IMETests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C48D5B351A495B2A00F0F14C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C48D5B361A495B2A00F0F14C /* Emoji_IMETests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji_IMETests.swift; sourceTree = "<group>"; };
+		C48D5B441A495C0C00F0F14C /* EmojiKeyBoard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = EmojiKeyBoard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C48D5B471A495C0D00F0F14C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C48D5B481A495C0D00F0F14C /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +79,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C48D5B411A495C0C00F0F14C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -61,6 +94,7 @@
 			children = (
 				C48D5B1D1A495B2A00F0F14C /* Emoji-IME */,
 				C48D5B331A495B2A00F0F14C /* Emoji-IMETests */,
+				C48D5B451A495C0D00F0F14C /* EmojiKeyBoard */,
 				C48D5B1C1A495B2A00F0F14C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,6 +104,7 @@
 			children = (
 				C48D5B1B1A495B2A00F0F14C /* Emoji-IME.app */,
 				C48D5B301A495B2A00F0F14C /* Emoji-IMETests.xctest */,
+				C48D5B441A495C0C00F0F14C /* EmojiKeyBoard.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -112,6 +147,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C48D5B451A495C0D00F0F14C /* EmojiKeyBoard */ = {
+			isa = PBXGroup;
+			children = (
+				C48D5B481A495C0D00F0F14C /* KeyboardViewController.swift */,
+				C48D5B461A495C0D00F0F14C /* Supporting Files */,
+			);
+			path = EmojiKeyBoard;
+			sourceTree = "<group>";
+		};
+		C48D5B461A495C0D00F0F14C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C48D5B471A495C0D00F0F14C /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -122,10 +174,12 @@
 				C48D5B171A495B2A00F0F14C /* Sources */,
 				C48D5B181A495B2A00F0F14C /* Frameworks */,
 				C48D5B191A495B2A00F0F14C /* Resources */,
+				C48D5B501A495C0D00F0F14C /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C48D5B4B1A495C0D00F0F14C /* PBXTargetDependency */,
 			);
 			name = "Emoji-IME";
 			productName = "Emoji-IME";
@@ -150,6 +204,23 @@
 			productReference = C48D5B301A495B2A00F0F14C /* Emoji-IMETests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		C48D5B431A495C0C00F0F14C /* EmojiKeyBoard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C48D5B4D1A495C0D00F0F14C /* Build configuration list for PBXNativeTarget "EmojiKeyBoard" */;
+			buildPhases = (
+				C48D5B401A495C0C00F0F14C /* Sources */,
+				C48D5B411A495C0C00F0F14C /* Frameworks */,
+				C48D5B421A495C0C00F0F14C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EmojiKeyBoard;
+			productName = EmojiKeyBoard;
+			productReference = C48D5B441A495C0C00F0F14C /* EmojiKeyBoard.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -165,6 +236,9 @@
 					C48D5B2F1A495B2A00F0F14C = {
 						CreatedOnToolsVersion = 6.1.1;
 						TestTargetID = C48D5B1A1A495B2A00F0F14C;
+					};
+					C48D5B431A495C0C00F0F14C = {
+						CreatedOnToolsVersion = 6.1.1;
 					};
 				};
 			};
@@ -183,6 +257,7 @@
 			targets = (
 				C48D5B1A1A495B2A00F0F14C /* Emoji-IME */,
 				C48D5B2F1A495B2A00F0F14C /* Emoji-IMETests */,
+				C48D5B431A495C0C00F0F14C /* EmojiKeyBoard */,
 			);
 		};
 /* End PBXProject section */
@@ -199,6 +274,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C48D5B2E1A495B2A00F0F14C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C48D5B421A495C0C00F0F14C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -225,6 +307,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C48D5B401A495C0C00F0F14C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C48D5B491A495C0D00F0F14C /* KeyboardViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -232,6 +322,11 @@
 			isa = PBXTargetDependency;
 			target = C48D5B1A1A495B2A00F0F14C /* Emoji-IME */;
 			targetProxy = C48D5B311A495B2A00F0F14C /* PBXContainerItemProxy */;
+		};
+		C48D5B4B1A495C0D00F0F14C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C48D5B431A495C0C00F0F14C /* EmojiKeyBoard */;
+			targetProxy = C48D5B4A1A495C0D00F0F14C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -338,6 +433,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Emoji-IME/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -348,6 +444,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Emoji-IME/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -388,6 +485,30 @@
 			};
 			name = Release;
 		};
+		C48D5B4E1A495C0D00F0F14C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = EmojiKeyBoard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C48D5B4F1A495C0D00F0F14C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = EmojiKeyBoard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -413,6 +534,14 @@
 			buildConfigurations = (
 				C48D5B3E1A495B2A00F0F14C /* Debug */,
 				C48D5B3F1A495B2A00F0F14C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C48D5B4D1A495C0D00F0F14C /* Build configuration list for PBXNativeTarget "EmojiKeyBoard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C48D5B4E1A495C0D00F0F14C /* Debug */,
+				C48D5B4F1A495C0D00F0F14C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
