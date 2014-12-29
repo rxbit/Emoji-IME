@@ -11,6 +11,7 @@ import UIKit
 class KeyboardViewController: UIInputViewController {
 
     @IBOutlet var nextKeyboardButton: UIButton!
+    @IBOutlet var recoView: UIView!
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -21,6 +22,16 @@ class KeyboardViewController: UIInputViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        self.recoView = CanvesView()
+        self.recoView.backgroundColor = UIColor.blackColor()
+        self.recoView.sizeToFit()
+        self.recoView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.view.addSubview(self.recoView)
+        var recoViewTopConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Top, relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1.0, constant: 0.0)
+        var recoViewLeftConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1.0, constant: 0.0)
+        var recoViewRightConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Right, relatedBy: .Equal, toItem: self.view, attribute: .Right, multiplier: 1.0, constant: 0.0)
+        var recoViewBottomConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Bottom, relatedBy: .Equal, toItem: self.nextKeyboardButton, attribute: .Top, multiplier: 1.0, constant: 0.0)
+        var rc = NSLayoutConstraint(item: self.recoView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 100)
         // Perform custom UI setup here
         self.nextKeyboardButton = UIButton.buttonWithType(.System) as UIButton
     
@@ -34,6 +45,9 @@ class KeyboardViewController: UIInputViewController {
     
         var nextKeyboardButtonLeftSideConstraint = NSLayoutConstraint(item: self.nextKeyboardButton, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1.0, constant: 0.0)
         var nextKeyboardButtonBottomConstraint = NSLayoutConstraint(item: self.nextKeyboardButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: 0.0)
+        self.view.addConstraints([recoViewTopConstraint,recoViewLeftConstraint,recoViewRightConstraint])
+        self.recoView.addConstraint(recoViewBottomConstraint)
+        self.recoView.addConstraint(rc)
         self.view.addConstraints([nextKeyboardButtonLeftSideConstraint, nextKeyboardButtonBottomConstraint])
     }
 

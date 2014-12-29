@@ -15,6 +15,7 @@
 		C48D5B371A495B2A00F0F14C /* Emoji_IMETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D5B361A495B2A00F0F14C /* Emoji_IMETests.swift */; };
 		C48D5B491A495C0D00F0F14C /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D5B481A495C0D00F0F14C /* KeyboardViewController.swift */; };
 		C48D5B4C1A495C0D00F0F14C /* EmojiKeyBoard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C48D5B441A495C0C00F0F14C /* EmojiKeyBoard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C4C7C3DB1A5051070095D7D0 /* CanvesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C7C3DA1A5051070095D7D0 /* CanvesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		C48D5B441A495C0C00F0F14C /* EmojiKeyBoard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = EmojiKeyBoard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C48D5B471A495C0D00F0F14C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C48D5B481A495C0D00F0F14C /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		C4C7C3DA1A5051070095D7D0 /* CanvesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 			children = (
 				C48D5B481A495C0D00F0F14C /* KeyboardViewController.swift */,
 				C48D5B461A495C0D00F0F14C /* Supporting Files */,
+				C4C7C3DA1A5051070095D7D0 /* CanvesView.swift */,
 			);
 			path = EmojiKeyBoard;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4C7C3DB1A5051070095D7D0 /* CanvesView.swift in Sources */,
 				C48D5B491A495C0D00F0F14C /* KeyboardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -528,6 +532,7 @@
 				C48D5B3C1A495B2A00F0F14C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C48D5B3D1A495B2A00F0F14C /* Build configuration list for PBXNativeTarget "Emoji-IMETests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +541,7 @@
 				C48D5B3F1A495B2A00F0F14C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C48D5B4D1A495C0D00F0F14C /* Build configuration list for PBXNativeTarget "EmojiKeyBoard" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +550,7 @@
 				C48D5B4F1A495C0D00F0F14C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
