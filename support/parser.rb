@@ -1,3 +1,4 @@
+#!/usr/bin/ruby
 require 'opencv'
 include OpenCV
 
@@ -100,7 +101,9 @@ def parserImage(file)
 
 	puts '进行垂直投影'
 	puts '保存分割后图像'
+	param =Array.new
 	vertTouYing(image).each_with_index do |v,i|
+		v,_ = v.threshold(threshold, 255, CV_THRESH_BINARY,true)
 		v.save_image("UnCata/"+File.basename(file,'.png')+"_#{i}.png")
 	end
 	puts '-----------------------------'
@@ -114,3 +117,4 @@ Dir.mkdir('UnCata') if not Dir.exist?('UnCata')
 Dir.foreach(sample_dir) do |file| 
 	parserImage(file) if File.basename(file) =~/.*\.png$/
 end
+puts '处理完成'
