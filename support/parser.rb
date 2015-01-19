@@ -12,22 +12,27 @@ def horTouYing(image)
 		end
 		array[i] = whitePoint
 	end
-	puts array
+	#puts array
 	start = nil
-	stop = nil
 	for i in 0...array.size
 		if !start and array[i] > 1
 			start = i
 			break
 		end
 	end
-	for i in 0...array.size
-		if !stop and array[array.size-i-1] > 1
-			stop = array.size-i-1
+	n = array.size - 1
+	stop = nil
+	for i in 0..n
+		if !stop and n-i-start >= 10 and  array[n-i] > 1
+			stop = n-i
 			break
 		end
 	end
-	showImage(image.sub_rect(CvRect.new(0,start,image.width,stop-start+1)))
+	stop = start+10 < n ? start+10 : n if !stop
+	sub_image=image.sub_rect(CvRect.new(0,start,image.width,stop-start+1))
+	sub_image = sub_image.resize(CvSize.new(16,16))
+	showImage(sub_image)
+	return sub_image
 end
 
 def vertTouYing(image)
@@ -39,7 +44,7 @@ def vertTouYing(image)
 		end
 		array[i] = whitePoint
 	end
-	puts array
+	#puts array
 	start = nil
 	rectArr = Array.new
 	for i in 0...array.size
@@ -51,12 +56,14 @@ def vertTouYing(image)
 			start = nil
 		end
 	end
-	puts rectArr
+	#puts rectArr
+	subImageArr = Array.new
 	rectArr.each do |rect|
 		subimg = image.sub_rect(rect)
 		showImage(subimg)
-		horTouYing(subimg)
+		subImageArr.push(horTouYing(subimg))
 	end
+	return subImageArr
 end
 
 def showImage(image)
@@ -92,15 +99,18 @@ def parserImage(file)
 	showImage(image)
 
 	puts '进行垂直投影'
-	vertTouYing(image)
+	puts '保存分割后图像'
+	vertTouYing(image).each_with_index do |v,i|
+		v.save_image("UnCata/"+File.basename(file,'.png')+"_#{i}.png")
+	end
 	puts '-----------------------------'
-	exit
 end
 
 puts '启动中。。。'
 
 sample_dir = '/Users/wuhuadai/Documents/emoji_sample/'
 Dir.chdir(sample_dir)
+Dir.mkdir('UnCata') if not Dir.exist?('UnCata')
 Dir.foreach(sample_dir) do |file| 
 	parserImage(file) if File.basename(file) =~/.*\.png$/
 end
