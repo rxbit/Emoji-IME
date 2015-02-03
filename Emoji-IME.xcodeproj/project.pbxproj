@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C45D2B5E1A8127D40002B5F5 /* TestCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = C45D2B5D1A8127D40002B5F5 /* TestCV.mm */; };
 		C48D5B211A495B2A00F0F14C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D5B201A495B2A00F0F14C /* AppDelegate.swift */; };
 		C48D5B231A495B2A00F0F14C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D5B221A495B2A00F0F14C /* ViewController.swift */; };
 		C48D5B261A495B2A00F0F14C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C48D5B241A495B2A00F0F14C /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 		C48D5B491A495C0D00F0F14C /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D5B481A495C0D00F0F14C /* KeyboardViewController.swift */; };
 		C48D5B4C1A495C0D00F0F14C /* EmojiKeyBoard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C48D5B441A495C0C00F0F14C /* EmojiKeyBoard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C4C7C3DB1A5051070095D7D0 /* CanvesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C7C3DA1A5051070095D7D0 /* CanvesView.swift */; };
+		C67B3961D9672B2ECDE368D5 /* libPods-EmojiKeyBoard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E77EEFB206041E292D4D540 /* libPods-EmojiKeyBoard.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8758421959FF9B4FF615F64A /* Pods-EmojiKeyBoard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmojiKeyBoard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmojiKeyBoard/Pods-EmojiKeyBoard.debug.xcconfig"; sourceTree = "<group>"; };
+		9E77EEFB206041E292D4D540 /* libPods-EmojiKeyBoard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EmojiKeyBoard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C45D2B5B1A8127D30002B5F5 /* EmojiKeyBoard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EmojiKeyBoard-Bridging-Header.h"; sourceTree = "<group>"; };
+		C45D2B5C1A8127D40002B5F5 /* TestCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestCV.h; sourceTree = "<group>"; };
+		C45D2B5D1A8127D40002B5F5 /* TestCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TestCV.mm; sourceTree = "<group>"; };
 		C48D5B1B1A495B2A00F0F14C /* Emoji-IME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Emoji-IME.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C48D5B1F1A495B2A00F0F14C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C48D5B201A495B2A00F0F14C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +71,7 @@
 		C48D5B471A495C0D00F0F14C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C48D5B481A495C0D00F0F14C /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		C4C7C3DA1A5051070095D7D0 /* CanvesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvesView.swift; sourceTree = "<group>"; };
+		CC414A33F6782A86A19FADA4 /* Pods-EmojiKeyBoard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmojiKeyBoard.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmojiKeyBoard/Pods-EmojiKeyBoard.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,12 +93,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C67B3961D9672B2ECDE368D5 /* libPods-EmojiKeyBoard.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		233B0407037AB47442967C27 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8758421959FF9B4FF615F64A /* Pods-EmojiKeyBoard.debug.xcconfig */,
+				CC414A33F6782A86A19FADA4 /* Pods-EmojiKeyBoard.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B9452BBBA79B9DB36AE3A71D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9E77EEFB206041E292D4D540 /* libPods-EmojiKeyBoard.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C48D5B121A495B2A00F0F14C = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +124,8 @@
 				C48D5B331A495B2A00F0F14C /* Emoji-IMETests */,
 				C48D5B451A495C0D00F0F14C /* EmojiKeyBoard */,
 				C48D5B1C1A495B2A00F0F14C /* Products */,
+				233B0407037AB47442967C27 /* Pods */,
+				B9452BBBA79B9DB36AE3A71D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,6 +183,9 @@
 				C48D5B481A495C0D00F0F14C /* KeyboardViewController.swift */,
 				C48D5B461A495C0D00F0F14C /* Supporting Files */,
 				C4C7C3DA1A5051070095D7D0 /* CanvesView.swift */,
+				C45D2B5C1A8127D40002B5F5 /* TestCV.h */,
+				C45D2B5D1A8127D40002B5F5 /* TestCV.mm */,
+				C45D2B5B1A8127D30002B5F5 /* EmojiKeyBoard-Bridging-Header.h */,
 			);
 			path = EmojiKeyBoard;
 			sourceTree = "<group>";
@@ -211,9 +242,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C48D5B4D1A495C0D00F0F14C /* Build configuration list for PBXNativeTarget "EmojiKeyBoard" */;
 			buildPhases = (
+				A8EE757B2B781A0F2228D2E2 /* Check Pods Manifest.lock */,
 				C48D5B401A495C0C00F0F14C /* Sources */,
 				C48D5B411A495C0C00F0F14C /* Frameworks */,
 				C48D5B421A495C0C00F0F14C /* Resources */,
+				8003CE9EA570B038ADDAD395 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -292,6 +325,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8003CE9EA570B038ADDAD395 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EmojiKeyBoard/Pods-EmojiKeyBoard-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A8EE757B2B781A0F2228D2E2 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C48D5B171A495B2A00F0F14C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -315,6 +381,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4C7C3DB1A5051070095D7D0 /* CanvesView.swift in Sources */,
+				C45D2B5E1A8127D40002B5F5 /* TestCV.mm in Sources */,
 				C48D5B491A495C0D00F0F14C /* KeyboardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,7 +558,9 @@
 		};
 		C48D5B4E1A495C0D00F0F14C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8758421959FF9B4FF615F64A /* Pods-EmojiKeyBoard.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -500,16 +569,21 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "EmojiKeyBoard/EmojiKeyBoard-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		C48D5B4F1A495C0D00F0F14C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC414A33F6782A86A19FADA4 /* Pods-EmojiKeyBoard.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = EmojiKeyBoard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "EmojiKeyBoard/EmojiKeyBoard-Bridging-Header.h";
 			};
 			name = Release;
 		};
