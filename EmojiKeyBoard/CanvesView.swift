@@ -46,6 +46,11 @@ class CanvesView: UIView {
         if self.arrayStrokes.last!.count < 2 {
             self.arrayStrokes.removeLast()
         }
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.mainScreen().scale)
+        self.layer.renderInContext(UIGraphicsGetCurrentContext())
+        var image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        TestCV.DetectEmojiStringsWithImage(image)
     }
     
     override func drawRect(rect: CGRect) {
@@ -54,6 +59,7 @@ class CanvesView: UIView {
         UIColor.whiteColor().setStroke()
         for array in self.arrayStrokes {
             var line = UIBezierPath()
+            line.lineWidth = 5
             line.moveToPoint(array.first!)
             for point in array {
                 line.addLineToPoint(point)
