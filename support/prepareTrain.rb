@@ -5,6 +5,7 @@ $ClassIndex = 0
 $ClassHash = Hash.new
 $ClassMat = Array.new
 $trainData = Array.new
+$dictString = ""
 
 def parserimage(file)
 	image = nil
@@ -16,6 +17,11 @@ def parserimage(file)
 	$ClassMat.push($ClassIndex)
 end
 
+def getCharacter(path)
+	f = File.open(path+"/unicode","r")
+	return f.readline.strip
+end
+
 sample_dir = '/Users/wuhuadai/Documents/emoji_sample/Cataed'
 Dir.chdir(sample_dir)
 Dir.foreach('.') do |x|
@@ -25,6 +31,7 @@ Dir.foreach('.') do |x|
 				parserimage(x+"/"+y)
 				if not $ClassHash.has_key?(x)
 					$ClassHash[x]=$ClassIndex
+					$dictString += "@\"#{getCharacter(x)}\","
 					$ClassIndex+=1
 				end
 			end
@@ -47,4 +54,5 @@ cv::imshow('',trainClass)
 cv::wait_key()
 cv::imwrite('trainData.bmp',traindata)
 cv::imwrite('trainClass.bmp',trainClass)
+puts $dictString
 puts '结束'
