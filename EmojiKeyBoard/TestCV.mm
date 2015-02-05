@@ -45,13 +45,14 @@ void TrainKnn() {
     cv::cvtColor(small, gray, CV_BGR2GRAY);
     int threshold = 60;
     cv::Mat bin;
-    cv::threshold(gray, bin, threshold, 255, CV_THRESH_BINARY);
+    cv::threshold(gray, bin, threshold, 255, CV_THRESH_BINARY|CV_THRESH_OTSU);
     vector<vector<cv::Point>> contours;
     vector<cv::Vec4i> hierarchy;
     vector<cv::Rect> rectArray;
     vector<int> resultArray;
     
-    cv::findContours(bin, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
+    auto bin2 = bin.clone();
+    cv::findContours(bin2, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
     
     for (auto i: contours) {
         auto rect = cv::boundingRect(i);
@@ -68,8 +69,10 @@ void TrainKnn() {
         cv::Mat sample;
         bin(i).copyTo(sample);
         cv::resize(sample, sample, cv::Size(16,16));
+        cv::threshold(sample, sample, 10, 255, CV_THRESH_OTSU|CV_THRESH_BINARY);
         sample.reshape(1,1).convertTo(sample, CV_32FC1);
-        auto result = (int)knn->find_nearest(sample, 1);
+        auto resultf = knn->find_nearest(sample, 1);
+        auto result = (int)resultf;
         NSLog(@"识别结果%@", table[result]);
         resultArray.push_back(result);
     }

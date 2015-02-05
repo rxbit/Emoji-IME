@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C419F6C61A83A40F00F6A710 /* trainClass.bmp in Resources */ = {isa = PBXBuildFile; fileRef = C419F6C41A83A40F00F6A710 /* trainClass.bmp */; };
-		C419F6C71A83A40F00F6A710 /* trainData.bmp in Resources */ = {isa = PBXBuildFile; fileRef = C419F6C51A83A40F00F6A710 /* trainData.bmp */; };
+		C419F6CA1A83C6F400F6A710 /* trainClass.bmp in Resources */ = {isa = PBXBuildFile; fileRef = C419F6C81A83C6F400F6A710 /* trainClass.bmp */; };
+		C419F6CB1A83C6F400F6A710 /* trainData.bmp in Resources */ = {isa = PBXBuildFile; fileRef = C419F6C91A83C6F400F6A710 /* trainData.bmp */; };
 		C45D2B5E1A8127D40002B5F5 /* TestCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = C45D2B5D1A8127D40002B5F5 /* TestCV.mm */; };
 		C48D5B211A495B2A00F0F14C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D5B201A495B2A00F0F14C /* AppDelegate.swift */; };
 		C48D5B231A495B2A00F0F14C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D5B221A495B2A00F0F14C /* ViewController.swift */; };
@@ -56,8 +56,8 @@
 /* Begin PBXFileReference section */
 		8758421959FF9B4FF615F64A /* Pods-EmojiKeyBoard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmojiKeyBoard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmojiKeyBoard/Pods-EmojiKeyBoard.debug.xcconfig"; sourceTree = "<group>"; };
 		9E77EEFB206041E292D4D540 /* libPods-EmojiKeyBoard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EmojiKeyBoard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C419F6C41A83A40F00F6A710 /* trainClass.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = trainClass.bmp; sourceTree = "<group>"; };
-		C419F6C51A83A40F00F6A710 /* trainData.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = trainData.bmp; sourceTree = "<group>"; };
+		C419F6C81A83C6F400F6A710 /* trainClass.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = trainClass.bmp; sourceTree = "<group>"; };
+		C419F6C91A83C6F400F6A710 /* trainData.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = trainData.bmp; sourceTree = "<group>"; };
 		C45D2B5B1A8127D30002B5F5 /* EmojiKeyBoard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EmojiKeyBoard-Bridging-Header.h"; sourceTree = "<group>"; };
 		C45D2B5C1A8127D40002B5F5 /* TestCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestCV.h; sourceTree = "<group>"; };
 		C45D2B5D1A8127D40002B5F5 /* TestCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TestCV.mm; sourceTree = "<group>"; };
@@ -197,8 +197,8 @@
 		C48D5B461A495C0D00F0F14C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C419F6C41A83A40F00F6A710 /* trainClass.bmp */,
-				C419F6C51A83A40F00F6A710 /* trainData.bmp */,
+				C419F6C81A83C6F400F6A710 /* trainClass.bmp */,
+				C419F6C91A83C6F400F6A710 /* trainData.bmp */,
 				C48D5B471A495C0D00F0F14C /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -326,8 +326,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C419F6C71A83A40F00F6A710 /* trainData.bmp in Resources */,
-				C419F6C61A83A40F00F6A710 /* trainClass.bmp in Resources */,
+				C419F6CB1A83C6F400F6A710 /* trainData.bmp in Resources */,
+				C419F6CA1A83C6F400F6A710 /* trainClass.bmp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
