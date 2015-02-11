@@ -8,7 +8,12 @@
 
 import UIKit
 
+protocol EmojiImputDelegate {
+    func didRecivedEmojiStrings(strings: [String]?)
+}
+
 class CanvesView: UIView {
+    var delegate: EmojiImputDelegate? = nil
     var arrayStrokes:[[CGPoint]] = []
     
     override convenience init() {
@@ -50,7 +55,8 @@ class CanvesView: UIView {
         self.layer.renderInContext(UIGraphicsGetCurrentContext())
         var image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        TestCV.DetectEmojiStringsWithImage(image)
+        let strings = TestCV.DetectEmojiStringsWithImage(image) as [String]?
+        self.delegate?.didRecivedEmojiStrings(strings)
     }
     
     override func drawRect(rect: CGRect) {

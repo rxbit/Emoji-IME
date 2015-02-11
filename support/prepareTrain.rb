@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 require 'ropencv'
 include OpenCV
-$ClassIndex = 0
+$ClassIndex = -1
 $ClassHash = Hash.new
 $ClassMat = Array.new
 $trainData = Array.new
@@ -28,12 +28,14 @@ Dir.foreach('.') do |x|
 	if File.directory?(x)
 		Dir.foreach(x) do |y|
 			if File.basename(y) =~/.*\.png$/
-				parserimage(x+"/"+y)
 				if not $ClassHash.has_key?(x)
 					$ClassHash[x]=$ClassIndex
 					$dictString += "@\"#{getCharacter(x)}\","
+					puts getCharacter(x)
+					puts $ClassIndex
 					$ClassIndex+=1
 				end
+				parserimage(x+"/"+y)
 			end
 		end
 	end
@@ -44,9 +46,9 @@ end
 traindata = cv::Mat.new($trainData.size,256,cv::CV_32FC1)
 trainClass = cv::Mat.new($trainData.size,1,cv::CV_32FC1)
 $trainData.each_with_index do |v,i|
-	cv::imshow('',v)
 	v.copy_to(traindata.row(i))
 	trainClass[i,0] = $ClassMat[i]
+	puts $ClassMat[i]
 end
 cv::imshow('',traindata)
 cv::wait_key()

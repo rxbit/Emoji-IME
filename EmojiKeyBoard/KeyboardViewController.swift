@@ -10,8 +10,8 @@ import UIKit
 
 class KeyboardViewController: UIInputViewController {
 
-    @IBOutlet var nextKeyboardButton: UIButton!
-    @IBOutlet var recoView: UIView!
+    var nextKeyboardButton: UIButton!
+    var recoView: CanvesView!
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -23,6 +23,7 @@ class KeyboardViewController: UIInputViewController {
         super.viewDidLoad()
     
         self.recoView = CanvesView()
+        self.recoView.delegate = self
         self.recoView.backgroundColor = UIColor.blackColor()
         self.recoView.setTranslatesAutoresizingMaskIntoConstraints(false)
 
@@ -76,4 +77,14 @@ class KeyboardViewController: UIInputViewController {
         self.nextKeyboardButton.setTitleColor(textColor, forState: .Normal)
     }
 
+}
+
+extension KeyboardViewController: EmojiImputDelegate {
+    func didRecivedEmojiStrings(strings: [String]?) {
+        if strings == nil {
+            
+        } else {
+            println(strings)
+        }
+    }
 }

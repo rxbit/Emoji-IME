@@ -35,6 +35,7 @@ void TrainKnn() {
 +(NSArray *)DetectEmojiStringsWithImage:(UIImage *)image {
     if (!knn) TrainKnn();
     NSMutableArray *emojiStrings = [[NSMutableArray alloc]init];
+    NSMutableArray *tempStrings = [[NSMutableArray alloc]init];
     cv::Mat mat;
     UIImageToMat(image, mat);
     cv::Mat small;
@@ -78,9 +79,10 @@ void TrainKnn() {
     }
     
     for (auto i:resultArray) {
-        [emojiStrings addObject:table[i]];
+        [tempStrings addObject:table[i]];
     }
     
+    [emojiStrings addObject: [tempStrings componentsJoinedByString:@""]];
     
     return emojiStrings;
 }
