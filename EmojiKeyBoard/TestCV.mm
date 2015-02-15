@@ -79,9 +79,13 @@ void TrainKnn() {
     }
     
     for (auto i:resultArray) {
-        [tempStrings addObject:table[i]];
+        if (i >= 0 && i <= [table count]) {
+            [tempStrings addObject:table[i]];
+        }
     }
     
+    [emojiStrings addObject: [tempStrings componentsJoinedByString:@""]];
+    [emojiStrings addObject: [tempStrings componentsJoinedByString:@""]];
     [emojiStrings addObject: [tempStrings componentsJoinedByString:@""]];
     
     return emojiStrings;
