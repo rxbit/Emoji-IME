@@ -47,13 +47,13 @@ class KeyboardViewController: UIInputViewController {
         self.recoView.layer.masksToBounds = true
         
         self.inputTypeButton = UIButton.buttonWithType(.System) as UIButton
-        self.inputTypeButton.setTitle("^_^", forState: .Normal)
+        self.inputTypeButton.setTitle("✏", forState: .Normal)
         self.inputTypeButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.inputTypeButton.backgroundColor = UIColor(red: 157/255.0, green: 112/255.0, blue: 151/255.0, alpha: 1)
         self.inputTypeButton.layer.cornerRadius = 5
         
         self.nextKeyboardButton = UIButton.buttonWithType(.System) as UIButton
-        self.nextKeyboardButton.setTitle(NSLocalizedString("Next", comment: "Title for 'Next Keyboard' button"), forState: .Normal)
+        self.nextKeyboardButton.setTitle(NSLocalizedString("🌐", comment: "Title for 'Next Keyboard' button"), forState: .Normal)
         self.nextKeyboardButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
         self.nextKeyboardButton.backgroundColor = self.inputTypeButton.backgroundColor
@@ -67,7 +67,7 @@ class KeyboardViewController: UIInputViewController {
         self.spaceButton.layer.cornerRadius = 5
         
         self.backSpaceButton = UIButton.buttonWithType(.System) as UIButton
-        self.backSpaceButton.setTitle("Back", forState: .Normal)
+        self.backSpaceButton.setTitle("🔙", forState: .Normal)
         self.backSpaceButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.backSpaceButton.addTarget(self, action: "doBackSpace", forControlEvents: .TouchUpInside)
         self.backSpaceButton.backgroundColor = self.inputTypeButton.backgroundColor
@@ -102,7 +102,7 @@ class KeyboardViewController: UIInputViewController {
         
         let recoViewHeightConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 160)
         recoViewHeightConstraint.priority = 999;
-        var recoViewTopConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Top, relatedBy: .Equal, toItem: self.candidateScrollView, attribute: .Bottom, multiplier: 1, constant: 8)
+        var recoViewTopConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Top, relatedBy: .Equal, toItem: self.candidateScrollView, attribute: .Bottom, multiplier: 1, constant: 6)
         var recoViewLeftConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Left, relatedBy: .Equal, toItem: self.inputView, attribute: .Left, multiplier: 1, constant: 4)
         var recoViewRightConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Right, relatedBy: .Equal, toItem: self.inputView, attribute: .Right, multiplier: 1, constant: -4)
         var recoViewBottomConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Bottom, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Top, multiplier: 1, constant: -8)
