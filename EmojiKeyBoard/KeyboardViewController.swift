@@ -36,37 +36,49 @@ class KeyboardViewController: UIInputViewController {
         
         self.candidateScrollView = CandidateScrollerView()
         self.candidateScrollView.inputDelegate = self
-        self.candidateScrollView.backgroundColor = UIColor.purpleColor()
+        self.candidateScrollView.backgroundColor = UIColor.whiteColor()
         self.candidateScrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
     
         self.recoView = CanvesView()
         self.recoView.backgroundColor = UIColor.blackColor()
         self.recoView.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.recoView.delegate = self.candidateScrollView
+        self.recoView.layer.cornerRadius = 6
+        self.recoView.layer.masksToBounds = true
         
         self.inputTypeButton = UIButton.buttonWithType(.System) as UIButton
         self.inputTypeButton.setTitle("^_^", forState: .Normal)
         self.inputTypeButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.inputTypeButton.backgroundColor = UIColor(red: 157/255.0, green: 112/255.0, blue: 151/255.0, alpha: 1)
+        self.inputTypeButton.layer.cornerRadius = 5
         
         self.nextKeyboardButton = UIButton.buttonWithType(.System) as UIButton
         self.nextKeyboardButton.setTitle(NSLocalizedString("Next", comment: "Title for 'Next Keyboard' button"), forState: .Normal)
         self.nextKeyboardButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
+        self.nextKeyboardButton.backgroundColor = self.inputTypeButton.backgroundColor
+        self.nextKeyboardButton.layer.cornerRadius = 5
         
         self.spaceButton = UIButton.buttonWithType(.System) as UIButton
         self.spaceButton.setTitle("Space", forState: .Normal)
         self.spaceButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.spaceButton.addTarget(self, action: "doSpace", forControlEvents: .TouchUpInside)
+        self.spaceButton.backgroundColor = UIColor.whiteColor()
+        self.spaceButton.layer.cornerRadius = 5
         
         self.backSpaceButton = UIButton.buttonWithType(.System) as UIButton
         self.backSpaceButton.setTitle("Back", forState: .Normal)
         self.backSpaceButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.backSpaceButton.addTarget(self, action: "doBackSpace", forControlEvents: .TouchUpInside)
+        self.backSpaceButton.backgroundColor = self.inputTypeButton.backgroundColor
+        self.backSpaceButton.layer.cornerRadius = 5
         
         self.doneButton = UIButton.buttonWithType(.System) as UIButton
         self.doneButton.setTitle("Done", forState: .Normal)
         self.doneButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        self.doneButton.addTarget(self, action: "doSpace", forControlEvents: .TouchUpInside)
+        self.doneButton.addTarget(self, action: "doReturn", forControlEvents: .TouchUpInside)
+        self.doneButton.backgroundColor = self.inputTypeButton.backgroundColor
+        self.doneButton.layer.cornerRadius = 5
 
         self.inputView.addSubview(self.candidateScrollView)
         self.inputView.addSubview(self.recoView)
@@ -79,7 +91,7 @@ class KeyboardViewController: UIInputViewController {
     }
     
     func layoutViews() {
-        let candidateScrollViewTopConstraint = NSLayoutConstraint(item: self.candidateScrollView, attribute: .Top, relatedBy: .Equal, toItem: self.inputView, attribute: .Top, multiplier: 1, constant: 0)
+        let candidateScrollViewTopConstraint = NSLayoutConstraint(item: self.candidateScrollView, attribute: .Top, relatedBy: .Equal, toItem: self.inputView, attribute: .Top, multiplier: 1, constant: 2)
         let candidateScrollViewRightConstraint = NSLayoutConstraint(item: self.candidateScrollView, attribute: .Right, relatedBy: .Equal, toItem: self.inputView, attribute: .Right, multiplier: 1, constant: 0)
         let candidateScrollViewLeftConstraint = NSLayoutConstraint(item: self.candidateScrollView, attribute: .Left, relatedBy: .Equal, toItem: self.inputView, attribute: .Left, multiplier: 1, constant: 0)
         self.inputView.addConstraints([
@@ -105,7 +117,7 @@ class KeyboardViewController: UIInputViewController {
         var inputTypeButtonLeftSideConstraint = NSLayoutConstraint(item: self.inputTypeButton, attribute: .Left, relatedBy: .Equal, toItem: self.inputView, attribute: .Left, multiplier: 1, constant: 4)
         var inputTypeButtonBottomConstraint = NSLayoutConstraint(item: self.inputTypeButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.inputView, attribute: .Bottom, multiplier: 1, constant: -4)
         var inputTypeButtonHeightConstraint = NSLayoutConstraint(item: self.inputTypeButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)
-        var inputTypeButtonWidthConstraint = NSLayoutConstraint(item: self.inputTypeButton, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 60)
+        var inputTypeButtonWidthConstraint = NSLayoutConstraint(item: self.inputTypeButton, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 50)
         self.inputView.addConstraints([
             inputTypeButtonLeftSideConstraint,
             inputTypeButtonBottomConstraint,
@@ -168,6 +180,11 @@ class KeyboardViewController: UIInputViewController {
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         proxy.insertText(" ")
     }
+    
+    func doReturn() {
+        let proxy = self.textDocumentProxy as UITextDocumentProxy
+        proxy.insertText("\n")
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -188,7 +205,29 @@ class KeyboardViewController: UIInputViewController {
         } else {
             textColor = UIColor.blackColor()
         }
+        self.inputTypeButton.setTitleColor(textColor, forState: .Normal)
         self.nextKeyboardButton.setTitleColor(textColor, forState: .Normal)
+        self.spaceButton.setTitleColor(textColor, forState: .Normal)
+        self.backSpaceButton.setTitleColor(textColor, forState: .Normal)
+        self.doneButton.setTitleColor(textColor, forState: .Normal)
+        var doneText: String
+        switch proxy.returnKeyType! {
+        case UIReturnKeyType.Default:
+            doneText = "Return"
+        case UIReturnKeyType.Done:
+            doneText = "Done"
+        case UIReturnKeyType.Go:
+            doneText = "Go"
+        case UIReturnKeyType.Send:
+            doneText = "Send"
+        case UIReturnKeyType.Search:
+            doneText = "Search"
+        case UIReturnKeyType.Next:
+            doneText = "Next"
+        default:
+            doneText = "Return"
+        }
+        self.doneButton.setTitle(doneText, forState: .Normal)
     }
     
 }
