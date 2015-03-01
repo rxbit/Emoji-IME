@@ -70,7 +70,6 @@ class CanvesView: UIView {
     
     override func drawRect(rect: CGRect) {
         println("绘画开始")
-        println(rect)
         UIColor.blackColor().setStroke()
         for array in self.arrayStrokes {
             var line = UIBezierPath()
@@ -94,12 +93,11 @@ class CanvesView: UIView {
             return false
         }
     }
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
+    
+    func clearView() {
+        arrayStrokes.removeAll(keepCapacity: false)
+        setNeedsDisplay()
+        startDetect()
     }
-    */
 
 }

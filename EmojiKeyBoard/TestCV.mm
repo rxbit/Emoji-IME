@@ -38,21 +38,18 @@ void TrainKnn() {
     NSMutableArray *tempStrings = [[NSMutableArray alloc]init];
     cv::Mat mat;
     UIImageToMat(image, mat);
-    cv::Mat small;
     int fixedHeight = 80;
     cv::Size size(fixedHeight*mat.cols/mat.rows, fixedHeight);
-    cv::resize(mat, small, size);
-    cv::Mat gray;
-    cv::cvtColor(small, gray, CV_BGR2GRAY);
+    cv::resize(mat, mat, size);
+    cv::cvtColor(mat, mat, CV_BGR2GRAY);
     int threshold = 60;
-    cv::Mat bin;
-    cv::threshold(gray, bin, threshold, 255, CV_THRESH_BINARY_INV|CV_THRESH_OTSU);
+    cv::threshold(mat, mat, threshold, 255, CV_THRESH_BINARY_INV|CV_THRESH_OTSU);
     vector<vector<cv::Point>> contours;
     vector<cv::Vec4i> hierarchy;
     vector<cv::Rect> rectArray;
     vector<int> resultArray;
     
-    auto bin2 = bin.clone();
+    auto bin2 = mat.clone();
     cv::findContours(bin2, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE);
     
     for (auto i: contours) {
@@ -68,12 +65,11 @@ void TrainKnn() {
     
     for (auto i: rectArray) {
         cv::Mat sample;
-        bin(i).copyTo(sample);
+        mat(i).copyTo(sample);
         cv::resize(sample, sample, cv::Size(16,16));
         cv::threshold(sample, sample, 10, 255, CV_THRESH_OTSU|CV_THRESH_BINARY);
         sample.reshape(1,1).convertTo(sample, CV_32FC1);
-        auto resultf = knn->find_nearest(sample, 3);
-        auto result = (int)resultf;
+        auto result = (int)(knn->find_nearest(sample, 1));
         NSLog(@"识别结果%@", table[result]);
         resultArray.push_back(result);
     }
@@ -85,8 +81,6 @@ void TrainKnn() {
     }
     
     if ([tempStrings count] != 0) {
-        [emojiStrings addObject: [tempStrings componentsJoinedByString:@""]];
-        [emojiStrings addObject: [tempStrings componentsJoinedByString:@""]];
         [emojiStrings addObject: [tempStrings componentsJoinedByString:@""]];
     }
     

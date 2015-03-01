@@ -218,5 +218,6 @@ extension KeyboardViewController: CandidateScrollerViewDelegate {
     func didRecivedInputString(string: String) {
         let proxy = textDocumentProxy as UITextDocumentProxy
         proxy.insertText(string)
+        recoView.clearView()
     }
 }

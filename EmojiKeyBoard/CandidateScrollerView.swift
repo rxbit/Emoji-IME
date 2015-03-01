@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioToolbox
 
 protocol CandidateScrollerViewDelegate {
     func didRecivedInputString(string:String)
@@ -40,7 +41,6 @@ class CandidateScrollerView: UIScrollView {
             let button = UIButton.buttonWithType(.System) as UIButton
             button.setTitle(string, forState: .Normal)
             button.sizeToFit()
-//            button.titleLabel!.font = UIFont.systemFontOfSize(15)
             button.setTranslatesAutoresizingMaskIntoConstraints(false)
             button.backgroundColor = UIColor(white: 0.95, alpha: 1)
             button.setTitleColor(UIColor.blackColor(), forState: .Normal)
@@ -74,6 +74,7 @@ class CandidateScrollerView: UIScrollView {
     func didTapButton(sender: AnyObject?) {
         let button = sender as UIButton
         let title = button.titleForState(.Normal)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){ AudioServicesPlaySystemSound(1104)}
         inputDelegate?.didRecivedInputString(title!)
     }
 }

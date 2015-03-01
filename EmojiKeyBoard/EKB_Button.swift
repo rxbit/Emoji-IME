@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import AudioToolbox
 
 class EKB_Button: UIButton {
+    var frontColor: UIColor!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,12 +22,18 @@ class EKB_Button: UIButton {
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
+    
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        super.touchesBegan(touches, withEvent: event)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){ AudioServicesPlaySystemSound(1104)}
+        frontColor = backgroundColor
+        backgroundColor = UIColor(red: 233/255.0, green: 200/255.0, blue: 233/255.0, alpha: 1)
     }
-    */
+    
+    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+        super.touchesEnded(touches, withEvent: event)
+        backgroundColor = frontColor
+    }
+
 
 }
