@@ -10,12 +10,19 @@ import UIKit
 
 class KeyboardViewController: UIInputViewController {
 
+    enum KeyboardType: Int {
+        case Emoji = 1, Handwrite
+    }
+    var currentKeyboardType = KeyboardType.Handwrite
     var nextKeyboardButton: UIButton!
     var backSpaceButton: UIButton!
     var spaceButton: UIButton!
     var doneButton: UIButton!
     var inputTypeButton: UIButton!
-    var recoView: CanvesView!
+    var recoView: UIView!
+    var handwriteView: CanvesView!
+    var emojiView: UIView!
+    var currentMainView: UIView!
     var candidateScrollView: CandidateScrollerView!
     var candidateScrollViewHeightConstraint: NSLayoutConstraint!
 
@@ -28,6 +35,7 @@ class KeyboardViewController: UIInputViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         layoutViews()
+        layoutMainView()
     }
 
     override func viewDidLoad() {
@@ -37,11 +45,12 @@ class KeyboardViewController: UIInputViewController {
         self.candidateScrollView = CandidateScrollerView()
         self.candidateScrollView.inputDelegate = self
     
-        self.recoView = CanvesView()
-        self.recoView.delegate = self.candidateScrollView
+        self.recoView = UIView()
+        self.recoView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         self.inputTypeButton = EKB_Button.buttonWithType(.System) as UIButton
         self.inputTypeButton.setTitle("✏", forState: .Normal)
+        inputTypeButton.addTarget(self, action: "doInputType", forControlEvents: .TouchUpInside)
         
         self.nextKeyboardButton = EKB_Button.buttonWithType(.System) as UIButton
         self.nextKeyboardButton.setTitle(NSLocalizedString("🌐", comment: "Title for 'Next Keyboard' button"), forState: .Normal)
@@ -68,6 +77,23 @@ class KeyboardViewController: UIInputViewController {
         self.inputView.addSubview(self.backSpaceButton)
         self.inputView.addSubview(self.doneButton)
         
+        self.handwriteView = CanvesView()
+        self.handwriteView.delegate = self.candidateScrollView
+        
+        emojiView = UIView()
+        emojiView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        emojiView.backgroundColor = UIColor.purpleColor()
+        
+        recoView.addSubview(handwriteView)
+        currentMainView = handwriteView
+    }
+    
+    func layoutMainView() {
+        let t = NSLayoutConstraint(item: currentMainView, attribute: .Top, relatedBy: .Equal, toItem: recoView, attribute: .Top, multiplier: 1, constant: 0)
+        let l = NSLayoutConstraint(item: currentMainView, attribute: .Left, relatedBy: .Equal, toItem: recoView, attribute: .Left, multiplier: 1, constant: 0)
+        let r = NSLayoutConstraint(item: currentMainView, attribute: .Right, relatedBy: .Equal, toItem: recoView, attribute: .Right, multiplier: 1, constant: 0)
+        let b = NSLayoutConstraint(item: currentMainView, attribute: .Bottom, relatedBy: .Equal, toItem: recoView, attribute: .Bottom, multiplier: 1, constant: 0)
+        self.recoView.addConstraints([t,l,r,b])
     }
     
     func layoutViews() {
@@ -151,9 +177,32 @@ class KeyboardViewController: UIInputViewController {
         
     }
     
+    func doInputType() {
+        switch currentKeyboardType {
+        case .Handwrite:
+            currentKeyboardType = .Emoji
+            recoView.addSubview(emojiView)
+            currentMainView = emojiView
+            handwriteView.removeFromSuperview()
+            inputTypeButton.setTitle("^_^", forState: .Normal)
+        case .Emoji:
+            currentKeyboardType = .Handwrite
+            recoView.addSubview(handwriteView)
+            currentMainView = handwriteView
+            emojiView.removeFromSuperview()
+            inputTypeButton.setTitle("✏", forState: .Normal)
+        }
+        layoutMainView()
+    }
+    
     func doBackSpace() {
-        if self.recoView.deleteLatestPath() == false {
-            let proxy = self.textDocumentProxy as UITextDocumentProxy
+        let proxy = self.textDocumentProxy as UITextDocumentProxy
+        switch currentKeyboardType {
+        case .Handwrite:
+            if self.handwriteView.deleteLatestPath() == false {
+                proxy.deleteBackward()
+            }
+        case .Emoji:
             proxy.deleteBackward()
         }
     }
@@ -218,6 +267,6 @@ extension KeyboardViewController: CandidateScrollerViewDelegate {
     func didRecivedInputString(string: String) {
         let proxy = textDocumentProxy as UITextDocumentProxy
         proxy.insertText(string)
-        recoView.clearView()
+        handwriteView.clearView()
     }
 }
