@@ -45,39 +45,25 @@ class KeyboardViewController: UIInputViewController {
         self.recoView.layer.cornerRadius = 6
         self.recoView.layer.masksToBounds = true
         
-        self.inputTypeButton = UIButton.buttonWithType(.System) as UIButton
+        self.inputTypeButton = EKB_Button.buttonWithType(.System) as UIButton
         self.inputTypeButton.setTitle("✏", forState: .Normal)
-        self.inputTypeButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        self.inputTypeButton.backgroundColor = UIColor(red: 157/255.0, green: 112/255.0, blue: 151/255.0, alpha: 1)
-        self.inputTypeButton.layer.cornerRadius = 5
         
-        self.nextKeyboardButton = UIButton.buttonWithType(.System) as UIButton
+        self.nextKeyboardButton = EKB_Button.buttonWithType(.System) as UIButton
         self.nextKeyboardButton.setTitle(NSLocalizedString("🌐", comment: "Title for 'Next Keyboard' button"), forState: .Normal)
-        self.nextKeyboardButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
-        self.nextKeyboardButton.backgroundColor = self.inputTypeButton.backgroundColor
-        self.nextKeyboardButton.layer.cornerRadius = 5
         
-        self.spaceButton = UIButton.buttonWithType(.System) as UIButton
+        self.spaceButton = EKB_Button.buttonWithType(.System) as UIButton
         self.spaceButton.setTitle("Space", forState: .Normal)
-        self.spaceButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.spaceButton.addTarget(self, action: "doSpace", forControlEvents: .TouchUpInside)
         self.spaceButton.backgroundColor = UIColor.whiteColor()
-        self.spaceButton.layer.cornerRadius = 5
         
-        self.backSpaceButton = UIButton.buttonWithType(.System) as UIButton
+        self.backSpaceButton = EKB_Button.buttonWithType(.System) as UIButton
         self.backSpaceButton.setTitle("🔙", forState: .Normal)
-        self.backSpaceButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.backSpaceButton.addTarget(self, action: "doBackSpace", forControlEvents: .TouchUpInside)
-        self.backSpaceButton.backgroundColor = self.inputTypeButton.backgroundColor
-        self.backSpaceButton.layer.cornerRadius = 5
         
-        self.doneButton = UIButton.buttonWithType(.System) as UIButton
+        self.doneButton = EKB_Button.buttonWithType(.System) as UIButton
         self.doneButton.setTitle("Done", forState: .Normal)
-        self.doneButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.doneButton.addTarget(self, action: "doReturn", forControlEvents: .TouchUpInside)
-        self.doneButton.backgroundColor = self.inputTypeButton.backgroundColor
-        self.doneButton.layer.cornerRadius = 5
 
         self.inputView.addSubview(self.candidateScrollView)
         self.inputView.addSubview(self.recoView)
