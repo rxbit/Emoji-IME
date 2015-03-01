@@ -22,8 +22,12 @@ class CanvesView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.backgroundColor = UIColor.whiteColor()
+        self.layer.cornerRadius = 6
+        self.layer.masksToBounds = true
         self.contentMode = .Redraw
+        
     }
 
     required init(coder aDecoder: NSCoder) {

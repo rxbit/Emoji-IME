@@ -36,14 +36,9 @@ class KeyboardViewController: UIInputViewController {
         
         self.candidateScrollView = CandidateScrollerView()
         self.candidateScrollView.inputDelegate = self
-        self.candidateScrollView.backgroundColor = UIColor.whiteColor()
-        self.candidateScrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
     
         self.recoView = CanvesView()
-        self.recoView.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.recoView.delegate = self.candidateScrollView
-        self.recoView.layer.cornerRadius = 6
-        self.recoView.layer.masksToBounds = true
         
         self.inputTypeButton = EKB_Button.buttonWithType(.System) as UIButton
         self.inputTypeButton.setTitle("✏", forState: .Normal)
