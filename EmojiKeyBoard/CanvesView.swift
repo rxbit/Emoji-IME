@@ -22,6 +22,7 @@ class CanvesView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = UIColor.whiteColor()
         self.contentMode = .Redraw
     }
 
@@ -51,6 +52,10 @@ class CanvesView: UIView {
         if self.arrayStrokes.last!.count < 2 {
             self.arrayStrokes.removeLast()
         }
+        startDetect()
+    }
+    
+    func startDetect() {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.mainScreen().scale)
         self.layer.renderInContext(UIGraphicsGetCurrentContext())
         var image = UIGraphicsGetImageFromCurrentImageContext()
@@ -62,7 +67,7 @@ class CanvesView: UIView {
     override func drawRect(rect: CGRect) {
         println("绘画开始")
         println(rect)
-        UIColor.whiteColor().setStroke()
+        UIColor.blackColor().setStroke()
         for array in self.arrayStrokes {
             var line = UIBezierPath()
             line.lineWidth = 5
@@ -71,6 +76,18 @@ class CanvesView: UIView {
                 line.addLineToPoint(point)
             }
             line.stroke()
+        }
+    }
+    
+    func deleteLatestPath() -> Bool {
+        if self.arrayStrokes.count > 0 {
+            self.arrayStrokes.removeLast()
+            self.setNeedsDisplay()
+            startDetect()
+            return true
+        }
+        else {
+            return false
         }
     }
     /*

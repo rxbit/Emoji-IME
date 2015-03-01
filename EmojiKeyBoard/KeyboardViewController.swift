@@ -40,7 +40,6 @@ class KeyboardViewController: UIInputViewController {
         self.candidateScrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
     
         self.recoView = CanvesView()
-        self.recoView.backgroundColor = UIColor.blackColor()
         self.recoView.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.recoView.delegate = self.candidateScrollView
         self.recoView.layer.cornerRadius = 6
@@ -172,8 +171,10 @@ class KeyboardViewController: UIInputViewController {
     }
     
     func doBackSpace() {
-        let proxy = self.textDocumentProxy as UITextDocumentProxy
-        proxy.deleteBackward()
+        if self.recoView.deleteLatestPath() == false {
+            let proxy = self.textDocumentProxy as UITextDocumentProxy
+            proxy.deleteBackward()
+        }
     }
     
     func doSpace() {

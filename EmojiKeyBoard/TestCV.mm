@@ -46,7 +46,7 @@ void TrainKnn() {
     cv::cvtColor(small, gray, CV_BGR2GRAY);
     int threshold = 60;
     cv::Mat bin;
-    cv::threshold(gray, bin, threshold, 255, CV_THRESH_BINARY|CV_THRESH_OTSU);
+    cv::threshold(gray, bin, threshold, 255, CV_THRESH_BINARY_INV|CV_THRESH_OTSU);
     vector<vector<cv::Point>> contours;
     vector<cv::Vec4i> hierarchy;
     vector<cv::Rect> rectArray;
@@ -72,7 +72,7 @@ void TrainKnn() {
         cv::resize(sample, sample, cv::Size(16,16));
         cv::threshold(sample, sample, 10, 255, CV_THRESH_OTSU|CV_THRESH_BINARY);
         sample.reshape(1,1).convertTo(sample, CV_32FC1);
-        auto resultf = knn->find_nearest(sample, 1);
+        auto resultf = knn->find_nearest(sample, 3);
         auto result = (int)resultf;
         NSLog(@"识别结果%@", table[result]);
         resultArray.push_back(result);
@@ -84,9 +84,11 @@ void TrainKnn() {
         }
     }
     
-    [emojiStrings addObject: [tempStrings componentsJoinedByString:@""]];
-    [emojiStrings addObject: [tempStrings componentsJoinedByString:@""]];
-    [emojiStrings addObject: [tempStrings componentsJoinedByString:@""]];
+    if ([tempStrings count] != 0) {
+        [emojiStrings addObject: [tempStrings componentsJoinedByString:@""]];
+        [emojiStrings addObject: [tempStrings componentsJoinedByString:@""]];
+        [emojiStrings addObject: [tempStrings componentsJoinedByString:@""]];
+    }
     
     return emojiStrings;
 }
