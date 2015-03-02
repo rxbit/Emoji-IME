@@ -84,9 +84,8 @@ class KeyboardViewController: UIInputViewController {
         candidateScrollerView = CandidateScrollerView()
         candidateScrollerView.inputDelegate = self
         
-        cataTabView = UIView()
+        cataTabView = CategoryScrollView()
         cataTabView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        cataTabView.backgroundColor = UIColor.blackColor()
         
         topBarView.addSubview(candidateScrollerView)
         currentTopBarView = candidateScrollerView
