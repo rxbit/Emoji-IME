@@ -13,13 +13,18 @@ class EmojiKeyboardViewController: UIViewController {
     private var buttons: [UIButton]!
     private var buttonWidthConstraint, buttonHeightConstraint: NSLayoutConstraint?
     private var emojiStrings = ["(^_^)","(-v-)","(QAQ)","(QAO)"]
+    private var categoryScrollView: CategoryScrollView!
     private var scrollView: UIScrollView!
-    var inputDelegate: CandidateScrollerViewDelegate?
+    var inputDelegate: CandidateScrollViewDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.blueColor()
         self.view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        categoryScrollView = CategoryScrollView()
+        categoryScrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        view.addSubview(categoryScrollView)
+        
         scrollView = UIScrollView()
         scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
         view.addSubview(scrollView)
@@ -38,7 +43,17 @@ class EmojiKeyboardViewController: UIViewController {
             }
         }
         
-        let a = NSLayoutConstraint(item: scrollView, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1, constant: 0)
+        let hc = NSLayoutConstraint(item: view, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 200)
+        view.addConstraints([hc])
+        hc.priority = 999
+        
+        let ct = NSLayoutConstraint(item: categoryScrollView, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1, constant: 0)
+        let cl = NSLayoutConstraint(item: categoryScrollView, attribute: .Left, relatedBy: .Equal, toItem: view, attribute: .Left, multiplier: 1, constant: 0)
+        let cr = NSLayoutConstraint(item: categoryScrollView, attribute: .Right, relatedBy: .Equal, toItem: view, attribute: .Right, multiplier: 1, constant: 0)
+        view.addConstraints([ct,cl,cr])
+        
+        
+        let a = NSLayoutConstraint(item: scrollView, attribute: .Top, relatedBy: .Equal, toItem: categoryScrollView, attribute: .Bottom, multiplier: 1, constant: 4)
         let b = NSLayoutConstraint(item: scrollView, attribute: .Left, relatedBy: .Equal, toItem: view, attribute: .Left, multiplier: 1, constant: 0)
         let c = NSLayoutConstraint(item: scrollView, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0)
         let d = NSLayoutConstraint(item: scrollView, attribute: .Right, relatedBy: .Equal, toItem: view, attribute: .Right, multiplier: 1, constant: 0)
@@ -90,14 +105,5 @@ class EmojiKeyboardViewController: UIViewController {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){ AudioServicesPlaySystemSound(1104)}
         inputDelegate?.didRecivedInputString(title!)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }

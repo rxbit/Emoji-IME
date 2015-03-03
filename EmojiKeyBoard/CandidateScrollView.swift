@@ -9,12 +9,12 @@
 import UIKit
 import AudioToolbox
 
-protocol CandidateScrollerViewDelegate {
+protocol CandidateScrollViewDelegate {
     func didRecivedInputString(string:String)
 }
 
-class CandidateScrollerView: UIScrollView {
-    var inputDelegate: CandidateScrollerViewDelegate?
+class CandidateScrollView: UIScrollView {
+    var inputDelegate: CandidateScrollViewDelegate?
     var candidateScrollViewHeightConstraint: NSLayoutConstraint!
     var buttons: [UIButton] = []
     
@@ -25,7 +25,6 @@ class CandidateScrollerView: UIScrollView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.whiteColor()
-        self.setTranslatesAutoresizingMaskIntoConstraints(false)
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -79,7 +78,7 @@ class CandidateScrollerView: UIScrollView {
     }
 }
 
-extension CandidateScrollerView: EmojiImputDelegate {
+extension CandidateScrollView: EmojiImputDelegate {
     func didRecivedEmojiStrings(strings: [String]?) {
         if candidateScrollViewHeightConstraint == nil {
             candidateScrollViewHeightConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 34)

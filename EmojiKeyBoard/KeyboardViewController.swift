@@ -13,41 +13,25 @@ class KeyboardViewController: UIInputViewController {
     enum KeyboardType: Int {
         case Emoji = 1, Handwrite
     }
-    var currentKeyboardType = KeyboardType.Handwrite
+    var currentKeyboardType = KeyboardType.Emoji
     var nextKeyboardButton: UIButton!
     var backSpaceButton: UIButton!
     var spaceButton: UIButton!
     var doneButton: UIButton!
     var inputTypeButton: UIButton!
     var recoView: UIView!
-    var handwriteView: CanvesView!
-    var currentMainView: UIView!
-    var topBarView: UIView!
-    var topBarViewHeightConstraint: NSLayoutConstraint!
-    var candidateScrollerView: CandidateScrollerView!
-    var cataTabView: UIView!
-    var currentTopBarView: UIView!
     var emojiKeyboardViewController: EmojiKeyboardViewController!
+    var handwriteViewController: HandwriteViewController!
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
-    
+        layoutViews()
         // Add custom view sizing constraints here
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        layoutViews()
-        layoutFillSuperView(currentMainView)
-        layoutFillSuperView(currentTopBarView)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.inputView.backgroundColor = UIColor(red: 234/255.0, green: 176/255.0, blue: 227/255.0, alpha: 1)
-        
-        self.topBarView = UIView()
-        topBarView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         self.recoView = UIView()
         self.recoView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -73,7 +57,6 @@ class KeyboardViewController: UIInputViewController {
         self.doneButton.setTitle("Done", forState: .Normal)
         self.doneButton.addTarget(self, action: "doReturn", forControlEvents: .TouchUpInside)
 
-        self.inputView.addSubview(self.topBarView)
         self.inputView.addSubview(self.recoView)
         self.inputView.addSubview(self.inputTypeButton)
         self.inputView.addSubview(self.nextKeyboardButton)
@@ -81,54 +64,27 @@ class KeyboardViewController: UIInputViewController {
         self.inputView.addSubview(self.backSpaceButton)
         self.inputView.addSubview(self.doneButton)
         
-        candidateScrollerView = CandidateScrollerView()
-        candidateScrollerView.inputDelegate = self
-        
-        cataTabView = CategoryScrollView()
-        cataTabView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        
-        topBarView.addSubview(candidateScrollerView)
-        currentTopBarView = candidateScrollerView
-        
-        handwriteView = CanvesView()
-        handwriteView.delegate = candidateScrollerView
-        
-        recoView.addSubview(handwriteView)
-        currentMainView = handwriteView
+        handwriteViewController = HandwriteViewController()
+        handwriteViewController.inputDelegate = self
+        self.addChildViewController(handwriteViewController)
         
         emojiKeyboardViewController = EmojiKeyboardViewController()
         emojiKeyboardViewController.inputDelegate = self
         self.addChildViewController(emojiKeyboardViewController)
         
-    
     }
     
-    func layoutFillSuperView(view: UIView) {
-        let t = NSLayoutConstraint(item: view, attribute: .Top, relatedBy: .Equal, toItem: view.superview, attribute: .Top, multiplier: 1, constant: 0)
-        let l = NSLayoutConstraint(item: view, attribute: .Left, relatedBy: .Equal, toItem: view.superview, attribute: .Left, multiplier: 1, constant: 0)
-        let r = NSLayoutConstraint(item: view, attribute: .Right, relatedBy: .Equal, toItem: view.superview, attribute: .Right, multiplier: 1, constant: 0)
-        let b = NSLayoutConstraint(item: view, attribute: .Bottom, relatedBy: .Equal, toItem: view.superview, attribute: .Bottom, multiplier: 1, constant: 0)
-        view.superview!.addConstraints([t,l,r,b])
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        view.setNeedsUpdateConstraints()
     }
     
     func layoutViews() {
-        let topBarViewTopConstraint = NSLayoutConstraint(item: self.topBarView, attribute: .Top, relatedBy: .Equal, toItem: self.inputView, attribute: .Top, multiplier: 1, constant: 2)
-        let topBarViewRightConstraint = NSLayoutConstraint(item: self.topBarView, attribute: .Right, relatedBy: .Equal, toItem: self.inputView, attribute: .Right, multiplier: 1, constant: 0)
-        let topBarViewLeftConstraint = NSLayoutConstraint(item: self.topBarView, attribute: .Left, relatedBy: .Equal, toItem: self.inputView, attribute: .Left, multiplier: 1, constant: 0)
-        self.inputView.addConstraints([
-            topBarViewTopConstraint,
-            topBarViewLeftConstraint,
-            topBarViewRightConstraint,
-        ])
-        
-        let recoViewHeightConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 160)
-        recoViewHeightConstraint.priority = 999;
-        var recoViewTopConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Top, relatedBy: .Equal, toItem: self.topBarView, attribute: .Bottom, multiplier: 1, constant: 6)
+        var recoViewTopConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Top, relatedBy: .Equal, toItem: self.inputView, attribute: .Top, multiplier: 1, constant: 0)
         var recoViewLeftConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Left, relatedBy: .Equal, toItem: self.inputView, attribute: .Left, multiplier: 1, constant: 4)
         var recoViewRightConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Right, relatedBy: .Equal, toItem: self.inputView, attribute: .Right, multiplier: 1, constant: -4)
         var recoViewBottomConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Bottom, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Top, multiplier: 1, constant: -8)
         self.inputView.addConstraints([
-            recoViewHeightConstraint,
             recoViewTopConstraint,
             recoViewLeftConstraint,
             recoViewRightConstraint,
@@ -139,6 +95,7 @@ class KeyboardViewController: UIInputViewController {
         var inputTypeButtonBottomConstraint = NSLayoutConstraint(item: self.inputTypeButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.inputView, attribute: .Bottom, multiplier: 1, constant: -4)
         var inputTypeButtonHeightConstraint = NSLayoutConstraint(item: self.inputTypeButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)
         var inputTypeButtonWidthConstraint = NSLayoutConstraint(item: self.inputTypeButton, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 50)
+        inputTypeButtonWidthConstraint.priority = 999
         self.inputView.addConstraints([
             inputTypeButtonLeftSideConstraint,
             inputTypeButtonBottomConstraint,
@@ -160,10 +117,23 @@ class KeyboardViewController: UIInputViewController {
         var spaceButtonLeftSideConstraint = NSLayoutConstraint(item: self.spaceButton, attribute: .Left, relatedBy: .Equal, toItem: self.nextKeyboardButton, attribute: .Right, multiplier: 1, constant: 4)
         var spaceButtonTopSideConstraint = NSLayoutConstraint(item: self.spaceButton, attribute: .Top, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Top, multiplier: 1, constant: 0)
         var spaceButtonHeightConstraint = NSLayoutConstraint(item: self.spaceButton, attribute: .Height, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Height, multiplier: 1, constant: 0)
+        let spaceButtonWidthConstraint = NSLayoutConstraint(item: spaceButton, attribute: .Width, relatedBy: .GreaterThanOrEqual, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 10)
         self.inputView.addConstraints([
             spaceButtonTopSideConstraint,
             spaceButtonLeftSideConstraint,
-            spaceButtonHeightConstraint
+            spaceButtonHeightConstraint,
+            spaceButtonWidthConstraint
+        ])
+        
+        var backSpaceButtonLeftSideConstraint = NSLayoutConstraint(item: self.backSpaceButton, attribute: .Left, relatedBy: .Equal, toItem: self.spaceButton, attribute: .Right, multiplier: 1, constant: 4)
+        var backSpaceButtonTopConstraint = NSLayoutConstraint(item: self.backSpaceButton, attribute: .Top, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Top, multiplier: 1, constant: 0)
+        var backSpaceButtonWidthConstraint = NSLayoutConstraint(item: self.backSpaceButton, attribute: .Width, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Width, multiplier: 1, constant: 0)
+        var backSpaceButtonHeightConstraint = NSLayoutConstraint(item: self.backSpaceButton, attribute: .Height, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Height, multiplier: 1, constant: 0)
+        self.inputView.addConstraints([
+            backSpaceButtonTopConstraint,
+            backSpaceButtonWidthConstraint,
+            backSpaceButtonHeightConstraint,
+            backSpaceButtonLeftSideConstraint,
         ])
         
         var doneButtonLeftSideConstraint = NSLayoutConstraint(item: self.doneButton, attribute: .Left, relatedBy: .Equal, toItem: self.backSpaceButton, attribute: .Right, multiplier: 1, constant: 4)
@@ -178,50 +148,42 @@ class KeyboardViewController: UIInputViewController {
             doneButtonLeftSideConstraint,
             doneButtonRightSideConstraint,
         ])
-        
-        var backSpaceButtonLeftSideConstraint = NSLayoutConstraint(item: self.backSpaceButton, attribute: .Left, relatedBy: .Equal, toItem: self.spaceButton, attribute: .Right, multiplier: 1, constant: 4)
-        var backSpaceButtonTopConstraint = NSLayoutConstraint(item: self.backSpaceButton, attribute: .Top, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Top, multiplier: 1, constant: 0)
-        var backSpaceButtonWidthConstraint = NSLayoutConstraint(item: self.backSpaceButton, attribute: .Width, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Width, multiplier: 1, constant: 0)
-        var backSpaceButtonHeightConstraint = NSLayoutConstraint(item: self.backSpaceButton, attribute: .Height, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Height, multiplier: 1, constant: 0)
-        self.inputView.addConstraints([
-            backSpaceButtonTopConstraint,
-            backSpaceButtonWidthConstraint,
-            backSpaceButtonHeightConstraint,
-            backSpaceButtonLeftSideConstraint,
-        ])
-        
+    }
+    
+    func layoutFillSuperView(view: UIView) {
+        let t = NSLayoutConstraint(item: view, attribute: .Top, relatedBy: .Equal, toItem: view.superview, attribute: .Top, multiplier: 1, constant: 0)
+        let l = NSLayoutConstraint(item: view, attribute: .Left, relatedBy: .Equal, toItem: view.superview, attribute: .Left, multiplier: 1, constant: 0)
+        let r = NSLayoutConstraint(item: view, attribute: .Right, relatedBy: .Equal, toItem: view.superview, attribute: .Right, multiplier: 1, constant: 0)
+        let b = NSLayoutConstraint(item: view, attribute: .Bottom, relatedBy: .Equal, toItem: view.superview, attribute: .Bottom, multiplier: 1, constant: 0)
+        view.superview!.addConstraints([t,l,r,b])
     }
     
     func doInputType() {
         switch currentKeyboardType {
         case .Handwrite:
             currentKeyboardType = .Emoji
-            handwriteView.removeFromSuperview()
+            handwriteViewController.didMoveToParentViewController(nil)
+            handwriteViewController.view.removeFromSuperview()
             inputTypeButton.setTitle("^_^", forState: .Normal)
             self.recoView.addSubview(emojiKeyboardViewController.view)
             emojiKeyboardViewController.didMoveToParentViewController(self)
-            topBarView.addSubview(cataTabView)
-            currentTopBarView = cataTabView
-            candidateScrollerView.removeFromSuperview()
-            currentMainView = emojiKeyboardViewController.view
+            layoutFillSuperView(emojiKeyboardViewController.view)
         case .Emoji:
             currentKeyboardType = .Handwrite
-            recoView.addSubview(handwriteView)
-            currentMainView = handwriteView
+            emojiKeyboardViewController.didMoveToParentViewController(nil)
+            emojiKeyboardViewController.view.removeFromSuperview()
             inputTypeButton.setTitle("✏", forState: .Normal)
-            topBarView.addSubview(candidateScrollerView)
-            currentTopBarView = candidateScrollerView
-            cataTabView.removeFromSuperview()
+            recoView.addSubview(handwriteViewController.view)
+            handwriteViewController.didMoveToParentViewController(self)
+            layoutFillSuperView(handwriteViewController.view)
         }
-        layoutFillSuperView(currentMainView)
-        layoutFillSuperView(currentTopBarView)
     }
     
     func doBackSpace() {
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         switch currentKeyboardType {
         case .Handwrite:
-            if self.handwriteView.deleteLatestPath() == false {
+            if self.handwriteViewController.deleteLatestPath() == false {
                 proxy.deleteBackward()
             }
         case .Emoji:
@@ -285,12 +247,10 @@ class KeyboardViewController: UIInputViewController {
     
 }
 
-extension KeyboardViewController: CandidateScrollerViewDelegate {
+extension KeyboardViewController: CandidateScrollViewDelegate {
     func didRecivedInputString(string: String) {
         let proxy = textDocumentProxy as UITextDocumentProxy
         proxy.insertText(string)
-        if currentKeyboardType == .Handwrite {
-            handwriteView.clearView()
-        }
+        handwriteViewController.clearView()
     }
 }
