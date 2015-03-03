@@ -21,13 +21,13 @@ class KeyboardViewController: UIInputViewController {
     var inputTypeButton: UIButton!
     var recoView: UIView!
     var handwriteView: CanvesView!
-    var emojiView: EmojiKeyBoardScrollView!
     var currentMainView: UIView!
     var topBarView: UIView!
     var topBarViewHeightConstraint: NSLayoutConstraint!
     var candidateScrollerView: CandidateScrollerView!
     var cataTabView: UIView!
     var currentTopBarView: UIView!
+    var emojiKeyboardViewController: EmojiKeyboardViewController!
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -93,12 +93,12 @@ class KeyboardViewController: UIInputViewController {
         handwriteView = CanvesView()
         handwriteView.delegate = candidateScrollerView
         
-        emojiView = EmojiKeyBoardScrollView()
-        emojiView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        emojiView.inputDelegate = self
-        
         recoView.addSubview(handwriteView)
         currentMainView = handwriteView
+        
+        emojiKeyboardViewController = EmojiKeyboardViewController()
+        emojiKeyboardViewController.inputDelegate = self
+        self.addChildViewController(emojiKeyboardViewController)
         
     
     }
@@ -196,21 +196,19 @@ class KeyboardViewController: UIInputViewController {
         switch currentKeyboardType {
         case .Handwrite:
             currentKeyboardType = .Emoji
-            recoView.addSubview(emojiView)
-            currentMainView = emojiView
             handwriteView.removeFromSuperview()
             inputTypeButton.setTitle("^_^", forState: .Normal)
-            
+            self.recoView.addSubview(emojiKeyboardViewController.view)
+            emojiKeyboardViewController.didMoveToParentViewController(self)
             topBarView.addSubview(cataTabView)
             currentTopBarView = cataTabView
             candidateScrollerView.removeFromSuperview()
+            currentMainView = emojiKeyboardViewController.view
         case .Emoji:
             currentKeyboardType = .Handwrite
             recoView.addSubview(handwriteView)
             currentMainView = handwriteView
-            emojiView.removeFromSuperview()
             inputTypeButton.setTitle("✏", forState: .Normal)
-            
             topBarView.addSubview(candidateScrollerView)
             currentTopBarView = candidateScrollerView
             cataTabView.removeFromSuperview()
