@@ -21,7 +21,7 @@ class KeyboardViewController: UIInputViewController {
     var inputTypeButton: UIButton!
     var recoView: UIView!
     var handwriteView: CanvesView!
-    var emojiView: UIView!
+    var emojiView: EmojiKeyBoardScrollView!
     var currentMainView: UIView!
     var topBarView: UIView!
     var topBarViewHeightConstraint: NSLayoutConstraint!
@@ -93,9 +93,9 @@ class KeyboardViewController: UIInputViewController {
         handwriteView = CanvesView()
         handwriteView.delegate = candidateScrollerView
         
-        emojiView = UIView()
+        emojiView = EmojiKeyBoardScrollView()
         emojiView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        emojiView.backgroundColor = UIColor.purpleColor()
+        emojiView.inputDelegate = self
         
         recoView.addSubview(handwriteView)
         currentMainView = handwriteView
@@ -291,6 +291,8 @@ extension KeyboardViewController: CandidateScrollerViewDelegate {
     func didRecivedInputString(string: String) {
         let proxy = textDocumentProxy as UITextDocumentProxy
         proxy.insertText(string)
-        handwriteView.clearView()
+        if currentKeyboardType == .Handwrite {
+            handwriteView.clearView()
+        }
     }
 }
