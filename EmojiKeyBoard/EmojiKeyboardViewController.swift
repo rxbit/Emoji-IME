@@ -10,8 +10,9 @@ import UIKit
 import AudioToolbox
 
 class EmojiKeyboardViewController: UIViewController {
+    private let kHeight: CGFloat = 180
     private var buttons: [UIButton]!
-    private var buttonWidthConstraint, buttonHeightConstraint: NSLayoutConstraint?
+    private var buttonWidthConstraint: NSLayoutConstraint?
     private var emojiStrings = ["(^_^)","(-v-)","(QAQ)","(QAO)"]
     private var categoryScrollView: CategoryScrollView!
     private var scrollView: UIScrollView!
@@ -19,14 +20,17 @@ class EmojiKeyboardViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.blueColor()
+//        self.view.backgroundColor = UIColor.blueColor()
         self.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         categoryScrollView = CategoryScrollView()
         categoryScrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        categoryScrollView.layer.cornerRadius = 5
         view.addSubview(categoryScrollView)
         
         scrollView = UIScrollView()
         scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.pagingEnabled = true
         view.addSubview(scrollView)
         
         buttons = []
@@ -38,25 +42,26 @@ class EmojiKeyboardViewController: UIViewController {
                 button.backgroundColor = UIColor.whiteColor()
                 button.setTranslatesAutoresizingMaskIntoConstraints(false)
                 button.addTarget(self, action: "SELdidTapButton:", forControlEvents: .TouchUpInside)
+                button.layer.cornerRadius = 5
                 buttons.append(button)
                 self.scrollView.addSubview(button)
             }
         }
         
-        let hc = NSLayoutConstraint(item: view, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 200)
+        let hc = NSLayoutConstraint(item: scrollView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: kHeight)
         view.addConstraints([hc])
         hc.priority = 999
         
-        let ct = NSLayoutConstraint(item: categoryScrollView, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1, constant: 0)
-        let cl = NSLayoutConstraint(item: categoryScrollView, attribute: .Left, relatedBy: .Equal, toItem: view, attribute: .Left, multiplier: 1, constant: 0)
-        let cr = NSLayoutConstraint(item: categoryScrollView, attribute: .Right, relatedBy: .Equal, toItem: view, attribute: .Right, multiplier: 1, constant: 0)
+        let ct = NSLayoutConstraint(item: categoryScrollView, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1, constant: 2)
+        let cl = NSLayoutConstraint(item: categoryScrollView, attribute: .Left, relatedBy: .Equal, toItem: view, attribute: .Left, multiplier: 1, constant: 4)
+        let cr = NSLayoutConstraint(item: categoryScrollView, attribute: .Right, relatedBy: .Equal, toItem: view, attribute: .Right, multiplier: 1, constant: -4)
         view.addConstraints([ct,cl,cr])
         
         
         let a = NSLayoutConstraint(item: scrollView, attribute: .Top, relatedBy: .Equal, toItem: categoryScrollView, attribute: .Bottom, multiplier: 1, constant: 4)
-        let b = NSLayoutConstraint(item: scrollView, attribute: .Left, relatedBy: .Equal, toItem: view, attribute: .Left, multiplier: 1, constant: 0)
-        let c = NSLayoutConstraint(item: scrollView, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0)
-        let d = NSLayoutConstraint(item: scrollView, attribute: .Right, relatedBy: .Equal, toItem: view, attribute: .Right, multiplier: 1, constant: 0)
+        let b = NSLayoutConstraint(item: scrollView, attribute: .Left, relatedBy: .Equal, toItem: view, attribute: .Left, multiplier: 1, constant: 2)
+        let c = NSLayoutConstraint(item: scrollView, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: -2)
+        let d = NSLayoutConstraint(item: scrollView, attribute: .Right, relatedBy: .Equal, toItem: view, attribute: .Right, multiplier: 1, constant: -2)
         view.addConstraints([a,b,c,d])
     
         for (index,button) in enumerate(buttons) {
@@ -67,13 +72,12 @@ class EmojiKeyboardViewController: UIViewController {
             }
             else {
                 buttonWidthConstraint = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 0)
-                buttonHeightConstraint = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 0)
+                h = NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: kHeight/4-3)
                 w = buttonWidthConstraint
-                h = buttonHeightConstraint
             }
             
             if index%4 == 0 {
-                t = NSLayoutConstraint(item: button, attribute: .Top, relatedBy: .Equal, toItem: scrollView, attribute: .Top, multiplier: 1, constant: 2)
+                t = NSLayoutConstraint(item: button, attribute: .Top, relatedBy: .Equal, toItem: scrollView, attribute: .Top, multiplier: 1, constant: 0)
             }
             else {
                 t = NSLayoutConstraint(item: button, attribute: .Top, relatedBy: .Equal, toItem: buttons[index-1], attribute: .Bottom, multiplier: 1, constant: 4)
@@ -91,7 +95,8 @@ class EmojiKeyboardViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         buttonWidthConstraint?.constant = scrollView.frame.width/4 - 4
-        buttonHeightConstraint?.constant = scrollView.frame.height/4 - 4
+        categoryScrollView.contentSize = categoryScrollView.calcContentSize()
+        scrollView.contentSize = CGSize(width: scrollView.frame.width * CGFloat(buttons.count/16+1), height: kHeight)
     }
     
     override func didReceiveMemoryWarning() {

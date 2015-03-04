@@ -9,6 +9,8 @@
 import UIKit
 
 class CategoryScrollView: UIScrollView {
+    let kViewHeight: CGFloat = 34
+    
     private var activiteButton: UIButton?
     private var buttons: [UIButton]!
     private var activeFlag: UIView!
@@ -31,9 +33,10 @@ class CategoryScrollView: UIScrollView {
     }
 
     private func didInitView() {
-        backgroundColor = UIColor.greenColor()
-        let heightConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 36)
+        backgroundColor = UIColor.whiteColor()
+        let heightConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: kViewHeight)
         self.addConstraints([heightConstraint])
+        self.showsHorizontalScrollIndicator = false
         
         activeFlag = UIView()
         activeFlag.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -43,7 +46,7 @@ class CategoryScrollView: UIScrollView {
         
         let w = NSLayoutConstraint(item: activeFlag, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 5)
         let h = NSLayoutConstraint(item: activeFlag, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 5)
-        let t = NSLayoutConstraint(item: activeFlag, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 0)
+        let t = NSLayoutConstraint(item: activeFlag, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 4)
         addConstraints([w,h,t])
         
         buttons = []
@@ -85,6 +88,10 @@ class CategoryScrollView: UIScrollView {
             activeFlagCenterYConstraint = NSLayoutConstraint(item: activeFlag, attribute: .CenterX, relatedBy: .Equal, toItem: activiteButton,attribute: .CenterX, multiplier: 1, constant: 0)
             addConstraints([activeFlagCenterYConstraint])
         }
+    }
+    
+    func calcContentSize() -> CGSize {
+        return CGSize(width: CGFloat(50*buttons.count), height: kViewHeight)
     }
     
     func SELdidTapCategoryTabButton(sender: AnyObject?) {

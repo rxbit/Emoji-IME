@@ -33,6 +33,9 @@
                             <constraint firstItem="jCc-jN-fk3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="z8g-3e-Gr3"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textView" destination="jCc-jN-fk3" id="emR-WG-w8g"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

@@ -15,7 +15,6 @@ protocol CandidateScrollViewDelegate {
 
 class CandidateScrollView: UIScrollView {
     var inputDelegate: CandidateScrollViewDelegate?
-    var candidateScrollViewHeightConstraint: NSLayoutConstraint!
     var buttons: [UIButton] = []
     
     override convenience init() {
@@ -75,20 +74,5 @@ class CandidateScrollView: UIScrollView {
         let title = button.titleForState(.Normal)
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){ AudioServicesPlaySystemSound(1104)}
         inputDelegate?.didRecivedInputString(title!)
-    }
-}
-
-extension CandidateScrollView: EmojiImputDelegate {
-    func didRecivedEmojiStrings(strings: [String]?) {
-        if candidateScrollViewHeightConstraint == nil {
-            candidateScrollViewHeightConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 34)
-            self.addConstraints([candidateScrollViewHeightConstraint])
-        }
-        if strings == nil || strings!.count == 0 {
-            candidateScrollViewHeightConstraint.constant = 0;
-        } else {
-            candidateScrollViewHeightConstraint.constant = 34;
-            updateButtonsWithStrings(strings!)
-        }
     }
 }

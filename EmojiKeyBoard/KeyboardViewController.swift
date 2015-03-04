@@ -13,6 +13,7 @@ class KeyboardViewController: UIInputViewController {
     enum KeyboardType: Int {
         case Emoji = 1, Handwrite
     }
+    var initOnceFlag = true
     var currentKeyboardType = KeyboardType.Emoji
     var nextKeyboardButton: UIButton!
     var backSpaceButton: UIButton!
@@ -71,19 +72,26 @@ class KeyboardViewController: UIInputViewController {
         emojiKeyboardViewController = EmojiKeyboardViewController()
         emojiKeyboardViewController.inputDelegate = self
         self.addChildViewController(emojiKeyboardViewController)
-        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         view.setNeedsUpdateConstraints()
+        if initOnceFlag == true {
+            initOnceFlag = false
+            doInputType()
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     func layoutViews() {
         var recoViewTopConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Top, relatedBy: .Equal, toItem: self.inputView, attribute: .Top, multiplier: 1, constant: 0)
-        var recoViewLeftConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Left, relatedBy: .Equal, toItem: self.inputView, attribute: .Left, multiplier: 1, constant: 4)
-        var recoViewRightConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Right, relatedBy: .Equal, toItem: self.inputView, attribute: .Right, multiplier: 1, constant: -4)
-        var recoViewBottomConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Bottom, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Top, multiplier: 1, constant: -8)
+        var recoViewLeftConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Left, relatedBy: .Equal, toItem: self.inputView, attribute: .Left, multiplier: 1, constant: 2)
+        var recoViewRightConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Right, relatedBy: .Equal, toItem: self.inputView, attribute: .Right, multiplier: 1, constant: -2)
+        var recoViewBottomConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Bottom, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Top, multiplier: 1, constant: -4)
         self.inputView.addConstraints([
             recoViewTopConstraint,
             recoViewLeftConstraint,
@@ -251,6 +259,5 @@ extension KeyboardViewController: CandidateScrollViewDelegate {
     func didRecivedInputString(string: String) {
         let proxy = textDocumentProxy as UITextDocumentProxy
         proxy.insertText(string)
-        handwriteViewController.clearView()
     }
 }
