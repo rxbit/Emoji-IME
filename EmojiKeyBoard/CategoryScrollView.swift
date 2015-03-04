@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol CategoryScrollViewDelegate {
+    func didChangeCategory(cate: String)
+}
+
 class CategoryScrollView: UIScrollView {
     let kViewHeight: CGFloat = 34
     
@@ -15,8 +19,16 @@ class CategoryScrollView: UIScrollView {
     private var buttons: [UIButton]!
     private var activeFlag: UIView!
     private var activeFlagCenterYConstraint: NSLayoutConstraint!
+    var cateDelegate: CategoryScrollViewDelegate?
     
-    let tabStrings: [String] = ["开心","愤怒","愉快","搞怪","简单","短语","呵呵","哈哈"]
+    var currentCategoryTitle: String? {
+        get {
+            return activiteButton?.titleForState(.Normal)
+        }
+    }
+    
+//    let tabStrings: [String] = ["开心","愤怒","愉快","搞怪","简单","短语","呵呵","哈哈"]
+    var tabStrings: [String]!
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -37,6 +49,8 @@ class CategoryScrollView: UIScrollView {
         let heightConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: kViewHeight)
         self.addConstraints([heightConstraint])
         self.showsHorizontalScrollIndicator = false
+        
+        tabStrings = EmojiFaceManager.sharedManager.emojiCategoryTitles
         
         activeFlag = UIView()
         activeFlag.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -87,6 +101,7 @@ class CategoryScrollView: UIScrollView {
             }
             activeFlagCenterYConstraint = NSLayoutConstraint(item: activeFlag, attribute: .CenterX, relatedBy: .Equal, toItem: activiteButton,attribute: .CenterX, multiplier: 1, constant: 0)
             addConstraints([activeFlagCenterYConstraint])
+            cateDelegate?.didChangeCategory(activiteButton!.titleForState(.Normal)!)
         }
     }
     
