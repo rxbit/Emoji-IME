@@ -30,7 +30,7 @@ class CategoryScrollView: UIScrollView {
     
     var acturllyContentSize: CGSize! {
         get{
-            return CGSize(width: (kButtonWidth+2)*buttons.count, height: kViewHeight)
+            return CGSize(width: (kButtonWidth+2)*buttons.count+6, height: kViewHeight)
         }
     }
     
@@ -72,7 +72,7 @@ class CategoryScrollView: UIScrollView {
             var button = UIButton.buttonWithType(.System) as UIButton
             button.setTranslatesAutoresizingMaskIntoConstraints(false)
             button.setTitle(tabString, forState: .Normal)
-            button.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            button.setTitleColor(UIColor.grayColor(), forState: .Normal)
             button.addTarget(self, action: "SELdidTapCategoryTabButton:", forControlEvents: .TouchUpInside)
             buttons.append(button)
             addSubview(button)
@@ -99,7 +99,9 @@ class CategoryScrollView: UIScrollView {
             activeFlag.hidden = true
         } else {
             activeFlag.hidden = false
+            activiteButton?.setTitleColor(UIColor.grayColor(), forState: .Normal)
             activiteButton = button
+            activiteButton?.setTitleColor(UIColor.blackColor(), forState: .Normal)
             if activeFlagCenterYConstraint != nil {
                 removeConstraint(activeFlagCenterYConstraint)
             }

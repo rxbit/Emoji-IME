@@ -81,7 +81,6 @@ class EmojiKeyboardViewController: UIViewController {
         }
         buttons.removeAll(keepCapacity: false)
         
-        for i in 1...5 {
         for emojiString in titleStrings {
             var button = UIButton.buttonWithType(.System) as UIButton
             button.setTitle(emojiString, forState: .Normal)
@@ -92,7 +91,6 @@ class EmojiKeyboardViewController: UIViewController {
             button.layer.cornerRadius = 5
             buttons.append(button)
             self.scrollView.addSubview(button)
-        }
         }
         layoutButtons()
     }
@@ -132,5 +130,6 @@ extension EmojiKeyboardViewController: CategoryScrollViewDelegate {
     func didChangeCategory(cate: String) {
         addEmojiFaceButtons()
         view.setNeedsLayout()
+        scrollView.contentOffset = CGPoint(x: 0, y: 0)
     }
 }
