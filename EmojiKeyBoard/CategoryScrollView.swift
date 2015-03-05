@@ -13,22 +13,26 @@ protocol CategoryScrollViewDelegate {
 }
 
 class CategoryScrollView: UIScrollView {
-    let kViewHeight: CGFloat = 34
+    private let kViewHeight: Int = 34
+    private let kButtonWidth: Int = 48
     
     private var activiteButton: UIButton?
     private var buttons: [UIButton]!
     private var activeFlag: UIView!
     private var activeFlagCenterYConstraint: NSLayoutConstraint!
-    var cateDelegate: CategoryScrollViewDelegate?
     
+    var cateDelegate: CategoryScrollViewDelegate?
     var currentCategoryTitle: String? {
         get {
             return activiteButton?.titleForState(.Normal)
         }
     }
     
-//    let tabStrings: [String] = ["开心","愤怒","愉快","搞怪","简单","短语","呵呵","哈哈"]
-    var tabStrings: [String]!
+    var acturllyContentSize: CGSize! {
+        get{
+            return CGSize(width: (kButtonWidth+2)*buttons.count, height: kViewHeight)
+        }
+    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -46,11 +50,10 @@ class CategoryScrollView: UIScrollView {
 
     private func didInitView() {
         backgroundColor = UIColor.whiteColor()
-        let heightConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: kViewHeight)
-        self.addConstraints([heightConstraint])
         self.showsHorizontalScrollIndicator = false
         
-        tabStrings = EmojiFaceManager.sharedManager.emojiCategoryTitles
+        let heightConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: CGFloat(kViewHeight))
+        self.addConstraints([heightConstraint])
         
         activeFlag = UIView()
         activeFlag.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -64,6 +67,7 @@ class CategoryScrollView: UIScrollView {
         addConstraints([w,h,t])
         
         buttons = []
+        let tabStrings = EmojiFaceManager.sharedManager.emojiCategoryTitles
         for tabString in tabStrings {
             var button = UIButton.buttonWithType(.System) as UIButton
             button.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -84,13 +88,13 @@ class CategoryScrollView: UIScrollView {
                 l = NSLayoutConstraint(item: button, attribute: .Left, relatedBy: .Equal, toItem: buttons[index-1], attribute: .Right, multiplier: 1, constant: 2)
             }
             let x = NSLayoutConstraint(item: button, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
-            let w = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 48)
+            let w = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: CGFloat(kButtonWidth))
             addConstraints([l,x,w])
         }
         setActiveTabwithButton(activiteButton)
     }
     
-    func setActiveTabwithButton(button: UIButton?) {
+    private func setActiveTabwithButton(button: UIButton?) {
         if button == nil {
             activeFlag.hidden = true
         } else {
@@ -103,10 +107,6 @@ class CategoryScrollView: UIScrollView {
             addConstraints([activeFlagCenterYConstraint])
             cateDelegate?.didChangeCategory(activiteButton!.titleForState(.Normal)!)
         }
-    }
-    
-    func calcContentSize() -> CGSize {
-        return CGSize(width: CGFloat(50*buttons.count), height: kViewHeight)
     }
     
     func SELdidTapCategoryTabButton(sender: AnyObject?) {

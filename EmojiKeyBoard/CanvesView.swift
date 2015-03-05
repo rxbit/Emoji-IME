@@ -13,24 +13,28 @@ protocol EmojiImputDelegate {
 }
 
 class CanvesView: UIView {
-    var delegate: EmojiImputDelegate? = nil
-    var arrayStrokes:[[CGPoint]] = []
+    var delegate: EmojiImputDelegate?
+    private var arrayStrokes:[[CGPoint]] = []
     
-    override convenience init() {
-        self.init(frame: CGRectZero)
+    override init() {
+        super.init()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        didInitView()
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        didInitView()
+    }
+    
+    private func didInitView() {
         self.backgroundColor = UIColor.whiteColor()
         self.layer.cornerRadius = 6
         self.layer.masksToBounds = true
         self.contentMode = .Redraw
-        
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
@@ -58,7 +62,7 @@ class CanvesView: UIView {
         startDetect()
     }
     
-    func startDetect() {
+    private func startDetect() {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.mainScreen().scale)
         self.layer.renderInContext(UIGraphicsGetCurrentContext())
         var image = UIGraphicsGetImageFromCurrentImageContext()

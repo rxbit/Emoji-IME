@@ -10,18 +10,20 @@ import UIKit
 import AudioToolbox
 
 class EmojiKeyboardViewController: UIViewController {
+    var inputDelegate: CandidateScrollViewDelegate?
+    
     private let kHeight: CGFloat = 180
-    private var buttons: [UIButton]!
+    
+    private var buttons: [UIButton]! = []
     private var buttonWidthConstraint: NSLayoutConstraint?
-    private var emojiStrings = ["(^_^)","(-v-)","(QAQ)","(QAO)"]
+    
     private var categoryScrollView: CategoryScrollView!
     private var scrollView: UIScrollView!
-    var inputDelegate: CandidateScrollViewDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.view.backgroundColor = UIColor.blueColor()
         self.view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
         categoryScrollView = CategoryScrollView()
         categoryScrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
         categoryScrollView.layer.cornerRadius = 5
@@ -34,11 +36,6 @@ class EmojiKeyboardViewController: UIViewController {
         scrollView.pagingEnabled = true
         view.addSubview(scrollView)
         
-        emojiStrings = EmojiFaceManager.sharedManager.getFaceswithCatagoryTitle(categoryScrollView.currentCategoryTitle)
-        
-        buttons = []
-        genButtonsWithTitleStrings(emojiStrings)
-       
         let hc = NSLayoutConstraint(item: scrollView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: kHeight)
         view.addConstraints([hc])
         hc.priority = 999
@@ -54,14 +51,14 @@ class EmojiKeyboardViewController: UIViewController {
         let c = NSLayoutConstraint(item: scrollView, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: -2)
         let d = NSLayoutConstraint(item: scrollView, attribute: .Right, relatedBy: .Equal, toItem: view, attribute: .Right, multiplier: 1, constant: -2)
         view.addConstraints([a,b,c,d])
+        
+        addEmojiFaceButtons()
     }
     
-//    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         buttonWidthConstraint?.constant = scrollView.frame.width/4 - 4
-        categoryScrollView.contentSize = categoryScrollView.calcContentSize()
+        categoryScrollView.contentSize = categoryScrollView.acturllyContentSize
         scrollView.contentSize = CGSize(width: scrollView.frame.width * CGFloat(buttons.count/16+1), height: kHeight)
     }
     
@@ -77,32 +74,30 @@ class EmojiKeyboardViewController: UIViewController {
         inputDelegate?.didRecivedInputString(title!)
     }
     
-    func regenButtonsWithTitleStrings(titleStrings: [String]) {
+    private func addEmojiFaceButtons() {
+        let titleStrings = EmojiFaceManager.sharedManager.getFaceswithCatagoryTitle(categoryScrollView.currentCategoryTitle)
         for button in buttons {
             button.removeFromSuperview()
         }
         buttons.removeAll(keepCapacity: false)
-        genButtonsWithTitleStrings(titleStrings)
-    }
-    
-    func genButtonsWithTitleStrings(titleStrings: [String]) {
+        
         for i in 1...5 {
-            for emojiString in titleStrings {
-                var button = UIButton.buttonWithType(.System) as UIButton
-                button.setTitle(emojiString, forState: .Normal)
-                button.setTitleColor(UIColor.blackColor(), forState: .Normal)
-                button.backgroundColor = UIColor.whiteColor()
-                button.setTranslatesAutoresizingMaskIntoConstraints(false)
-                button.addTarget(self, action: "SELdidTapButton:", forControlEvents: .TouchUpInside)
-                button.layer.cornerRadius = 5
-                buttons.append(button)
-                self.scrollView.addSubview(button)
-            }
+        for emojiString in titleStrings {
+            var button = UIButton.buttonWithType(.System) as UIButton
+            button.setTitle(emojiString, forState: .Normal)
+            button.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            button.backgroundColor = UIColor.whiteColor()
+            button.setTranslatesAutoresizingMaskIntoConstraints(false)
+            button.addTarget(self, action: "SELdidTapButton:", forControlEvents: .TouchUpInside)
+            button.layer.cornerRadius = 5
+            buttons.append(button)
+            self.scrollView.addSubview(button)
+        }
         }
         layoutButtons()
     }
     
-    func layoutButtons() {
+    private func layoutButtons() {
         for (index,button) in enumerate(buttons) {
             var w,h,t,l: NSLayoutConstraint!
             if index != 0 {
@@ -135,8 +130,7 @@ class EmojiKeyboardViewController: UIViewController {
 
 extension EmojiKeyboardViewController: CategoryScrollViewDelegate {
     func didChangeCategory(cate: String) {
-        let faces = EmojiFaceManager.sharedManager.getFaceswithCatagoryTitle(cate)
-        regenButtonsWithTitleStrings(faces)
+        addEmojiFaceButtons()
         view.setNeedsLayout()
     }
 }

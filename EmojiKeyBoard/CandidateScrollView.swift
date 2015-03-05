@@ -15,19 +15,24 @@ protocol CandidateScrollViewDelegate {
 
 class CandidateScrollView: UIScrollView {
     var inputDelegate: CandidateScrollViewDelegate?
-    var buttons: [UIButton] = []
+    private var buttons: [UIButton] = []
     
-    override convenience init() {
-        self.init(frame: CGRectZero)
+    override init() {
+        super.init()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.whiteColor()
+        didInitView()
     }
 
     required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        didInitView()
+    }
+    
+    private func didInitView() {
+        self.backgroundColor = UIColor.whiteColor()
     }
     
     func updateButtonsWithStrings(strings: [String]) {
@@ -42,7 +47,7 @@ class CandidateScrollView: UIScrollView {
             button.setTranslatesAutoresizingMaskIntoConstraints(false)
             button.backgroundColor = UIColor(white: 0.95, alpha: 1)
             button.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            button.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: "SELdidTapButton:", forControlEvents: .TouchUpInside)
             button.layer.cornerRadius = 3
             buttons.append(button)
             self.addSubview(button)
@@ -69,7 +74,7 @@ class CandidateScrollView: UIScrollView {
         }
     }
 
-    func didTapButton(sender: AnyObject?) {
+    func SELdidTapButton(sender: AnyObject?) {
         let button = sender as UIButton
         let title = button.titleForState(.Normal)
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){ AudioServicesPlaySystemSound(1104)}

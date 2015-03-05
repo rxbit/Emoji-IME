@@ -32,7 +32,7 @@ class HandwriteViewController: UIViewController {
         addLayoutConstriant()
     }
     
-    func addLayoutConstriant() {
+    private func addLayoutConstriant() {
         candidateScrollViewTopConstraint = NSLayoutConstraint(item: candidateScrollView, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1, constant: 0)
         candidateScrollViewTopConstraint.priority = 999
         candidateScrollViewHeightConstraint = NSLayoutConstraint(item: candidateScrollView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 0)
@@ -47,7 +47,6 @@ class HandwriteViewController: UIViewController {
         let hb = NSLayoutConstraint(item: handwriteView, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: -2)
         let hr = NSLayoutConstraint(item: handwriteView, attribute: .Right, relatedBy: .Equal, toItem: view, attribute: .Right, multiplier: 1, constant: -4)
         let hh = NSLayoutConstraint(item: handwriteView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 180)
-//        hh.priority = 999
         view.addConstraints([ht,hl,hb,hr,hh])
     }
     

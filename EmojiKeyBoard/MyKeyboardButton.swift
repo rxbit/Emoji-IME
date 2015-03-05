@@ -1,5 +1,5 @@
 //
-//  EKB_Button.swift
+//  MyKeyboardButton.swift
 //  Emoji-IME
 //
 //  Created by Wuhua Dai on 15/3/1.
@@ -9,18 +9,27 @@
 import UIKit
 import AudioToolbox
 
-class EKB_Button: UIButton {
-    var frontColor: UIColor!
+class MyKeyboardButton: UIButton {
+    private var frontColor: UIColor!
 
+    override init() {
+        super.init()
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setTranslatesAutoresizingMaskIntoConstraints(false)
-        self.backgroundColor = UIColor(red: 157/255.0, green: 112/255.0, blue: 151/255.0, alpha: 1)
-        self.layer.cornerRadius = 5
+        didInitView()
     }
 
     required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        didInitView()
+    }
+    
+    private func didInitView() {
+        self.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.backgroundColor = UIColor(red: 157/255.0, green: 112/255.0, blue: 151/255.0, alpha: 1)
+        self.layer.cornerRadius = 5
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {

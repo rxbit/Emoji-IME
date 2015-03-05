@@ -13,16 +13,16 @@ class KeyboardViewController: UIInputViewController {
     enum KeyboardType: Int {
         case Emoji = 1, Handwrite
     }
-    var initOnceFlag = true
-    var currentKeyboardType = KeyboardType.Emoji
-    var nextKeyboardButton: UIButton!
-    var backSpaceButton: UIButton!
-    var spaceButton: UIButton!
-    var doneButton: UIButton!
-    var inputTypeButton: UIButton!
-    var recoView: UIView!
-    var emojiKeyboardViewController: EmojiKeyboardViewController!
-    var handwriteViewController: HandwriteViewController!
+    private var initOnceFlag = true
+    private var currentKeyboardType = KeyboardType.Emoji
+    private var nextKeyboardButton: UIButton!
+    private var backSpaceButton: UIButton!
+    private var spaceButton: UIButton!
+    private var doneButton: UIButton!
+    private var inputTypeButton: UIButton!
+    private var recoView: UIView!
+    private var emojiKeyboardViewController: EmojiKeyboardViewController!
+    private var handwriteViewController: HandwriteViewController!
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -37,26 +37,26 @@ class KeyboardViewController: UIInputViewController {
         self.recoView = UIView()
         self.recoView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
-        self.inputTypeButton = EKB_Button.buttonWithType(.System) as UIButton
+        self.inputTypeButton = MyKeyboardButton.buttonWithType(.System) as UIButton
         self.inputTypeButton.setTitle("✏", forState: .Normal)
-        inputTypeButton.addTarget(self, action: "doInputType", forControlEvents: .TouchUpInside)
+        inputTypeButton.addTarget(self, action: "SELdoInputType", forControlEvents: .TouchUpInside)
         
-        self.nextKeyboardButton = EKB_Button.buttonWithType(.System) as UIButton
+        self.nextKeyboardButton = MyKeyboardButton.buttonWithType(.System) as UIButton
         self.nextKeyboardButton.setTitle(NSLocalizedString("🌐", comment: "Title for 'Next Keyboard' button"), forState: .Normal)
         self.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
         
-        self.spaceButton = EKB_Button.buttonWithType(.System) as UIButton
+        self.spaceButton = MyKeyboardButton.buttonWithType(.System) as UIButton
         self.spaceButton.setTitle("Space", forState: .Normal)
-        self.spaceButton.addTarget(self, action: "doSpace", forControlEvents: .TouchUpInside)
+        self.spaceButton.addTarget(self, action: "SELdoSpace", forControlEvents: .TouchUpInside)
         self.spaceButton.backgroundColor = UIColor.whiteColor()
         
-        self.backSpaceButton = EKB_Button.buttonWithType(.System) as UIButton
+        self.backSpaceButton = MyKeyboardButton.buttonWithType(.System) as UIButton
         self.backSpaceButton.setTitle("🔙", forState: .Normal)
-        self.backSpaceButton.addTarget(self, action: "doBackSpace", forControlEvents: .TouchUpInside)
+        self.backSpaceButton.addTarget(self, action: "SELdoBackSpace", forControlEvents: .TouchUpInside)
         
-        self.doneButton = EKB_Button.buttonWithType(.System) as UIButton
+        self.doneButton = MyKeyboardButton.buttonWithType(.System) as UIButton
         self.doneButton.setTitle("Done", forState: .Normal)
-        self.doneButton.addTarget(self, action: "doReturn", forControlEvents: .TouchUpInside)
+        self.doneButton.addTarget(self, action: "SELdoReturn", forControlEvents: .TouchUpInside)
 
         self.inputView.addSubview(self.recoView)
         self.inputView.addSubview(self.inputTypeButton)
@@ -79,7 +79,7 @@ class KeyboardViewController: UIInputViewController {
         view.setNeedsUpdateConstraints()
         if initOnceFlag == true {
             initOnceFlag = false
-            doInputType()
+            SELdoInputType()
         }
     }
     
@@ -87,7 +87,7 @@ class KeyboardViewController: UIInputViewController {
         super.viewDidAppear(animated)
     }
     
-    func layoutViews() {
+    private func layoutViews() {
         var recoViewTopConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Top, relatedBy: .Equal, toItem: self.inputView, attribute: .Top, multiplier: 1, constant: 0)
         var recoViewLeftConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Left, relatedBy: .Equal, toItem: self.inputView, attribute: .Left, multiplier: 1, constant: 2)
         var recoViewRightConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Right, relatedBy: .Equal, toItem: self.inputView, attribute: .Right, multiplier: 1, constant: -2)
@@ -158,7 +158,7 @@ class KeyboardViewController: UIInputViewController {
         ])
     }
     
-    func layoutFillSuperView(view: UIView) {
+    private func layoutFillSuperView(view: UIView) {
         let t = NSLayoutConstraint(item: view, attribute: .Top, relatedBy: .Equal, toItem: view.superview, attribute: .Top, multiplier: 1, constant: 0)
         let l = NSLayoutConstraint(item: view, attribute: .Left, relatedBy: .Equal, toItem: view.superview, attribute: .Left, multiplier: 1, constant: 0)
         let r = NSLayoutConstraint(item: view, attribute: .Right, relatedBy: .Equal, toItem: view.superview, attribute: .Right, multiplier: 1, constant: 0)
@@ -166,7 +166,7 @@ class KeyboardViewController: UIInputViewController {
         view.superview!.addConstraints([t,l,r,b])
     }
     
-    func doInputType() {
+    func SELdoInputType() {
         switch currentKeyboardType {
         case .Handwrite:
             currentKeyboardType = .Emoji
@@ -187,7 +187,7 @@ class KeyboardViewController: UIInputViewController {
         }
     }
     
-    func doBackSpace() {
+    func SELdoBackSpace() {
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         switch currentKeyboardType {
         case .Handwrite:
@@ -199,12 +199,12 @@ class KeyboardViewController: UIInputViewController {
         }
     }
     
-    func doSpace() {
+    func SELdoSpace() {
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         proxy.insertText(" ")
     }
     
-    func doReturn() {
+    func SELdoReturn() {
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         proxy.insertText("\n")
     }
