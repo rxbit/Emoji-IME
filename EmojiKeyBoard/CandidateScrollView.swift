@@ -35,6 +35,10 @@ class CandidateScrollView: UIScrollView {
         self.backgroundColor = UIColor.whiteColor()
     }
     
+    override func intrinsicContentSize() -> CGSize {
+        return CGSize(width: 0, height: 34)
+    }
+    
     func updateButtonsWithStrings(strings: [String]) {
         for button in buttons {
             button.removeFromSuperview()
@@ -44,7 +48,6 @@ class CandidateScrollView: UIScrollView {
             let button = UIButton.buttonWithType(.System) as UIButton
             button.setTitle(string, forState: .Normal)
             button.sizeToFit()
-            button.setTranslatesAutoresizingMaskIntoConstraints(false)
             button.backgroundColor = UIColor(white: 0.95, alpha: 1)
             button.setTitleColor(UIColor.blackColor(), forState: .Normal)
             button.addTarget(self, action: "SELdidTapButton:", forControlEvents: .TouchUpInside)
@@ -55,21 +58,17 @@ class CandidateScrollView: UIScrollView {
         
         for (index, button) in enumerate(buttons) {
             //add constraints
-            let t = NSLayoutConstraint(item: button, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 2)
-            let b = NSLayoutConstraint(item: button, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1, constant: 0)
-            self.addConstraints([t,b])
-            
-            var l: NSLayoutConstraint
-            if (index == 0) {
-                l = NSLayoutConstraint(item: button, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 2)
-            } else {
-                l = NSLayoutConstraint(item: button, attribute: .Left, relatedBy: .Equal, toItem: buttons[index-1], attribute: .Right, multiplier: 1, constant: 4)
-            }
-            self.addConstraints([l])
-            
-            if (index == buttons.count - 1) {
-                let r = NSLayoutConstraint(item: button, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: 2)
-                self.addConstraints([r])
+            button.snp_makeConstraints { make in
+                make.top.equalTo(self).with.offset(2)
+                make.bottom.equalTo(self)
+                if index == 0 {
+                    make.leading.equalTo(self).with.offset(2)
+                } else {
+                    make.leading.equalTo(self.buttons[index-1].snp_trailing).with.offset(4)
+                }
+                if index == self.buttons.count - 1 {
+                    make.trailing.equalTo(self).with.offset(2)
+                }
             }
         }
     }

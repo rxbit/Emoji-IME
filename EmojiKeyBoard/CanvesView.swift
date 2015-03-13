@@ -37,6 +37,10 @@ class CanvesView: UIView {
         self.contentMode = .Redraw
     }
     
+    override func intrinsicContentSize() -> CGSize {
+        return CGSize(width: 80, height: 80)
+    }
+    
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         println("开始触摸つ(^v^)つ")
         var arrayPointsInStroke:[CGPoint] = []

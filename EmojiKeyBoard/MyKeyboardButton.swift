@@ -27,7 +27,6 @@ class MyKeyboardButton: UIButton {
     }
     
     private func didInitView() {
-        self.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.backgroundColor = UIColor(red: 157/255.0, green: 112/255.0, blue: 151/255.0, alpha: 1)
         self.layer.cornerRadius = 5
     }
