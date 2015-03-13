@@ -17,10 +17,10 @@ class CategoryScrollView: UIScrollView {
     private let kViewHeight: Int = 34
     private let kButtonWidth: Int = 48
     
-    private var activiteButton: UIButton?
+    private var activiteButton: UIButton!
     private var buttons: [UIButton]!
     private var activeFlag: UIView!
-    private var activeFlagCenterYConstraint: NSLayoutConstraint!
+    private var activeFlagCenterYConstraint: Constraint?
     
     var cateDelegate: CategoryScrollViewDelegate?
     var currentCategoryTitle: String? {
@@ -57,11 +57,7 @@ class CategoryScrollView: UIScrollView {
         backgroundColor = UIColor.whiteColor()
         self.showsHorizontalScrollIndicator = false
         
-//        let heightConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: CGFloat(kViewHeight))
-//        self.addConstraints([heightConstraint])
-        
         activeFlag = UIView()
-        activeFlag.setTranslatesAutoresizingMaskIntoConstraints(false)
         activeFlag.backgroundColor = UIColor.purpleColor()
         activeFlag.layer.cornerRadius = 2.5
         addSubview(activeFlag)
@@ -77,7 +73,6 @@ class CategoryScrollView: UIScrollView {
         let tabStrings = EmojiFaceManager.sharedManager.emojiCategoryTitles
         for tabString in tabStrings {
             var button = UIButton.buttonWithType(.System) as UIButton
-            button.setTranslatesAutoresizingMaskIntoConstraints(false)
             button.setTitle(tabString, forState: .Normal)
             button.setTitleColor(UIColor.grayColor(), forState: .Normal)
             button.addTarget(self, action: "SELdidTapCategoryTabButton:", forControlEvents: .TouchUpInside)
@@ -86,17 +81,17 @@ class CategoryScrollView: UIScrollView {
         }
         
         for (index,button) in enumerate(buttons) {
-            var l: NSLayoutConstraint!
-            if index == 0 {
-                l = NSLayoutConstraint(item: button, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 2)
-                activiteButton = button
+            button.snp_makeConstraints { make in
+                if index == 0 {
+                    make.leading.equalTo(self).with.offset(2)
+                    self.activiteButton = button
+                }
+                else {
+                    make.leading.equalTo(self.buttons[index-1].snp_trailing).with.offset(2)
+                }
+                make.centerY.equalTo(self)
+                make.width.equalTo(self.kButtonWidth)
             }
-            else {
-                l = NSLayoutConstraint(item: button, attribute: .Left, relatedBy: .Equal, toItem: buttons[index-1], attribute: .Right, multiplier: 1, constant: 2)
-            }
-            let x = NSLayoutConstraint(item: button, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
-            let w = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: CGFloat(kButtonWidth))
-            addConstraints([l,x,w])
         }
         setActiveTabwithButton(activiteButton)
     }
@@ -106,15 +101,15 @@ class CategoryScrollView: UIScrollView {
             activeFlag.hidden = true
         } else {
             activeFlag.hidden = false
-            activiteButton?.setTitleColor(UIColor.grayColor(), forState: .Normal)
-            activiteButton = button
-            activiteButton?.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            if activeFlagCenterYConstraint != nil {
-                removeConstraint(activeFlagCenterYConstraint)
+            activiteButton.setTitleColor(UIColor.grayColor(), forState: .Normal)
+            self.activiteButton = button
+            activiteButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            activeFlagCenterYConstraint?.uninstall()
+            activeFlag.snp_makeConstraints { make in
+                self.activeFlagCenterYConstraint = make.centerX.equalTo(self.activiteButton!)
+                return
             }
-            activeFlagCenterYConstraint = NSLayoutConstraint(item: activeFlag, attribute: .CenterX, relatedBy: .Equal, toItem: activiteButton,attribute: .CenterX, multiplier: 1, constant: 0)
-            addConstraints([activeFlagCenterYConstraint])
-            cateDelegate?.didChangeCategory(activiteButton!.titleForState(.Normal)!)
+            cateDelegate?.didChangeCategory(activiteButton.titleForState(.Normal)!)
         }
     }
     
