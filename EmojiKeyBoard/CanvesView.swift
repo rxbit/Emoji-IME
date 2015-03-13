@@ -76,7 +76,7 @@ class CanvesView: UIView {
         UIColor.blackColor().setStroke()
         for array in self.arrayStrokes {
             var line = UIBezierPath()
-            line.lineWidth = 5
+            line.lineWidth = 10
             line.moveToPoint(array.first!)
             for point in array {
                 line.addLineToPoint(point)

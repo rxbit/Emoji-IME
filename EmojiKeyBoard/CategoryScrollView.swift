@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Snap
 
 protocol CategoryScrollViewDelegate {
     func didChangeCategory(cate: String)
@@ -47,13 +48,17 @@ class CategoryScrollView: UIScrollView {
     override init() {
        super.init()
     }
+    
+    override func intrinsicContentSize() -> CGSize {
+        return CGSize(width: CGFloat(0), height: CGFloat(kViewHeight))
+    }
 
     private func didInitView() {
         backgroundColor = UIColor.whiteColor()
         self.showsHorizontalScrollIndicator = false
         
-        let heightConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: CGFloat(kViewHeight))
-        self.addConstraints([heightConstraint])
+//        let heightConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: CGFloat(kViewHeight))
+//        self.addConstraints([heightConstraint])
         
         activeFlag = UIView()
         activeFlag.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -61,10 +66,12 @@ class CategoryScrollView: UIScrollView {
         activeFlag.layer.cornerRadius = 2.5
         addSubview(activeFlag)
         
-        let w = NSLayoutConstraint(item: activeFlag, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 5)
-        let h = NSLayoutConstraint(item: activeFlag, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 5)
-        let t = NSLayoutConstraint(item: activeFlag, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 4)
-        addConstraints([w,h,t])
+        activeFlag.snp_makeConstraints { make in
+            make.top.equalTo(self).with.offset(4)
+            make.width.equalTo(5)
+            make.height.equalTo(5)
+        }
+        
         
         buttons = []
         let tabStrings = EmojiFaceManager.sharedManager.emojiCategoryTitles
