@@ -36,7 +36,7 @@ class CandidateScrollView: UIScrollView {
     }
     
     override func intrinsicContentSize() -> CGSize {
-        return CGSize(width: 0, height: 34)
+        return CGSize(width: 20, height: 34)
     }
     
     func updateButtonsWithStrings(strings: [String]) {

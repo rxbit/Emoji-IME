@@ -50,7 +50,7 @@ class CategoryScrollView: UIScrollView {
     }
     
     override func intrinsicContentSize() -> CGSize {
-        return CGSize(width: CGFloat(0), height: CGFloat(kViewHeight))
+        return CGSize(width: 20, height: kViewHeight)
     }
 
     private func didInitView() {

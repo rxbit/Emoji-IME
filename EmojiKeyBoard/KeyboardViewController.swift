@@ -35,7 +35,6 @@ class KeyboardViewController: UIInputViewController {
         self.inputView.backgroundColor = UIColor(red: 234/255.0, green: 176/255.0, blue: 227/255.0, alpha: 1)
         
         self.recoView = UIView()
-        self.recoView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         self.inputTypeButton = MyKeyboardButton.buttonWithType(.System) as UIButton
         self.inputTypeButton.setTitle("✏", forState: .Normal)
@@ -88,82 +87,53 @@ class KeyboardViewController: UIInputViewController {
     }
     
     private func layoutViews() {
-        var recoViewTopConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Top, relatedBy: .Equal, toItem: self.inputView, attribute: .Top, multiplier: 1, constant: 0)
-        var recoViewLeftConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Left, relatedBy: .Equal, toItem: self.inputView, attribute: .Left, multiplier: 1, constant: 2)
-        var recoViewRightConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Right, relatedBy: .Equal, toItem: self.inputView, attribute: .Right, multiplier: 1, constant: -2)
-        var recoViewBottomConstraint = NSLayoutConstraint(item: self.recoView, attribute: .Bottom, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Top, multiplier: 1, constant: -4)
-        self.inputView.addConstraints([
-            recoViewTopConstraint,
-            recoViewLeftConstraint,
-            recoViewRightConstraint,
-            recoViewBottomConstraint,
-        ])
+        recoView.snp_makeConstraints { make in
+            make.top.equalTo(self.inputView)
+            make.left.equalTo(self.inputView).with.offset(2)
+            make.right.equalTo(self.inputView).with.offset(-2)
+            make.bottom.equalTo(self.inputTypeButton.snp_top).with.offset(-4)
+            make.size.greaterThanOrEqualTo(CGSizeMake(100, 100))
+        }
         
-        var inputTypeButtonLeftSideConstraint = NSLayoutConstraint(item: self.inputTypeButton, attribute: .Left, relatedBy: .Equal, toItem: self.inputView, attribute: .Left, multiplier: 1, constant: 4)
-        var inputTypeButtonBottomConstraint = NSLayoutConstraint(item: self.inputTypeButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.inputView, attribute: .Bottom, multiplier: 1, constant: -4)
-        var inputTypeButtonHeightConstraint = NSLayoutConstraint(item: self.inputTypeButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 40)
-        var inputTypeButtonWidthConstraint = NSLayoutConstraint(item: self.inputTypeButton, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 50)
-        inputTypeButtonWidthConstraint.priority = 999
-        self.inputView.addConstraints([
-            inputTypeButtonLeftSideConstraint,
-            inputTypeButtonBottomConstraint,
-            inputTypeButtonHeightConstraint,
-            inputTypeButtonWidthConstraint,
-        ])
+        inputTypeButton.snp_makeConstraints { make in
+            make.left.equalTo(self.inputView).with.offset(4)
+            make.bottom.equalTo(self.inputView).with.offset(-4)
+            make.height.equalTo(40)
+            make.width.equalTo(50).priority(999)
+        }
+
+        nextKeyboardButton.snp_makeConstraints { make in
+            make.size.equalTo(self.inputTypeButton)
+            make.left.equalTo(self.inputTypeButton.snp_right).with.offset(4)
+            make.centerY.equalTo(self.inputTypeButton)
+        }
         
-        var nextKeyboardButtonLeftSideConstraint = NSLayoutConstraint(item: self.nextKeyboardButton, attribute: .Left, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Right, multiplier: 1, constant: 4)
-        var nextKeyboardButtonTopConstraint = NSLayoutConstraint(item: self.nextKeyboardButton, attribute: .Top, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Top, multiplier: 1, constant: 0)
-        var nextKeyboardButtonWidthConstraint = NSLayoutConstraint(item: self.nextKeyboardButton, attribute: .Width, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Width, multiplier: 1, constant: 0)
-        var nextKeyboardButtonHeightConstraint = NSLayoutConstraint(item: self.nextKeyboardButton, attribute: .Height, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Height, multiplier: 1, constant: 0)
-        self.inputView.addConstraints([
-            nextKeyboardButtonTopConstraint,
-            nextKeyboardButtonWidthConstraint,
-            nextKeyboardButtonHeightConstraint,
-            nextKeyboardButtonLeftSideConstraint,
-        ])
+        spaceButton.snp_makeConstraints { make in
+            make.height.equalTo(self.inputTypeButton)
+            make.left.equalTo(self.nextKeyboardButton.snp_right).with.offset(4)
+            make.centerY.equalTo(self.inputTypeButton)
+            make.width.greaterThanOrEqualTo(10)
+        }
         
-        var spaceButtonLeftSideConstraint = NSLayoutConstraint(item: self.spaceButton, attribute: .Left, relatedBy: .Equal, toItem: self.nextKeyboardButton, attribute: .Right, multiplier: 1, constant: 4)
-        var spaceButtonTopSideConstraint = NSLayoutConstraint(item: self.spaceButton, attribute: .Top, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Top, multiplier: 1, constant: 0)
-        var spaceButtonHeightConstraint = NSLayoutConstraint(item: self.spaceButton, attribute: .Height, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Height, multiplier: 1, constant: 0)
-        let spaceButtonWidthConstraint = NSLayoutConstraint(item: spaceButton, attribute: .Width, relatedBy: .GreaterThanOrEqual, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 10)
-        self.inputView.addConstraints([
-            spaceButtonTopSideConstraint,
-            spaceButtonLeftSideConstraint,
-            spaceButtonHeightConstraint,
-            spaceButtonWidthConstraint
-        ])
+        backSpaceButton.snp_makeConstraints { make in
+            make.size.equalTo(self.inputTypeButton)
+            make.left.equalTo(self.spaceButton.snp_right).with.offset(4)
+            make.centerY.equalTo(self.inputTypeButton)
+        }
         
-        var backSpaceButtonLeftSideConstraint = NSLayoutConstraint(item: self.backSpaceButton, attribute: .Left, relatedBy: .Equal, toItem: self.spaceButton, attribute: .Right, multiplier: 1, constant: 4)
-        var backSpaceButtonTopConstraint = NSLayoutConstraint(item: self.backSpaceButton, attribute: .Top, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Top, multiplier: 1, constant: 0)
-        var backSpaceButtonWidthConstraint = NSLayoutConstraint(item: self.backSpaceButton, attribute: .Width, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Width, multiplier: 1, constant: 0)
-        var backSpaceButtonHeightConstraint = NSLayoutConstraint(item: self.backSpaceButton, attribute: .Height, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Height, multiplier: 1, constant: 0)
-        self.inputView.addConstraints([
-            backSpaceButtonTopConstraint,
-            backSpaceButtonWidthConstraint,
-            backSpaceButtonHeightConstraint,
-            backSpaceButtonLeftSideConstraint,
-        ])
-        
-        var doneButtonLeftSideConstraint = NSLayoutConstraint(item: self.doneButton, attribute: .Left, relatedBy: .Equal, toItem: self.backSpaceButton, attribute: .Right, multiplier: 1, constant: 4)
-        var doneButtonTopConstraint = NSLayoutConstraint(item: self.doneButton, attribute: .Top, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Top, multiplier: 1, constant: 0)
-        var doneButtonWidthConstraint = NSLayoutConstraint(item: self.doneButton, attribute: .Width, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Width, multiplier: 1, constant: 0)
-        var doneButtonHeightConstraint = NSLayoutConstraint(item: self.doneButton, attribute: .Height, relatedBy: .Equal, toItem: self.inputTypeButton, attribute: .Height, multiplier: 1, constant: 0)
-        var doneButtonRightSideConstraint = NSLayoutConstraint(item: self.doneButton, attribute: .Right, relatedBy: .Equal, toItem: self.inputView, attribute: .Right, multiplier: 1, constant: -4)
-        self.inputView.addConstraints([
-            doneButtonTopConstraint,
-            doneButtonWidthConstraint,
-            doneButtonHeightConstraint,
-            doneButtonLeftSideConstraint,
-            doneButtonRightSideConstraint,
-        ])
+        doneButton.snp_makeConstraints { make in
+            make.size.equalTo(self.inputTypeButton)
+            make.left.equalTo(self.backSpaceButton.snp_right).with.offset(4)
+            make.centerY.equalTo(self.inputTypeButton)
+            make.right.equalTo(self.inputView).with.offset(-4)
+        }
     }
     
     private func layoutFillSuperView(view: UIView) {
-        let t = NSLayoutConstraint(item: view, attribute: .Top, relatedBy: .Equal, toItem: view.superview, attribute: .Top, multiplier: 1, constant: 0)
-        let l = NSLayoutConstraint(item: view, attribute: .Left, relatedBy: .Equal, toItem: view.superview, attribute: .Left, multiplier: 1, constant: 0)
-        let r = NSLayoutConstraint(item: view, attribute: .Right, relatedBy: .Equal, toItem: view.superview, attribute: .Right, multiplier: 1, constant: 0)
-        let b = NSLayoutConstraint(item: view, attribute: .Bottom, relatedBy: .Equal, toItem: view.superview, attribute: .Bottom, multiplier: 1, constant: 0)
-        view.superview!.addConstraints([t,l,r,b])
+        view.snp_makeConstraints { make in
+            make.edges.equalTo(view.superview!)
+            return
+        }
     }
     
     func SELdoInputType() {
