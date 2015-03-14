@@ -83,8 +83,8 @@ class EmojiKeyboardViewController: UIViewController {
         for emojiString in titleStrings {
             var button = UIButton.buttonWithType(.System) as UIButton
             button.setTitle(emojiString, forState: .Normal)
-            button.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            button.backgroundColor = UIColor.whiteColor()
+            button.setTitleColor(KeyboardThemeManager.theme.EmojiKeyboardButtonTextColor, forState: .Normal)
+            button.backgroundColor = KeyboardThemeManager.theme.EmojiKeyboardBackgroundColor
             button.addTarget(self, action: "SELdidTapButton:", forControlEvents: .TouchUpInside)
             button.layer.cornerRadius = 5
             buttons.append(button)

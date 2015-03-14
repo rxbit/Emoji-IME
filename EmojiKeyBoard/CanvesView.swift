@@ -31,7 +31,7 @@ class CanvesView: UIView {
     }
     
     private func didInitView() {
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = KeyboardThemeManager.theme.CanvesBackgroundColor
         self.layer.cornerRadius = 6
         self.layer.masksToBounds = true
         self.contentMode = .Redraw
@@ -77,7 +77,7 @@ class CanvesView: UIView {
     
     override func drawRect(rect: CGRect) {
         println("绘画开始")
-        UIColor.blackColor().setStroke()
+        KeyboardThemeManager.theme.CanvesBrushColor.setStroke()
         for array in self.arrayStrokes {
             var line = UIBezierPath()
             line.lineWidth = 10

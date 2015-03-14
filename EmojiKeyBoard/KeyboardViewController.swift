@@ -32,7 +32,7 @@ class KeyboardViewController: UIInputViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.inputView.backgroundColor = UIColor(red: 234/255.0, green: 176/255.0, blue: 227/255.0, alpha: 1)
+        self.inputView.backgroundColor = KeyboardThemeManager.theme.KeyboardBackgroundColor
         
         self.recoView = UIView()
         
@@ -47,7 +47,7 @@ class KeyboardViewController: UIInputViewController {
         self.spaceButton = MyKeyboardButton.buttonWithType(.System) as UIButton
         self.spaceButton.setTitle("Space", forState: .Normal)
         self.spaceButton.addTarget(self, action: "SELdoSpace", forControlEvents: .TouchUpInside)
-        self.spaceButton.backgroundColor = UIColor.whiteColor()
+        self.spaceButton.backgroundColor = KeyboardThemeManager.theme.KeyboardSpaceButtonColorNormal
         
         self.backSpaceButton = MyKeyboardButton.buttonWithType(.System) as UIButton
         self.backSpaceButton.setTitle("🔙", forState: .Normal)
@@ -194,9 +194,9 @@ class KeyboardViewController: UIInputViewController {
         var textColor: UIColor
         var proxy = self.textDocumentProxy as UITextDocumentProxy
         if proxy.keyboardAppearance == UIKeyboardAppearance.Dark {
-            textColor = UIColor.whiteColor()
+            textColor = KeyboardThemeManager.theme.KeyboardButtonTextColorLight
         } else {
-            textColor = UIColor.blackColor()
+            textColor = KeyboardThemeManager.theme.KeyboardButtonTextColorDark
         }
         self.inputTypeButton.setTitleColor(textColor, forState: .Normal)
         self.nextKeyboardButton.setTitleColor(textColor, forState: .Normal)

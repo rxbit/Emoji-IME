@@ -27,7 +27,7 @@ class MyKeyboardButton: UIButton {
     }
     
     private func didInitView() {
-        self.backgroundColor = UIColor(red: 157/255.0, green: 112/255.0, blue: 151/255.0, alpha: 1)
+        self.backgroundColor = KeyboardThemeManager.theme.KeyboardButtonBackgroundColorNormal
         self.layer.cornerRadius = 5
     }
     
@@ -35,7 +35,7 @@ class MyKeyboardButton: UIButton {
         super.touchesBegan(touches, withEvent: event)
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){ AudioServicesPlaySystemSound(1104)}
         frontColor = backgroundColor
-        backgroundColor = UIColor(red: 233/255.0, green: 200/255.0, blue: 233/255.0, alpha: 1)
+        backgroundColor = KeyboardThemeManager.theme.KeyboardButtonBackgroundColorPressed
     }
     
     override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {

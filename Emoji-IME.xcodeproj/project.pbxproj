@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		854031D83F32433D8CB29CA9 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02DF898672BDF7851B429A59 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9E3471B3F475AE3EA07B5248 /* Pods_EmojiKeyBoard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEAF2C01CE36B9CCE9BA1631 /* Pods_EmojiKeyBoard.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C4085BA21AB427BF0025CBCC /* KeyboardTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4085BA11AB427BF0025CBCC /* KeyboardTheme.swift */; };
 		C424FB691AA2EBDF004232C4 /* MyKeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C424FB681AA2EBDF004232C4 /* MyKeyboardButton.swift */; };
 		C42E1D801AB423B600435F72 /* UIReturnKeyType+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42E1D7F1AB423B600435F72 /* UIReturnKeyType+Description.swift */; };
 		C438A28F1AA5A34900A72436 /* EmojiKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C438A28E1AA5A34900A72436 /* EmojiKeyboardViewController.swift */; };
@@ -68,6 +69,7 @@
 		8758421959FF9B4FF615F64A /* Pods-EmojiKeyBoard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmojiKeyBoard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EmojiKeyBoard/Pods-EmojiKeyBoard.debug.xcconfig"; sourceTree = "<group>"; };
 		AB7809260DDA2F3A63DEC3A6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AEAF2C01CE36B9CCE9BA1631 /* Pods_EmojiKeyBoard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EmojiKeyBoard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4085BA11AB427BF0025CBCC /* KeyboardTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardTheme.swift; sourceTree = "<group>"; };
 		C424FB681AA2EBDF004232C4 /* MyKeyboardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyKeyboardButton.swift; sourceTree = "<group>"; };
 		C42E1D7F1AB423B600435F72 /* UIReturnKeyType+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIReturnKeyType+Description.swift"; sourceTree = "<group>"; };
 		C438A28E1AA5A34900A72436 /* EmojiKeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiKeyboardViewController.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				C438A28E1AA5A34900A72436 /* EmojiKeyboardViewController.swift */,
 				C4741B041AA60D3100F5352E /* HandwriteViewController.swift */,
 				C48D5B481A495C0D00F0F14C /* KeyboardViewController.swift */,
+				C4085BA11AB427BF0025CBCC /* KeyboardTheme.swift */,
 				C424FB681AA2EBDF004232C4 /* MyKeyboardButton.swift */,
 				C42E1D7F1AB423B600435F72 /* UIReturnKeyType+Description.swift */,
 				C45D2B5C1A8127D40002B5F5 /* TestCV.h */,
@@ -494,6 +497,7 @@
 				C4741B051AA60D3100F5352E /* HandwriteViewController.swift in Sources */,
 				C491B6121AA75981009DB900 /* EmojiFaceManager.swift in Sources */,
 				C45D2B5E1A8127D40002B5F5 /* TestCV.mm in Sources */,
+				C4085BA21AB427BF0025CBCC /* KeyboardTheme.swift in Sources */,
 				C48D5B491A495C0D00F0F14C /* KeyboardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

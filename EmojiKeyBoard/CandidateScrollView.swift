@@ -32,7 +32,7 @@ class CandidateScrollView: UIScrollView {
     }
     
     private func didInitView() {
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = KeyboardThemeManager.theme.CandidateBackgroundColor
     }
     
     override func intrinsicContentSize() -> CGSize {
@@ -48,8 +48,8 @@ class CandidateScrollView: UIScrollView {
             let button = UIButton.buttonWithType(.System) as UIButton
             button.setTitle(string, forState: .Normal)
             button.sizeToFit()
-            button.backgroundColor = UIColor(white: 0.95, alpha: 1)
-            button.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            button.backgroundColor = KeyboardThemeManager.theme.CandidateButtonBackGroundColorNormal
+            button.setTitleColor(KeyboardThemeManager.theme.CandidateButtonTextColorNormal, forState: .Normal)
             button.addTarget(self, action: "SELdidTapButton:", forControlEvents: .TouchUpInside)
             button.layer.cornerRadius = 3
             buttons.append(button)

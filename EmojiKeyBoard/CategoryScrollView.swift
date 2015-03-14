@@ -54,11 +54,11 @@ class CategoryScrollView: UIScrollView {
     }
 
     private func didInitView() {
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = KeyboardThemeManager.theme.CategoryBackgroundColor
         self.showsHorizontalScrollIndicator = false
         
         activeFlag = UIView()
-        activeFlag.backgroundColor = UIColor.purpleColor()
+        activeFlag.backgroundColor = KeyboardThemeManager.theme.CategoryActiveFlagColor
         activeFlag.layer.cornerRadius = 2.5
         addSubview(activeFlag)
         
@@ -74,7 +74,7 @@ class CategoryScrollView: UIScrollView {
         for tabString in tabStrings {
             var button = UIButton.buttonWithType(.System) as UIButton
             button.setTitle(tabString, forState: .Normal)
-            button.setTitleColor(UIColor.grayColor(), forState: .Normal)
+            button.setTitleColor(KeyboardThemeManager.theme.CategoryButtonTextColorNormal, forState: .Normal)
             button.addTarget(self, action: "SELdidTapCategoryTabButton:", forControlEvents: .TouchUpInside)
             buttons.append(button)
             addSubview(button)
@@ -101,9 +101,9 @@ class CategoryScrollView: UIScrollView {
             activeFlag.hidden = true
         } else {
             activeFlag.hidden = false
-            activiteButton.setTitleColor(UIColor.grayColor(), forState: .Normal)
+            activiteButton.setTitleColor(KeyboardThemeManager.theme.CategoryButtonTextColorNormal, forState: .Normal)
             self.activiteButton = button
-            activiteButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            activiteButton.setTitleColor(KeyboardThemeManager.theme.CategoryButtonTextColorActive, forState: .Normal)
             activeFlagCenterYConstraint?.uninstall()
             activeFlag.snp_makeConstraints { make in
                 self.activeFlagCenterYConstraint = make.centerX.equalTo(self.activiteButton!)
