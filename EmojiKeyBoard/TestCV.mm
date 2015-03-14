@@ -12,12 +12,26 @@
 
 using namespace std;
 
+@interface TestCV ()
+@property (nonatomic,assign) cv::KNearest *knn;
+@end
+
 @implementation TestCV {
 }
-NSArray *table = @[@"<",@">",@"\u0434",@"ω",@"\u3064",@"\u0054",@"u",@"(",@")",@"\u005e",@"\u00b0",@"→",@"_",];
-cv::KNearest *knn;
 
-void TrainKnn() {
+
++(TestCV*)sharedInstance {
+    static TestCV* sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[self alloc] init];
+    });
+    return sharedInstance;
+}
+
+NSArray *table = @[@"<",@">",@"\u0434",@"ω",@"\u3064",@"\u0054",@"u",@"(",@")",@"\u005e",@"\u00b0",@"→",@"_",];
+
+-(void) TrainKnn {
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *trainDataPath = [bundle pathForResource:@"trainData" ofType:@"bmp"];
     NSString *trainClassPath = [bundle pathForResource:@"trainClass" ofType:@"bmp"];
@@ -29,11 +43,11 @@ void TrainKnn() {
     }
     trainData.convertTo(trainData, CV_32FC1);
     trainClass.convertTo(trainClass, CV_32FC1);
-    knn = new cv::KNearest(trainData, trainClass);
+    self.knn = new cv::KNearest(trainData, trainClass);
 }
 
-+(NSArray *)DetectEmojiStringsWithImage:(UIImage *)image {
-    if (!knn) TrainKnn();
+-(NSArray *)DetectEmojiStringsWithImage:(UIImage *)image {
+    if (!self.knn) [self TrainKnn];
     NSMutableArray *emojiStrings = [[NSMutableArray alloc]init];
     NSMutableArray *tempStrings = [[NSMutableArray alloc]init];
     cv::Mat mat;
@@ -69,7 +83,7 @@ void TrainKnn() {
         cv::resize(sample, sample, cv::Size(16,16));
         cv::threshold(sample, sample, 10, 255, CV_THRESH_OTSU|CV_THRESH_BINARY);
         sample.reshape(1,1).convertTo(sample, CV_32FC1);
-        auto result = (int)(knn->find_nearest(sample, 1));
+        auto result = (int)(self.knn->find_nearest(sample, 1));
         NSLog(@"识别结果%@", table[result]);
         resultArray.push_back(result);
     }
@@ -89,7 +103,7 @@ void TrainKnn() {
 
 - (void)dealloc
 {
-    delete knn;
+    delete self.knn;
 }
 
 @end

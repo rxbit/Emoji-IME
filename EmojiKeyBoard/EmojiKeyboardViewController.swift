@@ -16,7 +16,6 @@ class EmojiKeyboardViewController: UIViewController {
     private let kHeight: CGFloat = 180
     
     private var buttons: [UIButton]! = []
-    private var buttonWidthConstraint: NSLayoutConstraint?
     
     private var categoryScrollView: CategoryScrollView!
     private var scrollView: UIScrollView!
@@ -39,24 +38,29 @@ class EmojiKeyboardViewController: UIViewController {
         view.addSubview(scrollView)
         
         categoryScrollView.snp_makeConstraints { make in
-            make.top.equalTo(self.view).with.offset(2)
-            make.left.equalTo(self.view).with.offset(4)
-            make.right.equalTo(self.view).with.offset(-4)
+            make.top.equalTo(self.view).offset(2)
+            make.left.equalTo(self.view).offset(4)
+            make.right.equalTo(self.view).offset(-4).priorityHigh()
         }
         
         scrollView.snp_makeConstraints { make in
-            make.top.equalTo(self.categoryScrollView.snp_bottom).with.offset(4)
-            make.left.equalTo(self.view).with.offset(2)
-            make.right.equalTo(self.view).with.offset(-2)
-            make.bottom.equalTo(self.view).with.offset(-2)
-            make.height.equalTo(self.kHeight).priority(999)
+            make.top.equalTo(self.categoryScrollView.snp_bottom).offset(4)
+            make.left.equalTo(self.view).offset(2)
+            make.right.equalTo(self.view).offset(-2).priorityHigh()
+            make.bottom.equalTo(self.view).offset(-2)
+            make.height.equalTo(self.kHeight).priorityHigh()
         }
         
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        buttonWidthConstraint?.constant = self.scrollView.frame.width/4 - 4
+        if let b = buttons.first {
+            b.snp_updateConstraints { make in
+                make.width.equalTo(self.scrollView.frame.width/4 - 4)
+                return
+            }
+        }
         categoryScrollView.contentSize = categoryScrollView.acturllyContentSize
         scrollView.contentSize = CGSize(width: scrollView.frame.width * CGFloat(buttons.count/16+1), height: kHeight)
     }
@@ -99,21 +103,20 @@ class EmojiKeyboardViewController: UIViewController {
                 if index != 0 {
                     make.size.equalTo(self.buttons[0])
                 } else {
-                    self.buttonWidthConstraint = NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 0)
-                    button.addConstraint(self.buttonWidthConstraint!)
+                    make.width.equalTo(0)
                     make.height.equalTo(self.kHeight/4-3)
                 }
                 
                 if index%4 == 0 {
                     make.top.equalTo(self.scrollView)
                 } else {
-                    make.top.equalTo(self.buttons[index-1].snp_bottom).with.offset(4)
+                    make.top.equalTo(self.buttons[index-1].snp_bottom).offset(4)
                 }
                 if index/4 == 0 {
-                    make.left.equalTo(self.scrollView).with.offset(2)
+                    make.left.equalTo(self.scrollView).offset(2)
                 }
                 else {
-                    make.left.equalTo(self.buttons[index-4].snp_right).with.offset(4)
+                    make.left.equalTo(self.buttons[index-4].snp_right).offset(4)
                 }
             }
         }

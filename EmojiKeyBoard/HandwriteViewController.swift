@@ -13,8 +13,6 @@ class HandwriteViewController: UIViewController {
     var inputDelegate: CandidateScrollViewDelegate?
     private var candidateScrollView: CandidateScrollView!
     private var handwriteView: CanvesView!
-    private var candidateScrollViewTopConstraint: Constraint?
-    private var candidateScrollViewHeightConstraint: Constraint?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,22 +25,26 @@ class HandwriteViewController: UIViewController {
         handwriteView.delegate = self
         view.addSubview(handwriteView)
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         addLayoutConstriant()
     }
     
     private func addLayoutConstriant() {
         candidateScrollView.snp_makeConstraints { make in
-            self.candidateScrollViewTopConstraint = make.top.equalTo(self.view).priority(999)
-            self.candidateScrollViewHeightConstraint = make.height.equalTo(0).priority(999)
-            make.leading.equalTo(self.view).with.offset(4)
-            make.trailing.equalTo(self.view).with.offset(-4)
+            make.top.equalTo(self.view).priorityHigh()
+            make.height.equalTo(0).priorityHigh()
+            make.left.equalTo(self.view).offset(4)
+            make.right.equalTo(self.view).offset(-4).priorityHigh()
         }
         
         handwriteView.snp_makeConstraints { make in
-            make.top.equalTo(self.candidateScrollView.snp_bottom).with.offset(4).priority(999)
-            make.left.equalTo(self.view).with.offset(4)
-            make.right.equalTo(self.view).with.offset(-4)
-            make.bottom.equalTo(self.view).with.offset(-2)
+            make.top.equalTo(self.candidateScrollView.snp_bottom).offset(4).priorityHigh()
+            make.left.equalTo(self.view).offset(4)
+            make.right.equalTo(self.view).offset(-4).priorityHigh()
+            make.bottom.equalTo(self.view).offset(-2)
             make.height.equalTo(180)
         }
     }
@@ -65,8 +67,6 @@ class HandwriteViewController: UIViewController {
 
 extension HandwriteViewController: EmojiImputDelegate {
     func didRecivedEmojiStrings(strings: [String]?) {
-        candidateScrollViewTopConstraint?.uninstall()
-        candidateScrollViewHeightConstraint?.uninstall()
         var c = (top: 0,height: 0)
         if strings == nil || strings!.count == 0 {
             c = (0,0)
@@ -74,9 +74,9 @@ extension HandwriteViewController: EmojiImputDelegate {
             c = (2,34)
             candidateScrollView.updateButtonsWithStrings(strings!)
         }
-        self.candidateScrollView.snp_makeConstraints { make in
-            self.candidateScrollViewTopConstraint = make.top.equalTo(self.view).with.offset(c.top)
-            self.candidateScrollViewHeightConstraint = make.height.equalTo(c.height)
+        self.candidateScrollView.snp_updateConstraints { make in
+            make.top.equalTo(self.view).offset(c.top)
+            make.height.equalTo(c.height)
         }
     }
 }

@@ -56,6 +56,7 @@ class KeyboardViewController: UIInputViewController {
         self.doneButton = MyKeyboardButton.buttonWithType(.System) as UIButton
         self.doneButton.setTitle("Done", forState: .Normal)
         self.doneButton.addTarget(self, action: "SELdoReturn", forControlEvents: .TouchUpInside)
+        self.doneButton.titleLabel?.font = UIFont.systemFontOfSize(13)
 
         self.inputView.addSubview(self.recoView)
         self.inputView.addSubview(self.inputTypeButton)
@@ -89,43 +90,43 @@ class KeyboardViewController: UIInputViewController {
     private func layoutViews() {
         recoView.snp_makeConstraints { make in
             make.top.equalTo(self.inputView)
-            make.left.equalTo(self.inputView).with.offset(2)
-            make.right.equalTo(self.inputView).with.offset(-2)
-            make.bottom.equalTo(self.inputTypeButton.snp_top).with.offset(-4)
+            make.left.equalTo(self.inputView).offset(2)
+            make.right.equalTo(self.inputView).offset(-2)
+            make.bottom.equalTo(self.inputTypeButton.snp_top).offset(-4)
             make.size.greaterThanOrEqualTo(CGSizeMake(100, 100))
         }
         
         inputTypeButton.snp_makeConstraints { make in
-            make.left.equalTo(self.inputView).with.offset(4)
-            make.bottom.equalTo(self.inputView).with.offset(-4)
+            make.left.equalTo(self.inputView).offset(4)
+            make.bottom.equalTo(self.inputView).offset(-4)
             make.height.equalTo(40)
-            make.width.equalTo(50).priority(999)
+            make.width.equalTo(50).priorityHigh()
         }
 
         nextKeyboardButton.snp_makeConstraints { make in
             make.size.equalTo(self.inputTypeButton)
-            make.left.equalTo(self.inputTypeButton.snp_right).with.offset(4)
+            make.left.equalTo(self.inputTypeButton.snp_right).offset(4)
             make.centerY.equalTo(self.inputTypeButton)
         }
         
         spaceButton.snp_makeConstraints { make in
             make.height.equalTo(self.inputTypeButton)
-            make.left.equalTo(self.nextKeyboardButton.snp_right).with.offset(4)
+            make.left.equalTo(self.nextKeyboardButton.snp_right).offset(4)
             make.centerY.equalTo(self.inputTypeButton)
             make.width.greaterThanOrEqualTo(10)
         }
         
         backSpaceButton.snp_makeConstraints { make in
             make.size.equalTo(self.inputTypeButton)
-            make.left.equalTo(self.spaceButton.snp_right).with.offset(4)
+            make.left.equalTo(self.spaceButton.snp_right).offset(4)
             make.centerY.equalTo(self.inputTypeButton)
         }
         
         doneButton.snp_makeConstraints { make in
             make.size.equalTo(self.inputTypeButton)
-            make.left.equalTo(self.backSpaceButton.snp_right).with.offset(4)
+            make.left.equalTo(self.backSpaceButton.snp_right).offset(4)
             make.centerY.equalTo(self.inputTypeButton)
-            make.right.equalTo(self.inputView).with.offset(-4)
+            make.right.equalTo(self.inputView).offset(-4)
         }
     }
     
@@ -144,16 +145,16 @@ class KeyboardViewController: UIInputViewController {
             handwriteViewController.view.removeFromSuperview()
             inputTypeButton.setTitle("^_^", forState: .Normal)
             self.recoView.addSubview(emojiKeyboardViewController.view)
-            emojiKeyboardViewController.didMoveToParentViewController(self)
             layoutFillSuperView(emojiKeyboardViewController.view)
+            emojiKeyboardViewController.didMoveToParentViewController(self)
         case .Emoji:
             currentKeyboardType = .Handwrite
             emojiKeyboardViewController.didMoveToParentViewController(nil)
             emojiKeyboardViewController.view.removeFromSuperview()
             inputTypeButton.setTitle("✏", forState: .Normal)
             recoView.addSubview(handwriteViewController.view)
-            handwriteViewController.didMoveToParentViewController(self)
             layoutFillSuperView(handwriteViewController.view)
+            handwriteViewController.didMoveToParentViewController(self)
         }
     }
     

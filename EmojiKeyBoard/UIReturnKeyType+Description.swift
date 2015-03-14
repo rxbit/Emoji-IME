@@ -33,8 +33,6 @@ extension UIReturnKeyType: Printable {
             return "Send"
         case .Yahoo:
             return "Yahoo"
-        default:
-            return "❤️"
         }
     }
 }

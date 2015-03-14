@@ -20,7 +20,6 @@ class CategoryScrollView: UIScrollView {
     private var activiteButton: UIButton!
     private var buttons: [UIButton]!
     private var activeFlag: UIView!
-    private var activeFlagCenterYConstraint: Constraint?
     
     var cateDelegate: CategoryScrollViewDelegate?
     var currentCategoryTitle: String? {
@@ -63,7 +62,7 @@ class CategoryScrollView: UIScrollView {
         addSubview(activeFlag)
         
         activeFlag.snp_makeConstraints { make in
-            make.top.equalTo(self).with.offset(4)
+            make.top.equalTo(self).offset(4)
             make.width.equalTo(5)
             make.height.equalTo(5)
         }
@@ -83,11 +82,11 @@ class CategoryScrollView: UIScrollView {
         for (index,button) in enumerate(buttons) {
             button.snp_makeConstraints { make in
                 if index == 0 {
-                    make.leading.equalTo(self).with.offset(2)
+                    make.leading.equalTo(self).offset(2)
                     self.activiteButton = button
                 }
                 else {
-                    make.leading.equalTo(self.buttons[index-1].snp_trailing).with.offset(2)
+                    make.leading.equalTo(self.buttons[index-1].snp_trailing).offset(2)
                 }
                 make.centerY.equalTo(self)
                 make.width.equalTo(self.kButtonWidth)
@@ -104,9 +103,8 @@ class CategoryScrollView: UIScrollView {
             activiteButton.setTitleColor(KeyboardThemeManager.theme.CategoryButtonTextColorNormal, forState: .Normal)
             self.activiteButton = button
             activiteButton.setTitleColor(KeyboardThemeManager.theme.CategoryButtonTextColorActive, forState: .Normal)
-            activeFlagCenterYConstraint?.uninstall()
-            activeFlag.snp_makeConstraints { make in
-                self.activeFlagCenterYConstraint = make.centerX.equalTo(self.activiteButton!)
+            activeFlag.snp_updateConstraints { make in
+                make.centerX.equalTo(self.activiteButton!)
                 return
             }
             cateDelegate?.didChangeCategory(activiteButton.titleForState(.Normal)!)

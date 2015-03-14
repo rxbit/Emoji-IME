@@ -35,6 +35,10 @@ class CanvesView: UIView {
         self.layer.cornerRadius = 6
         self.layer.masksToBounds = true
         self.contentMode = .Redraw
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){
+            TestCV.sharedInstance().TrainKnn()
+        }
     }
     
     override func intrinsicContentSize() -> CGSize {
@@ -71,7 +75,7 @@ class CanvesView: UIView {
         self.layer.renderInContext(UIGraphicsGetCurrentContext())
         var image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        let strings = TestCV.DetectEmojiStringsWithImage(image) as [String]?
+        let strings = TestCV.sharedInstance().DetectEmojiStringsWithImage(image) as [String]?
         self.delegate?.didRecivedEmojiStrings(strings)
     }
     
