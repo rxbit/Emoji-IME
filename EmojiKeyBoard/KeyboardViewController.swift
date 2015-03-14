@@ -203,24 +203,7 @@ class KeyboardViewController: UIInputViewController {
         self.spaceButton.setTitleColor(textColor, forState: .Normal)
         self.backSpaceButton.setTitleColor(textColor, forState: .Normal)
         self.doneButton.setTitleColor(textColor, forState: .Normal)
-        var doneText: String
-        switch proxy.returnKeyType! {
-        case UIReturnKeyType.Default:
-            doneText = "Return"
-        case UIReturnKeyType.Done:
-            doneText = "Done"
-        case UIReturnKeyType.Go:
-            doneText = "Go"
-        case UIReturnKeyType.Send:
-            doneText = "Send"
-        case UIReturnKeyType.Search:
-            doneText = "Search"
-        case UIReturnKeyType.Next:
-            doneText = "Next"
-        default:
-            doneText = "Return"
-        }
-        self.doneButton.setTitle(doneText, forState: .Normal)
+        self.doneButton.setTitle(proxy.returnKeyType!.description, forState: .Normal)
     }
     
 }
