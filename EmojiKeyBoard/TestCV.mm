@@ -31,23 +31,25 @@ using namespace std;
 
 NSArray *table = @[@"<",@">",@"\u0434",@"ω",@"\u3064",@"\u0054",@"u",@"(",@")",@"\u005e",@"\u00b0",@"→",@"_",];
 
--(void) TrainKnn {
-    NSBundle *bundle = [NSBundle mainBundle];
-    NSString *trainDataPath = [bundle pathForResource:@"trainData" ofType:@"bmp"];
-    NSString *trainClassPath = [bundle pathForResource:@"trainClass" ofType:@"bmp"];
-    cv::Mat trainData, trainClass;
-    trainData = cv::imread([trainDataPath fileSystemRepresentation],cv::IMREAD_GRAYSCALE);
-    trainClass = cv::imread([trainClassPath fileSystemRepresentation],cv::IMREAD_GRAYSCALE);
-    if (!trainData.data || !trainClass.data) {
-        NSLog(@"读取训练数据源出错。");
+-(cv::KNearest*)knn {
+    if(!_knn) {
+        NSBundle *bundle = [NSBundle mainBundle];
+        NSString *trainDataPath = [bundle pathForResource:@"trainData" ofType:@"bmp"];
+        NSString *trainClassPath = [bundle pathForResource:@"trainClass" ofType:@"bmp"];
+        cv::Mat trainData, trainClass;
+        trainData = cv::imread([trainDataPath fileSystemRepresentation],cv::IMREAD_GRAYSCALE);
+        trainClass = cv::imread([trainClassPath fileSystemRepresentation],cv::IMREAD_GRAYSCALE);
+        if (!trainData.data || !trainClass.data) {
+            NSLog(@"读取训练数据源出错。");
+        }
+        trainData.convertTo(trainData, CV_32FC1);
+        trainClass.convertTo(trainClass, CV_32FC1);
+        _knn = new cv::KNearest(trainData, trainClass);
     }
-    trainData.convertTo(trainData, CV_32FC1);
-    trainClass.convertTo(trainClass, CV_32FC1);
-    self.knn = new cv::KNearest(trainData, trainClass);
+    return _knn;
 }
 
 -(NSArray *)DetectEmojiStringsWithImage:(UIImage *)image {
-    if (!self.knn) [self TrainKnn];
     NSMutableArray *emojiStrings = [[NSMutableArray alloc]init];
     NSMutableArray *tempStrings = [[NSMutableArray alloc]init];
     cv::Mat mat;
@@ -103,7 +105,7 @@ NSArray *table = @[@"<",@">",@"\u0434",@"ω",@"\u3064",@"\u0054",@"u",@"(",@")",
 
 - (void)dealloc
 {
-    delete self.knn;
+    delete _knn;
 }
 
 @end

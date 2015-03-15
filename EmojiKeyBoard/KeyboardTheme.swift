@@ -23,7 +23,10 @@ class KeyboardThemeManager {
     var theme: KeyboardTheme! = KeyboardTheme()
     
     func changeThemeWithThemeName(themeName: KeyboardThemeName) {
-        theme = KeyboardTheme()
+        switch themeName {
+        case .Default:
+            theme = KeyboardTheme()
+        }
     }
 }
 

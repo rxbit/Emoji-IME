@@ -35,10 +35,6 @@ class CanvesView: UIView {
         self.layer.cornerRadius = 6
         self.layer.masksToBounds = true
         self.contentMode = .Redraw
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){
-            TestCV.sharedInstance().TrainKnn()
-        }
     }
     
     override func intrinsicContentSize() -> CGSize {

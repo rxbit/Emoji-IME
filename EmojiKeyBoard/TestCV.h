@@ -13,6 +13,5 @@
 
 +(TestCV*)sharedInstance;
 -(NSArray *)DetectEmojiStringsWithImage:(UIImage *)image;
--(void) TrainKnn;
 
 @end
