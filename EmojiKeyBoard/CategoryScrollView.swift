@@ -17,7 +17,7 @@ class CategoryScrollView: UIScrollView {
     private let kViewHeight: Int = 34
     private let kButtonWidth: Int = 48
     
-    private var activiteButton: UIButton!
+    private var activiteButton: UIButton?
     private var buttons: [UIButton]!
     private var activeFlag: UIView!
     
@@ -28,7 +28,7 @@ class CategoryScrollView: UIScrollView {
         }
     }
     
-    var acturllyContentSize: CGSize! {
+    var acturllyContentSize: CGSize {
         get{
             return CGSize(width: (kButtonWidth+2)*buttons.count+6, height: kViewHeight)
         }
@@ -96,19 +96,19 @@ class CategoryScrollView: UIScrollView {
     }
     
     private func setActiveTabwithButton(button: UIButton?) {
-        if button == nil {
-            activeFlag.hidden = true
-        } else {
+        if let button = button {
             activeFlag.hidden = false
-            activiteButton.setTitleColor(KeyboardThemeManager.theme.CategoryButtonTextColorNormal, forState: .Normal)
+            activiteButton!.setTitleColor(KeyboardThemeManager.theme.CategoryButtonTextColorNormal, forState: .Normal)
             self.activiteButton = button
-            activiteButton.setTitleColor(KeyboardThemeManager.theme.CategoryButtonTextColorActive, forState: .Normal)
+            activiteButton!.setTitleColor(KeyboardThemeManager.theme.CategoryButtonTextColorActive, forState: .Normal)
             activeFlag.snp_updateConstraints { make in
                 make.centerX.equalTo(self.activiteButton!)
                 return
             }
-            cateDelegate?.didChangeCategory(activiteButton.titleForState(.Normal)!)
-        }
+            cateDelegate?.didChangeCategory(activiteButton!.titleForState(.Normal)!)
+        } else {
+            activeFlag.hidden = true
+       }
     }
     
     func SELdidTapCategoryTabButton(sender: AnyObject?) {

@@ -31,35 +31,25 @@ class EmojiFaceManager: NSObject {
     
     override init() {
         super.init()
-        loadEmojiFaceFromFileIfNeed()
-    }
-    
-    private func loadEmojiFaceFromFileIfNeed() {
         var userDefault = NSUserDefaults.standardUserDefaults()
         let tmpDict = userDefault.dictionaryForKey("EmojiFace") as [String:[String]]?
-        if tmpDict == nil {
-           userDefault.setObject(faceDict, forKey: "EmojiFace")
+        if let tmpDict = tmpDict {
+            emojiFaceDict = tmpDict
+        } else {
+            userDefault.setObject(faceDict, forKey: "EmojiFace")
             emojiFaceDict = faceDict
-        }
-        else {
-            emojiFaceDict = tmpDict!
         }
     }
     
     var emojiCategoryTitles: [String] {
-        get{
             return emojiFaceDict["Keys"]!
-        }
     }
     
     func getFaceswithCatagoryTitle(title: String?) -> [String] {
-        if title == nil {
-            return []
+        if let title = title {
+            let rtn = emojiFaceDict[title] as [String]?
+            return (rtn != nil) ? rtn! : []
         }
-        let rtn = emojiFaceDict[title!] as [String]?
-        if rtn == nil {
-            return []
-        }
-        return rtn!
+        return []
     }
 }
