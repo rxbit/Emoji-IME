@@ -18,6 +18,7 @@ def parserimage(file)
 end
 
 def getCharacter(path)
+  puts path
 	f = File.open(path+"/unicode","r")
 	return f.readline.strip
 end

@@ -32,7 +32,7 @@ class CanvesView: UIView {
     
     private func didInitView() {
         self.backgroundColor = KeyboardThemeManager.theme.CanvesBackgroundColor
-        self.layer.cornerRadius = 6
+        //self.layer.cornerRadius = 6
         self.layer.masksToBounds = true
         self.contentMode = .Redraw
     }
@@ -67,6 +67,10 @@ class CanvesView: UIView {
     }
     
     private func startDetect() {
+        if self.arrayStrokes.isEmpty {
+            self.delegate?.didRecivedEmojiStrings(nil)
+            return
+        }
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.mainScreen().scale)
         self.layer.renderInContext(UIGraphicsGetCurrentContext())
         var image = UIGraphicsGetImageFromCurrentImageContext()
@@ -92,7 +96,7 @@ class CanvesView: UIView {
     func deleteLatestPath() -> Bool {
         if self.arrayStrokes.count > 0 {
             self.arrayStrokes.removeLast()
-            self.setNeedsDisplay()
+            setNeedsDisplay()
             startDetect()
             return true
         }

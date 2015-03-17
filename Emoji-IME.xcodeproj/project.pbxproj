@@ -27,9 +27,9 @@
 		C48D5B491A495C0D00F0F14C /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D5B481A495C0D00F0F14C /* KeyboardViewController.swift */; };
 		C48D5B4C1A495C0D00F0F14C /* EmojiKeyBoard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C48D5B441A495C0C00F0F14C /* EmojiKeyBoard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C491B6121AA75981009DB900 /* EmojiFaceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C491B6111AA75981009DB900 /* EmojiFaceManager.swift */; };
+		C49779B91AB8908200DD3FB2 /* trainClass.bmp in Resources */ = {isa = PBXBuildFile; fileRef = C49779B71AB8908200DD3FB2 /* trainClass.bmp */; };
+		C49779BA1AB8908200DD3FB2 /* trainData.bmp in Resources */ = {isa = PBXBuildFile; fileRef = C49779B81AB8908200DD3FB2 /* trainData.bmp */; };
 		C4C7C3DB1A5051070095D7D0 /* CanvesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C7C3DA1A5051070095D7D0 /* CanvesView.swift */; };
-		C4EC1FFA1A8BA1F600511ADB /* trainClass.bmp in Resources */ = {isa = PBXBuildFile; fileRef = C4EC1FF81A8BA1F600511ADB /* trainClass.bmp */; };
-		C4EC1FFB1A8BA1F600511ADB /* trainData.bmp in Resources */ = {isa = PBXBuildFile; fileRef = C4EC1FF91A8BA1F600511ADB /* trainData.bmp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,9 +94,9 @@
 		C48D5B471A495C0D00F0F14C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C48D5B481A495C0D00F0F14C /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		C491B6111AA75981009DB900 /* EmojiFaceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiFaceManager.swift; sourceTree = "<group>"; };
+		C49779B71AB8908200DD3FB2 /* trainClass.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = trainClass.bmp; sourceTree = "<group>"; };
+		C49779B81AB8908200DD3FB2 /* trainData.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = trainData.bmp; sourceTree = "<group>"; };
 		C4C7C3DA1A5051070095D7D0 /* CanvesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvesView.swift; sourceTree = "<group>"; };
-		C4EC1FF81A8BA1F600511ADB /* trainClass.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = trainClass.bmp; sourceTree = "<group>"; };
-		C4EC1FF91A8BA1F600511ADB /* trainData.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = trainData.bmp; sourceTree = "<group>"; };
 		CC414A33F6782A86A19FADA4 /* Pods-EmojiKeyBoard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EmojiKeyBoard.release.xcconfig"; path = "Pods/Target Support Files/Pods-EmojiKeyBoard/Pods-EmojiKeyBoard.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -233,8 +233,8 @@
 		C48D5B461A495C0D00F0F14C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C4EC1FF81A8BA1F600511ADB /* trainClass.bmp */,
-				C4EC1FF91A8BA1F600511ADB /* trainData.bmp */,
+				C49779B71AB8908200DD3FB2 /* trainClass.bmp */,
+				C49779B81AB8908200DD3FB2 /* trainData.bmp */,
 				C48D5B471A495C0D00F0F14C /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -366,8 +366,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4EC1FFB1A8BA1F600511ADB /* trainData.bmp in Resources */,
-				C4EC1FFA1A8BA1F600511ADB /* trainClass.bmp in Resources */,
+				C49779BA1AB8908200DD3FB2 /* trainData.bmp in Resources */,
+				C49779B91AB8908200DD3FB2 /* trainClass.bmp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

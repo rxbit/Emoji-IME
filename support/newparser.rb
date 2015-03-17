@@ -1,11 +1,12 @@
 #!/usr/bin/ruby
+require 'digest'
 require 'ropencv'
 include OpenCV
 
 
 def showImage(img)
 	cv::imshow('',img)
-	cv::wait_key()
+#	cv::wait_key()
 end
 
 def parserImage(file)
@@ -27,6 +28,8 @@ def parserImage(file)
 	cv::threshold(img,img,threshold,255,CV_THRESH_BINARY_INV|CV_THRESH_OTSU)
 	puts "反色二值化"
 	showImage(img)
+
+  puts img.type
 
   puts "规格化"
   left = -1
@@ -79,8 +82,7 @@ def parserImage(file)
 	bin = img.clone()
 	cv::find_contours(bin, contours, hierarchy, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_SIMPLE)
 
-	contours.each do |c|
-		rect = cv::bounding_rect(c)
+	contours.each do |c| rect = cv::bounding_rect(c)
 		puts "子图像面积 #{rect.area()}"
 		sample = cv::Mat.new()
 		img.block(rect).copy_to(sample)
@@ -90,6 +92,17 @@ def parserImage(file)
     size = cv::Size.new(w,h)
     cv::resize(sample,sample,size)
     showImage(sample)
+    bg = cv::Mat.zeros(16,16,sample.type)
+    showImage(bg)
+    r = Float(w)/Float(h)
+    x = r < 1?8:0
+    y = r > 1?8:0
+    rect = cv::Rect.new(x,y,w,h)
+    sample.copy_to(bg.block(rect))
+    showImage(bg)
+    digest = Digest::SHA1.hexdigest bg.to_s
+    puts digest
+    cv::imwrite('UnCata/'+digest+'.png',bg)
 	end
 end
 
