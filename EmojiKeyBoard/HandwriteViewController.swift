@@ -62,11 +62,8 @@ class HandwriteViewController: UIViewController {
     func clearView() {
         handwriteView.clearView()
     }
-    
-}
 
-extension HandwriteViewController: EmojiImputDelegate {
-    func didRecivedEmojiStrings(strings: [String]?) {
+    private func didRecivedEmojiStrings(strings: [String]?) {
         var c = (top: 0,height: 0)
         if strings == nil || strings!.count == 0 {
             c = (0,0)
@@ -79,6 +76,22 @@ extension HandwriteViewController: EmojiImputDelegate {
             make.height.equalTo(c.height)
         }
     }
+}
+
+extension HandwriteViewController: EmojiImputDelegate {
+    func didHandwriteEndedAndStartReconigze(sender: CanvesView, viewImage: UIImage) {
+        if sender == self.handwriteView {
+            if let strings = TestCV.sharedInstance().DetectEmojiStringsWithImage(viewImage) as [String]? {
+                self.didRecivedEmojiStrings(strings)
+            }
+        }
+    }
+    
+    func didHandwriteEndedAndNoPath(sender: CanvesView) {
+        if sender == self.handwriteView { self.didRecivedEmojiStrings(nil) }
+    }
+    
+
 }
 
 extension HandwriteViewController: CandidateScrollViewDelegate {

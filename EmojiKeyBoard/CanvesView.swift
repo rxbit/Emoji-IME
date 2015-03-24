@@ -8,12 +8,13 @@
 
 import UIKit
 
-protocol EmojiImputDelegate {
-    func didRecivedEmojiStrings(strings: [String]?)
+protocol EmojiImputDelegate: class {
+    func didHandwriteEndedAndStartReconigze(sender: CanvesView, viewImage: UIImage)
+    func didHandwriteEndedAndNoPath(sender: CanvesView)
 }
 
 class CanvesView: UIView {
-    var delegate: EmojiImputDelegate?
+    weak var delegate: EmojiImputDelegate?
     private var arrayStrokes:[[CGPoint]] = []
     
     override init() {
@@ -68,15 +69,14 @@ class CanvesView: UIView {
     
     private func startDetect() {
         if self.arrayStrokes.isEmpty {
-            self.delegate?.didRecivedEmojiStrings(nil)
+            self.delegate?.didHandwriteEndedAndNoPath(self)
             return
         }
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.mainScreen().scale)
         self.layer.renderInContext(UIGraphicsGetCurrentContext())
         var image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        let strings = TestCV.sharedInstance().DetectEmojiStringsWithImage(image) as [String]?
-        self.delegate?.didRecivedEmojiStrings(strings)
+        self.delegate?.didHandwriteEndedAndStartReconigze(self, viewImage: image)
     }
     
     override func drawRect(rect: CGRect) {

@@ -9,12 +9,12 @@
 import UIKit
 import AudioToolbox
 
-protocol CandidateScrollViewDelegate {
+protocol CandidateScrollViewDelegate: class {
     func didRecivedInputString(string:String)
 }
 
 class CandidateScrollView: UIScrollView {
-    var inputDelegate: CandidateScrollViewDelegate?
+    weak var inputDelegate: CandidateScrollViewDelegate?
     private var buttons: [UIButton] = []
     
     override init() {

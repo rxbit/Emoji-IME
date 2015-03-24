@@ -9,7 +9,7 @@
 import UIKit
 import Snap
 
-protocol CategoryScrollViewDelegate {
+protocol CategoryScrollViewDelegate: class {
     func didChangeCategory(cate: String)
 }
 
@@ -21,7 +21,7 @@ class CategoryScrollView: UIScrollView {
     private var buttons: [UIButton]!
     private var activeFlag: UIView!
     
-    var cateDelegate: CategoryScrollViewDelegate?
+    weak var cateDelegate: CategoryScrollViewDelegate?
     var currentCategoryTitle: String? {
         get {
             return activiteButton?.titleForState(.Normal)
