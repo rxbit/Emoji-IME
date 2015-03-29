@@ -1,5 +1,5 @@
 //
-//  TestCV.h
+//  OpenCVHelper.h
 //  Emoji-IME
 //
 //  Created by Wuhua Dai on 15/2/4.
@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface TestCV : NSObject
+@interface OpenCVHelper : NSObject
 
-+(TestCV*)sharedInstance;
++(OpenCVHelper*)sharedInstance;
 -(NSArray *)DetectEmojiStringsWithImage:(UIImage *)image;
 
 @end

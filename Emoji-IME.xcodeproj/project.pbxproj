@@ -14,7 +14,7 @@
 		C42E1D801AB423B600435F72 /* UIReturnKeyType+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42E1D7F1AB423B600435F72 /* UIReturnKeyType+Description.swift */; };
 		C438A28F1AA5A34900A72436 /* EmojiKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C438A28E1AA5A34900A72436 /* EmojiKeyboardViewController.swift */; };
 		C43ADEAF1AA48C85000E693E /* CategoryScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43ADEAE1AA48C85000E693E /* CategoryScrollView.swift */; };
-		C45D2B5E1A8127D40002B5F5 /* TestCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = C45D2B5D1A8127D40002B5F5 /* TestCV.mm */; };
+		C45D2B5E1A8127D40002B5F5 /* OpenCVHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C45D2B5D1A8127D40002B5F5 /* OpenCVHelper.mm */; };
 		C4741B051AA60D3100F5352E /* HandwriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4741B041AA60D3100F5352E /* HandwriteViewController.swift */; };
 		C486875F1AA35F9F00C35D4B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C486875E1AA35F9F00C35D4B /* AudioToolbox.framework */; };
 		C488522A1A90D93700AB025A /* CandidateScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48852291A90D93700AB025A /* CandidateScrollView.swift */; };
@@ -24,7 +24,7 @@
 		C48D5B281A495B2A00F0F14C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C48D5B271A495B2A00F0F14C /* Images.xcassets */; };
 		C48D5B2B1A495B2A00F0F14C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C48D5B291A495B2A00F0F14C /* LaunchScreen.xib */; };
 		C48D5B371A495B2A00F0F14C /* Emoji_IMETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D5B361A495B2A00F0F14C /* Emoji_IMETests.swift */; };
-		C48D5B491A495C0D00F0F14C /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D5B481A495C0D00F0F14C /* KeyboardViewController.swift */; };
+		C48D5B491A495C0D00F0F14C /* MainKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D5B481A495C0D00F0F14C /* MainKeyboardViewController.swift */; };
 		C48D5B4C1A495C0D00F0F14C /* EmojiKeyBoard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C48D5B441A495C0C00F0F14C /* EmojiKeyBoard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C491B6121AA75981009DB900 /* EmojiFaceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C491B6111AA75981009DB900 /* EmojiFaceManager.swift */; };
 		C49779B91AB8908200DD3FB2 /* trainClass.bmp in Resources */ = {isa = PBXBuildFile; fileRef = C49779B71AB8908200DD3FB2 /* trainClass.bmp */; };
@@ -75,8 +75,8 @@
 		C438A28E1AA5A34900A72436 /* EmojiKeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiKeyboardViewController.swift; sourceTree = "<group>"; };
 		C43ADEAE1AA48C85000E693E /* CategoryScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryScrollView.swift; sourceTree = "<group>"; };
 		C45D2B5B1A8127D30002B5F5 /* EmojiKeyBoard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EmojiKeyBoard-Bridging-Header.h"; sourceTree = "<group>"; };
-		C45D2B5C1A8127D40002B5F5 /* TestCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestCV.h; sourceTree = "<group>"; };
-		C45D2B5D1A8127D40002B5F5 /* TestCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TestCV.mm; sourceTree = "<group>"; };
+		C45D2B5C1A8127D40002B5F5 /* OpenCVHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenCVHelper.h; sourceTree = "<group>"; };
+		C45D2B5D1A8127D40002B5F5 /* OpenCVHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVHelper.mm; sourceTree = "<group>"; };
 		C4741B041AA60D3100F5352E /* HandwriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandwriteViewController.swift; sourceTree = "<group>"; };
 		C486875E1AA35F9F00C35D4B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C48852291A90D93700AB025A /* CandidateScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandidateScrollView.swift; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 		C48D5B361A495B2A00F0F14C /* Emoji_IMETests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji_IMETests.swift; sourceTree = "<group>"; };
 		C48D5B441A495C0C00F0F14C /* EmojiKeyBoard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = EmojiKeyBoard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C48D5B471A495C0D00F0F14C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C48D5B481A495C0D00F0F14C /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		C48D5B481A495C0D00F0F14C /* MainKeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainKeyboardViewController.swift; sourceTree = "<group>"; };
 		C491B6111AA75981009DB900 /* EmojiFaceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiFaceManager.swift; sourceTree = "<group>"; };
 		C49779B71AB8908200DD3FB2 /* trainClass.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = trainClass.bmp; sourceTree = "<group>"; };
 		C49779B81AB8908200DD3FB2 /* trainData.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = trainData.bmp; sourceTree = "<group>"; };
@@ -147,6 +147,51 @@
 				AEAF2C01CE36B9CCE9BA1631 /* Pods_EmojiKeyBoard.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C47650881AC7F2A600E03D7B /* HandWriteView */ = {
+			isa = PBXGroup;
+			children = (
+				C4C7C3DA1A5051070095D7D0 /* CanvesView.swift */,
+				C4741B041AA60D3100F5352E /* HandwriteViewController.swift */,
+				C48852291A90D93700AB025A /* CandidateScrollView.swift */,
+			);
+			name = HandWriteView;
+			sourceTree = "<group>";
+		};
+		C47650891AC7F2C500E03D7B /* EmojiSelectView */ = {
+			isa = PBXGroup;
+			children = (
+				C43ADEAE1AA48C85000E693E /* CategoryScrollView.swift */,
+				C438A28E1AA5A34900A72436 /* EmojiKeyboardViewController.swift */,
+			);
+			name = EmojiSelectView;
+			sourceTree = "<group>";
+		};
+		C476508A1AC7F33F00E03D7B /* Appearance */ = {
+			isa = PBXGroup;
+			children = (
+				C4085BA11AB427BF0025CBCC /* KeyboardTheme.swift */,
+				C424FB681AA2EBDF004232C4 /* MyKeyboardButton.swift */,
+			);
+			name = Appearance;
+			sourceTree = "<group>";
+		};
+		C476508B1AC7F3A100E03D7B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C491B6111AA75981009DB900 /* EmojiFaceManager.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		C476508C1AC7F3B400E03D7B /* OpenCV */ = {
+			isa = PBXGroup;
+			children = (
+				C45D2B5C1A8127D40002B5F5 /* OpenCVHelper.h */,
+				C45D2B5D1A8127D40002B5F5 /* OpenCVHelper.mm */,
+			);
+			name = OpenCV;
 			sourceTree = "<group>";
 		};
 		C48D5B121A495B2A00F0F14C = {
@@ -212,19 +257,14 @@
 		C48D5B451A495C0D00F0F14C /* EmojiKeyBoard */ = {
 			isa = PBXGroup;
 			children = (
-				C43ADEAE1AA48C85000E693E /* CategoryScrollView.swift */,
-				C48852291A90D93700AB025A /* CandidateScrollView.swift */,
-				C4C7C3DA1A5051070095D7D0 /* CanvesView.swift */,
-				C491B6111AA75981009DB900 /* EmojiFaceManager.swift */,
-				C45D2B5B1A8127D30002B5F5 /* EmojiKeyBoard-Bridging-Header.h */,
-				C438A28E1AA5A34900A72436 /* EmojiKeyboardViewController.swift */,
-				C4741B041AA60D3100F5352E /* HandwriteViewController.swift */,
-				C48D5B481A495C0D00F0F14C /* KeyboardViewController.swift */,
-				C4085BA11AB427BF0025CBCC /* KeyboardTheme.swift */,
-				C424FB681AA2EBDF004232C4 /* MyKeyboardButton.swift */,
+				C476508C1AC7F3B400E03D7B /* OpenCV */,
+				C476508B1AC7F3A100E03D7B /* Models */,
+				C476508A1AC7F33F00E03D7B /* Appearance */,
+				C47650891AC7F2C500E03D7B /* EmojiSelectView */,
+				C47650881AC7F2A600E03D7B /* HandWriteView */,
+				C48D5B481A495C0D00F0F14C /* MainKeyboardViewController.swift */,
 				C42E1D7F1AB423B600435F72 /* UIReturnKeyType+Description.swift */,
-				C45D2B5C1A8127D40002B5F5 /* TestCV.h */,
-				C45D2B5D1A8127D40002B5F5 /* TestCV.mm */,
+				C45D2B5B1A8127D30002B5F5 /* EmojiKeyBoard-Bridging-Header.h */,
 				C48D5B461A495C0D00F0F14C /* Supporting Files */,
 			);
 			path = EmojiKeyBoard;
@@ -496,9 +536,9 @@
 				C43ADEAF1AA48C85000E693E /* CategoryScrollView.swift in Sources */,
 				C4741B051AA60D3100F5352E /* HandwriteViewController.swift in Sources */,
 				C491B6121AA75981009DB900 /* EmojiFaceManager.swift in Sources */,
-				C45D2B5E1A8127D40002B5F5 /* TestCV.mm in Sources */,
+				C45D2B5E1A8127D40002B5F5 /* OpenCVHelper.mm in Sources */,
 				C4085BA21AB427BF0025CBCC /* KeyboardTheme.swift in Sources */,
-				C48D5B491A495C0D00F0F14C /* KeyboardViewController.swift in Sources */,
+				C48D5B491A495C0D00F0F14C /* MainKeyboardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

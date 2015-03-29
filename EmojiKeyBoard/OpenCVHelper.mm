@@ -1,27 +1,27 @@
 //
-//  TestCV.m
+//  OpenCVHelper.m
 //  Emoji-IME
 //
 //  Created by Wuhua Dai on 15/2/4.
 //  Copyright (c) 2015年 wua. All rights reserved.
 //
 
-#import "TestCV.h"
+#import "OpenCVHelper.h"
 #import <opencv2/opencv.hpp>
 #import <opencv2/highgui/ios.h>
 
 using namespace std;
 
-@interface TestCV ()
+@interface OpenCVHelper ()
 @property (nonatomic,assign) cv::KNearest *knn;
 @end
 
-@implementation TestCV {
+@implementation OpenCVHelper {
 }
 
 
-+(TestCV*)sharedInstance {
-    static TestCV* sharedInstance = nil;
++(OpenCVHelper*)sharedInstance {
+    static OpenCVHelper* sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self alloc] init];
