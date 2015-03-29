@@ -20,6 +20,7 @@ class CategoryScrollView: UIScrollView {
     private var activiteButton: UIButton?
     private var buttons: [UIButton]!
     private var activeFlag: UIView!
+    private var activeFlagConstraint: Constraint?
     
     weak var cateDelegate: CategoryScrollViewDelegate?
     var currentCategoryTitle: String? {
@@ -101,8 +102,9 @@ class CategoryScrollView: UIScrollView {
             activiteButton!.setTitleColor(KeyboardThemeManager.theme.CategoryButtonTextColorNormal, forState: .Normal)
             self.activiteButton = button
             activiteButton!.setTitleColor(KeyboardThemeManager.theme.CategoryButtonTextColorActive, forState: .Normal)
-            activeFlag.snp_updateConstraints { make in
-                make.centerX.equalTo(self.activiteButton!)
+            activeFlagConstraint?.uninstall()
+            activeFlag.snp_makeConstraints { make in
+                self.activeFlagConstraint = make.centerX.equalTo(self.activiteButton!)
                 return
             }
             cateDelegate?.didChangeCategory(activiteButton!.titleForState(.Normal)!)

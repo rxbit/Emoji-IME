@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KeyboardViewController: UIInputViewController {
+class MainKeyboardViewController: UIInputViewController {
 
     enum KeyboardType: Int {
         case Emoji = 1, Handwrite
@@ -209,7 +209,7 @@ class KeyboardViewController: UIInputViewController {
     
 }
 
-extension KeyboardViewController: CandidateScrollViewDelegate {
+extension MainKeyboardViewController: CandidateScrollViewDelegate {
     func didRecivedInputString(string: String) {
         let proxy = textDocumentProxy as UITextDocumentProxy
         proxy.insertText(string)
