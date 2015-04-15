@@ -11,10 +11,6 @@ import AudioToolbox
 
 class MyKeyboardButton: UIButton {
     private var frontColor: UIColor!
-
-    override init() {
-        super.init()
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,14 +27,14 @@ class MyKeyboardButton: UIButton {
         self.layer.cornerRadius = 5
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event)
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){ AudioServicesPlaySystemSound(1104)}
         frontColor = backgroundColor
         backgroundColor = KeyboardThemeManager.theme.KeyboardButtonBackgroundColorPressed
     }
     
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesEnded(touches, withEvent: event)
         backgroundColor = frontColor
     }

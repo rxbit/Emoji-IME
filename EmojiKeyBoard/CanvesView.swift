@@ -17,10 +17,6 @@ class CanvesView: UIView {
     weak var delegate: EmojiImputDelegate?
     private var arrayStrokes:[[CGPoint]] = []
     
-    override init() {
-        super.init()
-    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         didInitView()
@@ -42,15 +38,15 @@ class CanvesView: UIView {
         return CGSize(width: 80, height: 80)
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         println("开始触摸つ(^v^)つ")
         var arrayPointsInStroke:[CGPoint] = []
         self.arrayStrokes.append(arrayPointsInStroke)
     }
     
-    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
         println("摩擦～摩擦～～")
-        if let touch = touches.anyObject() as? UITouch {
+        if let touch = touches.first as? UITouch {
             let point = touch.locationInView(self)
             if !self.arrayStrokes.isEmpty {
                 self.arrayStrokes[self.arrayStrokes.count - 1].append(point)
@@ -59,7 +55,7 @@ class CanvesView: UIView {
         self.setNeedsDisplay()
     }
     
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         println("Stop!!")
         if self.arrayStrokes.last!.count < 2 {
             self.arrayStrokes.removeLast()

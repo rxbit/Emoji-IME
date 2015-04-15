@@ -17,10 +17,6 @@ class CandidateScrollView: UIScrollView {
     weak var inputDelegate: CandidateScrollViewDelegate?
     private var buttons: [UIButton] = []
     
-    override init() {
-        super.init()
-    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         didInitView()
@@ -45,7 +41,7 @@ class CandidateScrollView: UIScrollView {
         }
         buttons = []
         for string in strings {
-            let button = UIButton.buttonWithType(.System) as UIButton
+            let button = UIButton.buttonWithType(.System) as! UIButton
             button.setTitle(string, forState: .Normal)
             button.sizeToFit()
             button.backgroundColor = KeyboardThemeManager.theme.CandidateButtonBackGroundColorNormal
@@ -74,7 +70,7 @@ class CandidateScrollView: UIScrollView {
     }
 
     func SELdidTapButton(sender: AnyObject?) {
-        let button = sender as UIButton
+        let button = sender as! UIButton
         let title = button.titleForState(.Normal)
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){ AudioServicesPlaySystemSound(1104)}
         inputDelegate?.didRecivedInputString(title!)

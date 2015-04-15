@@ -81,7 +81,7 @@ class HandwriteViewController: UIViewController {
 extension HandwriteViewController: EmojiImputDelegate {
     func didHandwriteEndedAndStartReconigze(sender: CanvesView, viewImage: UIImage) {
         if sender == self.handwriteView {
-            if let strings = OpenCVHelper.sharedInstance().DetectEmojiStringsWithImage(viewImage) as [String]? {
+            if let strings = OpenCVHelper.sharedInstance().DetectEmojiStringsWithImage(viewImage) as! [String]? {
                 self.didRecivedEmojiStrings(strings)
             }
         }

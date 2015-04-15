@@ -71,7 +71,7 @@ class EmojiKeyboardViewController: UIViewController {
     }
 
     func SELdidTapButton(sender: AnyObject?) {
-        let button = sender as UIButton
+        let button = sender as! UIButton
         let title = button.titleForState(.Normal)
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){ AudioServicesPlaySystemSound(1104)}
         inputDelegate?.didRecivedInputString(title!)
@@ -85,7 +85,7 @@ class EmojiKeyboardViewController: UIViewController {
         buttons.removeAll(keepCapacity: false)
         
         for emojiString in titleStrings {
-            var button = UIButton.buttonWithType(.System) as UIButton
+            var button = UIButton.buttonWithType(.System) as! UIButton
             button.setTitle(emojiString, forState: .Normal)
             button.setTitleColor(KeyboardThemeManager.theme.EmojiKeyboardButtonTextColor, forState: .Normal)
             button.backgroundColor = KeyboardThemeManager.theme.EmojiKeyboardBackgroundColor

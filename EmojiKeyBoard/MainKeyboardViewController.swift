@@ -36,24 +36,24 @@ class MainKeyboardViewController: UIInputViewController {
         
         self.recoView = UIView()
         
-        self.inputTypeButton = MyKeyboardButton.buttonWithType(.System) as UIButton
+        self.inputTypeButton = MyKeyboardButton.buttonWithType(.System) as! UIButton
         self.inputTypeButton.setTitle("✏", forState: .Normal)
         inputTypeButton.addTarget(self, action: "SELdoInputType", forControlEvents: .TouchUpInside)
         
-        self.nextKeyboardButton = MyKeyboardButton.buttonWithType(.System) as UIButton
+        self.nextKeyboardButton = MyKeyboardButton.buttonWithType(.System) as! UIButton
         self.nextKeyboardButton.setTitle(NSLocalizedString("🌐", comment: "Title for 'Next Keyboard' button"), forState: .Normal)
         self.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
         
-        self.spaceButton = MyKeyboardButton.buttonWithType(.System) as UIButton
+        self.spaceButton = MyKeyboardButton.buttonWithType(.System) as! UIButton
         self.spaceButton.setTitle("Space", forState: .Normal)
         self.spaceButton.addTarget(self, action: "SELdoSpace", forControlEvents: .TouchUpInside)
         self.spaceButton.backgroundColor = KeyboardThemeManager.theme.KeyboardSpaceButtonColorNormal
         
-        self.backSpaceButton = MyKeyboardButton.buttonWithType(.System) as UIButton
+        self.backSpaceButton = MyKeyboardButton.buttonWithType(.System) as! UIButton
         self.backSpaceButton.setTitle("🔙", forState: .Normal)
         self.backSpaceButton.addTarget(self, action: "SELdoBackSpace", forControlEvents: .TouchUpInside)
         
-        self.doneButton = MyKeyboardButton.buttonWithType(.System) as UIButton
+        self.doneButton = MyKeyboardButton.buttonWithType(.System) as! UIButton
         self.doneButton.setTitle("Done", forState: .Normal)
         self.doneButton.addTarget(self, action: "SELdoReturn", forControlEvents: .TouchUpInside)
         self.doneButton.titleLabel?.font = UIFont.systemFontOfSize(13)
@@ -159,7 +159,7 @@ class MainKeyboardViewController: UIInputViewController {
     }
     
     func SELdoBackSpace() {
-        let proxy = self.textDocumentProxy as UITextDocumentProxy
+        let proxy = self.textDocumentProxy as! UITextDocumentProxy
         switch currentKeyboardType {
         case .Handwrite:
             if self.handwriteViewController.deleteLatestPath() == false {
@@ -171,12 +171,12 @@ class MainKeyboardViewController: UIInputViewController {
     }
     
     func SELdoSpace() {
-        let proxy = self.textDocumentProxy as UITextDocumentProxy
+        let proxy = self.textDocumentProxy as! UITextDocumentProxy
         proxy.insertText(" ")
     }
     
     func SELdoReturn() {
-        let proxy = self.textDocumentProxy as UITextDocumentProxy
+        let proxy = self.textDocumentProxy as! UITextDocumentProxy
         proxy.insertText("\n")
     }
 
@@ -193,7 +193,7 @@ class MainKeyboardViewController: UIInputViewController {
         // The app has just changed the document's contents, the document context has been updated.
     
         var textColor: UIColor
-        var proxy = self.textDocumentProxy as UITextDocumentProxy
+        var proxy = self.textDocumentProxy as! UITextDocumentProxy
         if proxy.keyboardAppearance == UIKeyboardAppearance.Dark {
             textColor = KeyboardThemeManager.theme.KeyboardButtonTextColorLight
         } else {
@@ -211,7 +211,7 @@ class MainKeyboardViewController: UIInputViewController {
 
 extension MainKeyboardViewController: CandidateScrollViewDelegate {
     func didRecivedInputString(string: String) {
-        let proxy = textDocumentProxy as UITextDocumentProxy
+        let proxy = textDocumentProxy as! UITextDocumentProxy
         proxy.insertText(string)
     }
 }

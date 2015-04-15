@@ -33,7 +33,7 @@ class EmojiFaceManager: NSObject {
     override init() {
         super.init()
         var userDefault = NSUserDefaults.standardUserDefaults()
-        let tmpDict = userDefault.dictionaryForKey("EmojiFace") as [String:[String]]?
+        let tmpDict = userDefault.dictionaryForKey("EmojiFace") as? [String:[String]]
         if let tmpDict = tmpDict {
             emojiFaceDict = tmpDict
         } else {

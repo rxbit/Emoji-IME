@@ -45,10 +45,6 @@ class CategoryScrollView: UIScrollView {
         didInitView()
     }
     
-    override init() {
-       super.init()
-    }
-    
     override func intrinsicContentSize() -> CGSize {
         return CGSize(width: 20, height: kViewHeight)
     }
@@ -72,7 +68,7 @@ class CategoryScrollView: UIScrollView {
         buttons = []
         let tabStrings = EmojiFaceManager.sharedManager.emojiCategoryTitles
         for tabString in tabStrings {
-            var button = UIButton.buttonWithType(.System) as UIButton
+            var button = UIButton.buttonWithType(.System) as! UIButton
             button.setTitle(tabString, forState: .Normal)
             button.setTitleColor(KeyboardThemeManager.theme.CategoryButtonTextColorNormal, forState: .Normal)
             button.addTarget(self, action: "SELdidTapCategoryTabButton:", forControlEvents: .TouchUpInside)
@@ -114,7 +110,7 @@ class CategoryScrollView: UIScrollView {
     }
     
     func SELdidTapCategoryTabButton(sender: AnyObject?) {
-        let senderButton = sender as UIButton
+        let senderButton = sender as! UIButton
         setActiveTabwithButton(senderButton)
     }
 }
