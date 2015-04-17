@@ -17,7 +17,24 @@ class CategoryScrollView: UIScrollView {
     private let kViewHeight: Int = 34
     private let kButtonWidth: Int = 48
     
-    private var activiteButton: UIButton?
+    private var activiteButton: UIButton? {
+        didSet {
+            if activiteButton != nil {
+                activeFlag.hidden = false
+                oldValue?.setTitleColor(KeyboardThemeManager.theme.CategoryButtonTextColorNormal, forState: .Normal)
+                activiteButton!.setTitleColor(KeyboardThemeManager.theme.CategoryButtonTextColorActive, forState: .Normal)
+                activeFlagConstraint?.uninstall()
+                activeFlag.snp_makeConstraints { make in
+                    self.activeFlagConstraint = make.centerX.equalTo(self.activiteButton!)
+                    return
+                }
+                cateDelegate?.didChangeCategory(activiteButton!.titleForState(.Normal)!)
+            } else {
+                activeFlag.hidden = true
+            }
+        }
+    }
+    
     private var buttons: [UIButton]!
     private var activeFlag: UIView!
     private var activeFlagConstraint: Constraint?
@@ -89,28 +106,10 @@ class CategoryScrollView: UIScrollView {
                 make.width.equalTo(self.kButtonWidth)
             }
         }
-        setActiveTabwithButton(activiteButton)
-    }
-    
-    private func setActiveTabwithButton(button: UIButton?) {
-        if let button = button {
-            activeFlag.hidden = false
-            activiteButton!.setTitleColor(KeyboardThemeManager.theme.CategoryButtonTextColorNormal, forState: .Normal)
-            self.activiteButton = button
-            activiteButton!.setTitleColor(KeyboardThemeManager.theme.CategoryButtonTextColorActive, forState: .Normal)
-            activeFlagConstraint?.uninstall()
-            activeFlag.snp_makeConstraints { make in
-                self.activeFlagConstraint = make.centerX.equalTo(self.activiteButton!)
-                return
-            }
-            cateDelegate?.didChangeCategory(activiteButton!.titleForState(.Normal)!)
-        } else {
-            activeFlag.hidden = true
-       }
     }
     
     func SELdidTapCategoryTabButton(sender: AnyObject?) {
         let senderButton = sender as! UIButton
-        setActiveTabwithButton(senderButton)
+        activiteButton = senderButton
     }
 }
