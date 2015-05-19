@@ -29,7 +29,7 @@ using namespace std;
     return sharedInstance;
 }
 
-NSArray *table = @[@"\u0434",@"3",@"ω",@"\u3064",@"ﾉ",@"ɛ",@"X",@"∩",@"(",@")",@"∀",@"*",@"\u005e",@"\u00b0",@"・",@"←",@"→",];
+NSArray *table = @[@"┐",@"┘",@"└",@"┌",@"<",@">",@"\u0434",@"ч",@"8",@"3",@"ლ",@"Φ",@"Ψ",@"ω",@"へ",@"\u3064",@"ﾉ",@"A",@"ɪ",@"O",@"Q",@"b",@"d",@"ɛ",@"m",@"p",@"q",@"u",@"z",@"\u0054",@"U",@"V",@"X",@"Z",@"◡",@"∩",@"(",@")",@"∀",@"*",@"∠",@"@",@"\u005e",@"\u00b0",@"・",@"`",@"♡",@"←",@"+",@"→",@"#",@"/",@"☆",@"⊂",@"⊃",@"~",@"๑",@"◠",@"▽",@"□",@"△",];
 
 -(cv::KNearest*)knn {
     if(!_knn) {
@@ -126,7 +126,31 @@ NSArray *table = @[@"\u0434",@"3",@"ω",@"\u3064",@"ﾉ",@"ɛ",@"X",@"∩",@"(",
         return a.x < b.x;
     });
     
-    for (auto i: rectArray) {
+    NSString * result = [self doKnnMat:mat Rect:&rectArray WithK:1];
+    if (result != nil) {
+        [emojiStrings addObject: result];
+    }
+    NSString * result2 = [self doKnnMat:mat Rect:&rectArray WithK:5];
+    if (result2 != nil) {
+        if (![result2 isEqualToString:result2]) {
+            [emojiStrings addObject: result2];
+        }
+    }
+    NSString * result3 = [self doKnnMat:mat Rect:&rectArray WithK:7];
+    if (result3 != nil) {
+        if (![result3 isEqualToString:result]) {
+            [emojiStrings addObject: result3];
+        }
+    }
+
+    
+    return emojiStrings;
+}
+
+- (NSString *)doKnnMat: (cv::Mat)mat Rect:(vector<cv::Rect> *)rectArray WithK:(int)k {
+    vector<int> resultArray;
+    NSMutableArray* tempStrings = [[NSMutableArray alloc]init];
+    for (auto i: *rectArray) {
         cv::Mat sample;
         mat(i).copyTo(sample);
         auto h = sample.rows < 24?8:16;
@@ -140,7 +164,7 @@ NSArray *table = @[@"\u0434",@"3",@"ω",@"\u3064",@"ﾉ",@"ɛ",@"X",@"∩",@"(",
         sample.copyTo(bg(subrect));
         cv::threshold(bg, bg, 10, 255, CV_THRESH_OTSU|CV_THRESH_BINARY);
         bg.reshape(1,1).convertTo(bg, CV_32FC1);
-        auto result = (int)(self.knn->find_nearest(bg, 1));
+        auto result = (int)(self.knn->find_nearest(bg, k));
         NSLog(@"识别结果%@", table[result]);
         resultArray.push_back(result);
     }
@@ -152,10 +176,9 @@ NSArray *table = @[@"\u0434",@"3",@"ω",@"\u3064",@"ﾉ",@"ɛ",@"X",@"∩",@"(",
     }
     
     if ([tempStrings count] != 0) {
-        [emojiStrings addObject: [tempStrings componentsJoinedByString:@""]];
+        return [tempStrings componentsJoinedByString:@""];
     }
-    
-    return emojiStrings;
+    return nil;
 }
 
 - (void)dealloc

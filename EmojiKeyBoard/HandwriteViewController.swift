@@ -71,10 +71,14 @@ class HandwriteViewController: UIViewController {
             c = (2,34)
             candidateScrollView.updateButtonsWithStrings(strings!)
         }
-        self.candidateScrollView.snp_updateConstraints { make in
-            make.top.equalTo(self.view).offset(c.top)
-            make.height.equalTo(c.height)
-        }
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
+            self.candidateScrollView.snp_updateConstraints { make in
+                make.top.equalTo(self.view).offset(c.top)
+                make.height.equalTo(c.height)
+            }
+            self.view.layoutIfNeeded()
+        })
+
     }
 }
 
