@@ -130,7 +130,7 @@ NSArray *table = @[@"┐",@"┘",@"└",@"┌",@"<",@">",@"\u0434",@"ч",@"8",@"
     if (result != nil) {
         [emojiStrings addObject: result];
     }
-    NSString * result2 = [self doKnnMat:mat Rect:&rectArray WithK:5];
+    NSString * result2 = [self doKnnMat:mat Rect:&rectArray WithK:3];
     if (result2 != nil) {
         if (![result2 isEqualToString:result2]) {
             [emojiStrings addObject: result2];
