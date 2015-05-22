@@ -104,7 +104,6 @@ class CanvesView: UIView {
     func clearView() {
         arrayStrokes.removeAll(keepCapacity: false)
         setNeedsDisplay()
-        startDetect()
     }
 
 }

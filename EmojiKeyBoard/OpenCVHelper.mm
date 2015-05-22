@@ -51,7 +51,6 @@ NSArray *table = @[@"┐",@"┘",@"└",@"┌",@"<",@">",@"\u0434",@"ч",@"8",@"
 
 -(NSArray *)DetectEmojiStringsWithImage:(UIImage *)image {
     NSMutableArray *emojiStrings = [[NSMutableArray alloc]init];
-    NSMutableArray *tempStrings = [[NSMutableArray alloc]init];
     cv::Mat mat;
     //UIImage转换为OpenCV图像
     UIImageToMat(image, mat);

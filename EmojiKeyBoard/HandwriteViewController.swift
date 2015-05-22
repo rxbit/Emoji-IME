@@ -80,6 +80,7 @@ class HandwriteViewController: UIViewController {
         })
 
     }
+    
 }
 
 extension HandwriteViewController: EmojiImputDelegate {
@@ -102,5 +103,6 @@ extension HandwriteViewController: CandidateScrollViewDelegate {
     func didRecivedInputString(string: String) {
         inputDelegate?.didRecivedInputString(string)
         clearView()
+        candidateScrollView.didInputStringAndShowAddToFavorite()
     }
 }

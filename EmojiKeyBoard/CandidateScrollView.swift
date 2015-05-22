@@ -14,6 +14,7 @@ protocol CandidateScrollViewDelegate: class {
 }
 
 class CandidateScrollView: UIScrollView {
+    var latestInputString = ""
     weak var inputDelegate: CandidateScrollViewDelegate?
     private var buttons: [UIButton] = []
     
@@ -68,11 +69,28 @@ class CandidateScrollView: UIScrollView {
             }
         }
     }
+    
+    func didInputStringAndShowAddToFavorite() {
+        if latestInputString.isEmpty {
+            updateButtonsWithStrings([])
+            return
+        }
+        self.updateButtonsWithStrings(["\(latestInputString) <-加入到自定义"])
+        let button = buttons.first!
+        button.removeTarget(self, action: "SELdidTapButton:", forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: "didTapAddToFavoriteButton:", forControlEvents: .TouchUpInside)
+    }
+    
+    func didTapAddToFavoriteButton(sender: AnyObject?) {
+        EmojiFaceManager.sharedManager.addCustonEmoji(latestInputString)
+        updateButtonsWithStrings([])
+    }
 
     func SELdidTapButton(sender: AnyObject?) {
         let button = sender as! UIButton
         let title = button.titleForState(.Normal)
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)){ AudioServicesPlaySystemSound(1104)}
+        latestInputString = title!
         inputDelegate?.didRecivedInputString(title!)
     }
 }
